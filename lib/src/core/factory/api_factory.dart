@@ -26,7 +26,6 @@ import '../../panels/v2board/apis/v2board_balance_api.dart';
 import '../../panels/v2board/apis/v2board_ticket_api.dart';
 import '../../panels/v2board/apis/v2board_notice_api.dart';
 import '../../panels/v2board/apis/v2board_config_api.dart';
-import '../../panels/xboard/apis/xboard_coupon_api.dart';
 import '../../panels/v2board/apis/v2board_coupon_api.dart';
 
 import '../../adapters/xboard/xboard_user_adapter.dart';
