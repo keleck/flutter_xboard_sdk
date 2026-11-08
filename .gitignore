@@ -49,6 +49,4 @@ app.*.map.json
 .env.production
 
 # Generated Freezed and JsonSerializable files
-*.g.dart
-*.freezed.dart
 test/config/test_config.dart
