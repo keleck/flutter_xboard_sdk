@@ -24,7 +24,7 @@ class V2BoardInviteApi {
 
   Future<ApiResponse<InviteCode>> generateInviteCode() async {
     try {
-      final result = await _httpService.getRequest('/api/v1/user/invite/save');
+      await _httpService.getRequest('/api/v1/user/invite/save');
       // V2Board 的 save 接口可能不直接返回邀请码对象，而是返回成功状态或空
       // 如果返回的是 bool 或 null，我们需要重新获取邀请列表来拿到最新的邀请码
 
