@@ -5,7 +5,7 @@ part 'traffic_log_model.freezed.dart';
 part 'traffic_log_model.g.dart';
 
 @freezed
-class TrafficLog with _$TrafficLog {
+abstract class TrafficLog with _$TrafficLog {
   const factory TrafficLog({
     @JsonKey(name: 'u') required int upload,
     @JsonKey(name: 'd') required int download,

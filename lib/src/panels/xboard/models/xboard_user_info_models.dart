@@ -41,7 +41,7 @@ double _toDouble(dynamic value) {
 }
 
 @freezed
-class UserInfo with _$UserInfo {
+abstract class UserInfo with _$UserInfo {
   const factory UserInfo({
     required String email,
     @JsonKey(name: 'transfer_enable', fromJson: _toDouble) @Default(0) double transferEnable,

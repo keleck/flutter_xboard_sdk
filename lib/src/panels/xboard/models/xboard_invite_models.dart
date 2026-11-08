@@ -16,7 +16,7 @@ bool _intToBool(dynamic value) {
 int _boolToInt(bool value) => value ? 1 : 0;
 
 @freezed
-class InviteCode with _$InviteCode {
+abstract class InviteCode with _$InviteCode {
   const factory InviteCode({
     int? id,
     @JsonKey(name: 'user_id') required int userId,
@@ -35,7 +35,7 @@ class InviteCode with _$InviteCode {
 }
 
 @freezed
-class InviteInfo with _$InviteInfo {
+abstract class InviteInfo with _$InviteInfo {
   @JsonSerializable(explicitToJson: true)
   const factory InviteInfo({
     required List<InviteCode> codes,
@@ -60,7 +60,7 @@ class InviteInfo with _$InviteInfo {
 }
 
 @freezed
-class CommissionDetail with _$CommissionDetail {
+abstract class CommissionDetail with _$CommissionDetail {
   const factory CommissionDetail({
     required int id,
     @JsonKey(name: 'order_amount') required int orderAmount,
