@@ -20,12 +20,14 @@ class V2BoardAuthAdapter implements AuthApi {
   @override
   Future<String?> login(String email, String password) async {
     final response = await _loginApi.login(email, password);
-    return response.token;
+    // V2Board 需要使用 auth_data (JWT) 进行后续请求认证
+    // 如果 auth_data 不存在，则使用 token
+    return response.authData ?? response.token;
   }
 
   @override
   Future<bool> register(String email, String password, {String? emailCode, String? inviteCode}) async {
-    final response = await _registerApi.register(email, password, emailCode, inviteCode);
+    final response = await _registerApi.register(email, password, inviteCode, emailCode);
     final data = response.data as Map<String, dynamic>?;
     return data != null && data.containsKey('token');
   }

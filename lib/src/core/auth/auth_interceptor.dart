@@ -35,10 +35,8 @@ class AuthInterceptor extends Interceptor {
       // 获取token并添加到请求头
       final token = await _tokenManager.getToken();
       if (token != null && token.isNotEmpty) {
-        // 确保token有Bearer前缀
-        options.headers['Authorization'] = token.startsWith('Bearer ') 
-            ? token 
-            : 'Bearer $token';
+        // V2Board 直接使用 JWT token，不需要 Bearer 前缀
+        options.headers['Authorization'] = token;
       }
 
       handler.next(options);

@@ -18,7 +18,8 @@ class V2BoardLoginApi {
         },
       );
       
-      // V2Board API 返回格式：{ "data": { "auth_data": "token", ...} }
+      // V2Board API 返回格式：{ "data": { "token": "xxx", "auth_data": "jwt", ...} }
+      // 经过 _normalizeResponse 处理后为：{ "success": true, "data": { "token": "xxx", ... } }
       final data = result['data'] as Map<String, dynamic>?;
       if (data == null) {
         throw ApiException('登录响应数据为空');

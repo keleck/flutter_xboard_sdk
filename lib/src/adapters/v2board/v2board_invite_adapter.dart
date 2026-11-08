@@ -1,12 +1,14 @@
 import '../../api/interfaces/invite_api.dart';
 import '../../api/models/invite_model.dart';
 import '../../panels/v2board/apis/v2board_invite_api.dart';
+import '../../panels/v2board/apis/v2board_balance_api.dart';
 import '../../panels/xboard/models/xboard_invite_models.dart';
 
 class V2BoardInviteAdapter implements InviteApi {
   final V2BoardInviteApi _api;
+  final V2BoardBalanceApi _balanceApi;
 
-  V2BoardInviteAdapter(this._api);
+  V2BoardInviteAdapter(this._api, this._balanceApi);
 
   @override
   Future<InviteInfoModel> getInviteInfo() async {
@@ -38,14 +40,14 @@ class V2BoardInviteAdapter implements InviteApi {
 
   @override
   Future<bool> withdrawCommission({required double amount, required String method, required Map<String, dynamic> params}) async {
-    // V2Board 可能不支持此功能，返回 false 或抛出异常
-    throw UnimplementedError('V2Board does not support commission withdrawal');
+    final result = await _api.withdrawCommission(amount: amount, method: method, account: params['account']);
+    return result.success;
   }
 
   @override
   Future<bool> transferCommissionToBalance(double amount) async {
-    // V2Board 可能不支持此功能，返回 false 或抛出异常
-    throw UnimplementedError('V2Board does not support commission transfer');
+    final result = await _balanceApi.transferCommission(amount);
+    return result.success;
   }
 
   InviteInfoModel _mapInviteInfo(InviteInfo info) {

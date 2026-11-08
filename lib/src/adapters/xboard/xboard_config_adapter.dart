@@ -30,6 +30,7 @@ class XBoardConfigAdapter implements ConfigApi {
       appUrl: data.appUrl,
       logo: data.logo,
       isRecaptcha: data.isRecaptcha,
+      telegramDiscussLink: data.telegramDiscussLink,
     );
   }
 }

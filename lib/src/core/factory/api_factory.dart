@@ -9,6 +9,7 @@ import '../../api/interfaces/ticket_api.dart';
 import '../../api/interfaces/config_api.dart';
 import '../../api/interfaces/payment_api.dart';
 import '../../api/interfaces/auth_api.dart';
+import '../../api/interfaces/coupon_api.dart';
 
 import '../../panels/xboard/xboard_export.dart';
 import '../../panels/v2board/apis/v2board_login_api.dart';
@@ -21,6 +22,7 @@ import '../../panels/v2board/apis/v2board_order_api.dart';
 import '../../panels/v2board/apis/v2board_payment_api.dart';
 import '../../panels/v2board/apis/v2board_subscription_api.dart';
 import '../../panels/v2board/apis/v2board_invite_api.dart';
+import '../../panels/v2board/apis/v2board_balance_api.dart';
 import '../../panels/v2board/apis/v2board_ticket_api.dart';
 import '../../panels/v2board/apis/v2board_notice_api.dart';
 import '../../panels/v2board/apis/v2board_config_api.dart';
@@ -37,6 +39,7 @@ import '../../adapters/xboard/xboard_ticket_adapter.dart';
 import '../../adapters/xboard/xboard_config_adapter.dart';
 import '../../adapters/xboard/xboard_payment_adapter.dart';
 import '../../adapters/xboard/xboard_auth_adapter.dart';
+import '../../adapters/xboard/xboard_coupon_adapter.dart';
 
 import '../../adapters/v2board/v2board_user_adapter.dart';
 import '../../adapters/v2board/v2board_plan_adapter.dart';
@@ -48,6 +51,7 @@ import '../../adapters/v2board/v2board_ticket_adapter.dart';
 import '../../adapters/v2board/v2board_config_adapter.dart';
 import '../../adapters/v2board/v2board_payment_adapter.dart';
 import '../../adapters/v2board/v2board_auth_adapter.dart';
+import '../../adapters/v2board/v2board_coupon_adapter.dart';
 
 import 'panel_type.dart';
 
@@ -109,7 +113,10 @@ class ApiFactory {
         return XBoardInviteAdapter(XBoardInviteApi(_httpService));
       case PanelType.v2board:
       case PanelType.xv2b:
-        return V2BoardInviteAdapter(V2BoardInviteApi(_httpService));
+        return V2BoardInviteAdapter(
+          V2BoardInviteApi(_httpService),
+          V2BoardBalanceApi(_httpService),
+        );
     }
   }
 
@@ -170,6 +177,16 @@ class ApiFactory {
           V2BoardSendEmailCodeApi(_httpService),
           V2BoardResetPasswordApi(_httpService),
         );
+    }
+  }
+
+  CouponApi createCouponApi() {
+    switch (_panelType) {
+      case PanelType.xboard:
+        return XBoardCouponAdapter(XBoardCouponApi(_httpService));
+      case PanelType.v2board:
+      case PanelType.xv2b:
+        return V2BoardCouponAdapter(V2BoardCouponApi(_httpService));
     }
   }
 }

@@ -25,4 +25,21 @@ class V2BoardCouponApi {
       throw ApiException('V2Board 检查优惠券失败: $e');
     }
   }
+
+  /// 兑换礼品卡
+  /// V2Board 使用 /api/v1/user/redeemgiftcard 端点
+  Future<ApiResponse<void>> redeemGiftCard(String code) async {
+    try {
+      final result = await _httpService.postRequest(
+        '/api/v1/user/redeemgiftcard',
+        {
+          'giftcard': code,
+        },
+      );
+      return ApiResponse(success: result['data'] == true, data: null);
+    } catch (e) {
+      if (e is XBoardException) rethrow;
+      throw ApiException('V2Board 兑换礼品卡失败: $e');
+    }
+  }
 }

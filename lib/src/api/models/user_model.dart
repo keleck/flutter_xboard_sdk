@@ -38,6 +38,8 @@ class UserModel with _$UserModel {
     @Default(true) bool remindExpire,
     @JsonKey(name: 'remind_traffic', fromJson: _intToBool, toJson: _boolToInt)
     @Default(true) bool remindTraffic,
+    @JsonKey(name: 'auto_renewal', fromJson: _intToBool, toJson: _boolToInt)
+    @Default(false) bool autoRenewal,
     @JsonKey(name: 'expired_at', fromJson: _fromUnixTimestamp, toJson: _toUnixTimestamp)
     DateTime? expiredAt,
     @Default(0) double balance,

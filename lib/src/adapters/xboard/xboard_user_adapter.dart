@@ -2,11 +2,18 @@ import '../../api/interfaces/user_api.dart';
 import '../../api/models/user_model.dart';
 import '../../panels/xboard/apis/xboard_user_info_api.dart';
 import '../../panels/xboard/models/xboard_user_info_models.dart';
+import '../../api/models/traffic_log_model.dart';
 
 class XBoardUserAdapter implements UserApi {
   final XBoardUserInfoApi _api;
 
   XBoardUserAdapter(this._api);
+
+  @override
+  Future<List<TrafficLog>> getTrafficLogs() async {
+    final response = await _api.getTrafficLogs();
+    return response.data ?? [];
+  }
 
   @override
   Future<UserModel> getUserInfo() async {
@@ -34,6 +41,12 @@ class XBoardUserAdapter implements UserApi {
   Future<bool> resetSecurity() async {
     // TODO: Implement resetSecurity
     throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> fetchTransfer() async {
+    final response = await _api.fetchTransfer();
+    return response.data ?? false;
   }
 
   UserModel _mapUserInfo(UserInfo info) {

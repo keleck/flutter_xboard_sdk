@@ -24,4 +24,18 @@ class XBoardCouponApi {
       throw ApiException('验证优惠券失败: $e');
     }
   }
+
+  /// 兑换礼品卡
+  /// XBoard 使用 /api/v1/user/redeemgiftcard 端点
+  Future<ApiResponse<void>> redeemGiftCard(String code) async {
+    try {
+      final result = await _httpService.postRequest('/api/v1/user/redeemgiftcard', {
+        'giftcard': code,
+      });
+      return ApiResponse.fromJson(result, (_) => null);
+    } catch (e) {
+      if (e is XBoardException) rethrow;
+      throw ApiException('兑换礼品卡失败: $e');
+    }
+  }
 }

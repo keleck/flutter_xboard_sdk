@@ -116,7 +116,7 @@ class CheckoutResult {
 
   factory CheckoutResult.fromJson(Map<String, dynamic> json) {
     return CheckoutResult(
-      type: json['type'] as int,
+      type: (json['type'] as int?) ?? 0, // 默认为0（跳转支付）
       data: json['data'], // 保持动态类型
     );
   }

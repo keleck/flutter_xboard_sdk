@@ -2,6 +2,7 @@ import '../../../core/http/http_service.dart';
 import '../../../core/exceptions/xboard_exceptions.dart';
 import '../../../core/models/api_response.dart';
 import '../../xboard/models/xboard_user_info_models.dart';
+import '../../../api/models/traffic_log_model.dart';
 
 /// V2Board 用户信息 API 实现
 class V2BoardUserInfoApi {
@@ -28,6 +29,21 @@ class V2BoardUserInfoApi {
     } catch (e) {
       if (e is XBoardException) rethrow;
       throw ApiException('V2Board 获取用户信息失败: $e');
+    }
+  }
+
+  Future<ApiResponse<List<TrafficLog>>> getTrafficLogs() async {
+    try {
+      final result = await _httpService.getRequest('/api/v1/user/stat/getTrafficLog');
+      return ApiResponse.fromJson(
+        result,
+        (json) => (json as List)
+            .map((e) => TrafficLog.fromJson(e as Map<String, dynamic>))
+            .toList(),
+      );
+    } catch (e) {
+      if (e is XBoardException) rethrow;
+      throw ApiException('获取流量明细失败: $e');
     }
   }
 
@@ -109,6 +125,21 @@ class V2BoardUserInfoApi {
     } catch (e) {
       if (e is XBoardException) rethrow;
       throw ApiException('V2Board 更新用户信息失败: $e');
+    }
+  }
+
+  /// 提前开启流量周期（重置流量）
+  Future<ApiResponse<bool>> fetchTransfer() async {
+    try {
+      final result = await _httpService.postRequest('/api/v1/user/newPeriod', {});
+      return ApiResponse(
+        success: result['data'] == true,
+        data: result['data'] == true,
+        message: result['message'],
+      );
+    } catch (e) {
+      if (e is XBoardException) rethrow;
+      throw ApiException('提前开启流量周期失败: $e');
     }
   }
 }

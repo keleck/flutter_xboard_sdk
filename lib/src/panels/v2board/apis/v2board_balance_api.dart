@@ -8,11 +8,13 @@ class V2BoardBalanceApi {
 
   V2BoardBalanceApi(this._httpService);
 
-  Future<TransferResult> transferCommission(int amount) async {
+  Future<TransferResult> transferCommission(double amount) async {
     try {
+      // V2Board expects amount in cents (integer)
+      final amountInCents = (amount * 100).toInt();
       final result = await _httpService.postRequest(
-        '/api/v1/user/comm/transfer',
-        {'transfer_amount': amount},
+        '/api/v1/user/transfer',
+        {'transfer_amount': amountInCents},
       );
       return TransferResult.fromJson(result);
     } catch (e) {

@@ -31,27 +31,38 @@ String? _telegramIdFromJson(dynamic value) {
 
 dynamic _telegramIdToJson(String? value) => value;
 
+// Helper function for numeric conversion (handles both int and double)
+double _toDouble(dynamic value) {
+  if (value == null) return 0.0;
+  if (value is double) return value;
+  if (value is int) return value.toDouble();
+  if (value is String) return double.tryParse(value) ?? 0.0;
+  return 0.0;
+}
+
 @freezed
 class UserInfo with _$UserInfo {
   const factory UserInfo({
     required String email,
-    @JsonKey(name: 'transfer_enable') @Default(0) double transferEnable,
+    @JsonKey(name: 'transfer_enable', fromJson: _toDouble) @Default(0) double transferEnable,
+    @JsonKey(name: 'device_limit') int? deviceLimit,
     @JsonKey(name: 'last_login_at', fromJson: _fromUnixTimestamp, toJson: _toUnixTimestamp)
     DateTime? lastLoginAt,
     @JsonKey(name: 'created_at', fromJson: _fromUnixTimestamp, toJson: _toUnixTimestamp)
     DateTime? createdAt,
     @JsonKey(fromJson: _intToBool, toJson: _boolToInt) @Default(false) bool banned,
+    @JsonKey(name: 'auto_renewal', fromJson: _intToBool, toJson: _boolToInt) @Default(false) bool autoRenewal,
     @JsonKey(name: 'remind_expire', fromJson: _intToBool, toJson: _boolToInt)
     @Default(true) bool remindExpire,
     @JsonKey(name: 'remind_traffic', fromJson: _intToBool, toJson: _boolToInt)
     @Default(true) bool remindTraffic,
     @JsonKey(name: 'expired_at', fromJson: _fromUnixTimestamp, toJson: _toUnixTimestamp)
     DateTime? expiredAt,
-    @Default(0) double balance,
-    @JsonKey(name: 'commission_balance') @Default(0) double commissionBalance,
+    @JsonKey(fromJson: _toDouble) @Default(0) double balance,
+    @JsonKey(name: 'commission_balance', fromJson: _toDouble) @Default(0) double commissionBalance,
     @JsonKey(name: 'plan_id') int? planId,
-    double? discount,
-    @JsonKey(name: 'commission_rate') double? commissionRate,
+    @JsonKey(fromJson: _toDouble) double? discount,
+    @JsonKey(name: 'commission_rate', fromJson: _toDouble) double? commissionRate,
     @JsonKey(name: 'telegram_id', fromJson: _telegramIdFromJson, toJson: _telegramIdToJson) String? telegramId,
     required String uuid,
     @JsonKey(name: 'avatar_url') @Default('') String avatarUrl,

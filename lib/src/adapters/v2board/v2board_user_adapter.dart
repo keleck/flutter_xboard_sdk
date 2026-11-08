@@ -2,11 +2,18 @@ import '../../api/interfaces/user_api.dart';
 import '../../api/models/user_model.dart';
 import '../../panels/v2board/apis/v2board_user_info_api.dart';
 import '../../panels/xboard/models/xboard_user_info_models.dart';
+import '../../api/models/traffic_log_model.dart';
 
 class V2BoardUserAdapter implements UserApi {
   final V2BoardUserInfoApi _api;
 
   V2BoardUserAdapter(this._api);
+
+  @override
+  Future<List<TrafficLog>> getTrafficLogs() async {
+    final response = await _api.getTrafficLogs();
+    return response.data ?? [];
+  }
 
   @override
   Future<UserModel> getUserInfo() async {
@@ -34,6 +41,12 @@ class V2BoardUserAdapter implements UserApi {
     throw UnimplementedError();
   }
 
+  @override
+  Future<bool> fetchTransfer() async {
+    final response = await _api.fetchTransfer();
+    return response.data ?? false;
+  }
+
   UserModel _mapUserInfo(UserInfo info) {
     return UserModel(
       email: info.email,
@@ -41,6 +54,7 @@ class V2BoardUserAdapter implements UserApi {
       lastLoginAt: info.lastLoginAt,
       createdAt: info.createdAt,
       banned: info.banned,
+      autoRenewal: info.autoRenewal,
       remindExpire: info.remindExpire,
       remindTraffic: info.remindTraffic,
       expiredAt: info.expiredAt,

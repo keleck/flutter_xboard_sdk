@@ -16,6 +16,7 @@ import 'api/interfaces/ticket_api.dart';
 import 'api/interfaces/config_api.dart';
 import 'api/interfaces/payment_api.dart';
 import 'api/interfaces/auth_api.dart';
+import 'api/interfaces/coupon_api.dart';
 
 /// XBoard SDK主类
 /// 提供对XBoard API的统一访问接口
@@ -41,6 +42,7 @@ class XBoardSDK {
   ConfigApi? _configApi;
   PaymentApi? _paymentApi;
   AuthApi? _authApi;
+  CouponApi? _couponApi;
 
   bool _isInitialized = false;
 
@@ -106,8 +108,8 @@ class XBoardSDK {
   /// 保存Token
   Future<void> saveToken(String token) async {
     _checkInitialized();
-    final fullToken = token.startsWith('Bearer ') ? token : 'Bearer $token';
-    await _tokenManager.saveToken(fullToken);
+    // V2Board 直接使用 JWT token，不需要 Bearer 前缀
+    await _tokenManager.saveToken(token);
   }
 
   /// 获取当前Token
@@ -212,19 +214,29 @@ class XBoardSDK {
     return _authApi ??= _apiFactory.createAuthApi();
   }
 
+  CouponApi get coupon {
+    _checkInitialized();
+    return _couponApi ??= _apiFactory.createCouponApi();
+  }
+
   /// 获取基础URL
   String? get baseUrl => _isInitialized ? _httpService.baseUrl : null;
 
   /// 便捷登录方法
   Future<bool> loginWithCredentials(String email, String password) async {
     try {
+      SdkLogger.i('[XBoardSDK] 调用 auth.login...');
       final token = await auth.login(email, password);
+      SdkLogger.i('[XBoardSDK] auth.login 返回 token: ${token != null ? "有效" : "null"}');
       if (token != null) {
         await saveToken(token);
+        SdkLogger.i('[XBoardSDK] Token 已保存');
         return true;
       }
+      SdkLogger.w('[XBoardSDK] Token 为 null，登录失败');
       return false;
     } catch (e) {
+      SdkLogger.e('[XBoardSDK] 登录异常: $e');
       if (e is XBoardException) {
         rethrow;
       }
@@ -255,6 +267,7 @@ class XBoardSDK {
       _configApi = null;
       _paymentApi = null;
       _authApi = null;
+      _couponApi = null;
 
       _isInitialized = false;
       SdkLogger.i('XBoardSDK disposed');

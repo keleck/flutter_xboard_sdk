@@ -74,7 +74,8 @@ class HttpConfig {
   /// 创建默认配置
   factory HttpConfig.defaultConfig() {
     return const HttpConfig(
-      userAgent: 'FlClash-XBoard-SDK/1.0',
+      // 使用浏览器User-Agent避免WAF拦截
+      userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
       enableAutoDeobfuscation: true,
       enableCertificatePinning: false,
     );
@@ -88,7 +89,8 @@ class HttpConfig {
     String? proxyUrl,
   }) {
     return HttpConfig(
-      userAgent: userAgent ?? 'FlClash-XBoard-SDK/1.0-dev',
+      // 使用浏览器User-Agent避免WAF拦截
+      userAgent: userAgent ?? 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
       proxyUrl: proxyUrl,
       enableCertificatePinning: false,
       ignoreCertificateHostname: true, // 开发环境可以忽略主机名验证

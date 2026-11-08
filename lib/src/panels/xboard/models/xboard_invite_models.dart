@@ -8,13 +8,21 @@ part 'xboard_invite_models.g.dart';
 DateTime _fromUnixTimestamp(int timestamp) => DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
 int _toUnixTimestamp(DateTime date) => date.millisecondsSinceEpoch ~/ 1000;
 
+bool _intToBool(dynamic value) {
+  if (value is bool) return value;
+  if (value is int) return value == 1;
+  return false;
+}
+int _boolToInt(bool value) => value ? 1 : 0;
+
 @freezed
 class InviteCode with _$InviteCode {
   const factory InviteCode({
+    int? id,
     @JsonKey(name: 'user_id') required int userId,
     required String code,
-    required int pv,
-    required bool status,
+    @Default(0) int pv,
+    @JsonKey(fromJson: _intToBool, toJson: _boolToInt) @Default(false) bool status,
     @JsonKey(name: 'created_at', fromJson: _fromUnixTimestamp, toJson: _toUnixTimestamp) required DateTime createdAt,
     @JsonKey(name: 'updated_at', fromJson: _fromUnixTimestamp, toJson: _toUnixTimestamp) required DateTime updatedAt,
   }) = _InviteCode;

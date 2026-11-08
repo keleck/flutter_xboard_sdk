@@ -20,6 +20,7 @@ export 'src/core/models/api_response.dart';
 // 接口
 export 'src/api/interfaces/auth_api.dart';
 export 'src/api/interfaces/config_api.dart';
+export 'src/api/interfaces/coupon_api.dart';
 export 'src/api/interfaces/invite_api.dart';
 export 'src/api/interfaces/notice_api.dart';
 export 'src/api/interfaces/order_api.dart';
@@ -40,4 +41,5 @@ export 'src/api/models/subscription_model.dart';
 export 'src/api/models/ticket_model.dart';
 export 'src/api/models/user_model.dart';
 export 'src/api/models/coupon_model.dart';
+export 'src/api/models/traffic_log_model.dart';
 

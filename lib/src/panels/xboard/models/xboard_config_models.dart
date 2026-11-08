@@ -27,6 +27,7 @@ class ConfigData with _$ConfigData {
     String? logo,
     @JsonKey(name: 'is_recaptcha', fromJson: _intToBoolSafe, toJson: _boolToInt)
     @Default(false) bool isRecaptcha,
+    @JsonKey(name: 'telegram_discuss_link') String? telegramDiscussLink,
   }) = _ConfigData;
 
   factory ConfigData.fromJson(Map<String, dynamic> json) => _$ConfigDataFromJson(json);

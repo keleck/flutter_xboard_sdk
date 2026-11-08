@@ -31,6 +31,13 @@ class V2BoardOrderAdapter implements OrderApi {
   }
 
   @override
+  Future<String> createTopUpOrder(double amount) async {
+    final response = await _api.createTopUpOrder(amount);
+    if (response.data == null) throw Exception('Top-up order creation failed: no data returned');
+    return response.data!;
+  }
+
+  @override
   Future<List<PaymentMethodModel>> getPaymentMethods(String tradeNo) async {
     // V2Board API returns all payment methods, tradeNo is not used in this specific API call
     final response = await _api.getPaymentMethods();
@@ -42,10 +49,18 @@ class V2BoardOrderAdapter implements OrderApi {
   Future<PaymentResultModel> checkoutOrder(String tradeNo, String method) async {
     final response = await _api.submitPayment(tradeNo: tradeNo, method: method);
     
-    if (response.type == 1) {
-      return PaymentResultModel.redirect(url: response.data as String);
-    } else if (response.type == 2) { // V2Board might use 2 for success?
-       return PaymentResultModel.success(message: 'Payment successful');
+    // type: -1 = 余额支付成功, 0 = 跳转支付, 1 = 二维码支付
+    if (response.type == -1) {
+      // 余额支付成功
+      return PaymentResultModel.success(message: 'Payment successful');
+    } else if (response.type == 0 || response.type == 1) {
+      // 跳转支付或二维码支付，data 是 URL
+      final url = response.data;
+      if (url is String && url.isNotEmpty) {
+        return PaymentResultModel.redirect(url: url);
+      } else {
+        return PaymentResultModel.failed(message: '支付URL为空');
+      }
     } else {
       return PaymentResultModel.failed(message: 'Unknown payment result type: ${response.type}');
     }
@@ -54,7 +69,10 @@ class V2BoardOrderAdapter implements OrderApi {
   @override
   Future<bool> cancelOrder(String tradeNo) async {
     final response = await _api.cancelOrder(tradeNo);
-    return response.data == null; // Assuming null data means success for void return
+    if (response.data is bool) {
+      return response.data as bool;
+    }
+    return true;
   }
 
   Future<PaymentMethodModel?> getOrderPaymentMethod(String tradeNo) async {

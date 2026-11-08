@@ -70,6 +70,23 @@ class XBoardOrderApi {
     }
   }
 
+  Future<ApiResponse<String>> createTopUpOrder(double amount) async {
+    try {
+      final result = await _httpService.postRequest(
+        "/api/v1/user/order/save",
+        {
+          'plan_id': 0,
+          'period': 'month_price',
+          'deposit_amount': (amount * 100).toInt(),
+        },
+      );
+      return ApiResponse.fromJson(result, (data) => data.toString());
+    } catch (e) {
+      if (e is XBoardException) rethrow;
+      throw ApiException('创建充值订单失败: $e');
+    }
+  }
+
   Future<ApiResponse<List<PaymentMethod>>> getPaymentMethods() async {
     try {
       final result = await _httpService.getRequest("/api/v1/user/order/getPaymentMethod");

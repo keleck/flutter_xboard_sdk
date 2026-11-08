@@ -32,15 +32,28 @@ class XBoardOrderAdapter implements OrderApi {
   }
 
   @override
+  Future<String> createTopUpOrder(double amount) async {
+    final response = await _api.createTopUpOrder(amount);
+    if (response.data == null) throw Exception('Top-up order creation failed: no data returned');
+    return response.data!;
+  }
+
+  @override
   Future<PaymentResultModel> checkoutOrder(String tradeNo, String method) async {
     final response = await _api.submitPayment(tradeNo: tradeNo, method: method);
     
-    if (response.type == 1) { // Redirect
-      return PaymentResultModel.redirect(url: response.data as String);
-    } else if (response.type == 0 || response.type == -1) { // Free/Success (XBoard uses -1 for free, 0 for success sometimes?)
-       // Need to verify type codes. Assuming 0/-1 is success or handled.
-       // If data is bool true, it's success.
-       return PaymentResultModel.success(message: 'Payment successful');
+    // type: -1 = 余额支付成功, 0 = 跳转支付, 1 = 二维码支付
+    if (response.type == -1) {
+      // 余额支付成功
+      return PaymentResultModel.success(message: 'Payment successful');
+    } else if (response.type == 0 || response.type == 1) {
+      // 跳转支付或二维码支付，data 是 URL
+      final url = response.data;
+      if (url is String && url.isNotEmpty) {
+        return PaymentResultModel.redirect(url: url);
+      } else {
+        return PaymentResultModel.failed(message: '支付URL为空');
+      }
     } else {
       return PaymentResultModel.failed(message: 'Unknown payment result type: ${response.type}');
     }

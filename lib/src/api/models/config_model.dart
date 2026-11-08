@@ -52,6 +52,7 @@ class ConfigModel with _$ConfigModel {
     String? logo,
     @JsonKey(name: 'is_recaptcha', fromJson: _intToBoolSafe, toJson: _boolToInt)
     @Default(false) bool isRecaptcha,
+    @JsonKey(name: 'telegram_discuss_link') String? telegramDiscussLink,
   }) = _ConfigModel;
 
   factory ConfigModel.fromJson(Map<String, dynamic> json) => _$ConfigModelFromJson(json);

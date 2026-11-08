@@ -5,6 +5,7 @@ import '../models/coupon_model.dart';
 abstract class OrderApi {
   Future<List<OrderModel>> getOrders({int page = 1, int pageSize = 10});
   Future<String> createOrder(int planId, String period, {String? couponCode});
+  Future<String> createTopUpOrder(double amount);
   Future<PaymentResultModel> checkoutOrder(String tradeNo, String method);
   Future<OrderModel?> getOrder(String tradeNo);
   Future<bool> cancelOrder(String tradeNo);

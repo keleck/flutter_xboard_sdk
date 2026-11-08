@@ -57,7 +57,8 @@ class HttpService {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
         // 使用配置的 User-Agent，如果未设置则使用默认值
-        'User-Agent': httpConfig.userAgent ?? 'FlClash-XBoard-SDK/1.0',
+        // 使用浏览器User-Agent避免WAF拦截
+        'User-Agent': httpConfig.userAgent ?? 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
       },
     ));
 
@@ -167,14 +168,17 @@ class HttpService {
   /// 发送POST请求
   Future<Map<String, dynamic>> postRequest(String path, Map<String, dynamic> data, {Map<String, String>? headers}) async {
     try {
+      SdkLogger.d('[XBoardSDK] POST请求开始: $path');
       final response = await _dio.post(
         path,
         data: data,
         options: Options(headers: headers),
       );
+      SdkLogger.d('[XBoardSDK] POST请求成功: ${response.statusCode}');
       
       return response.data as Map<String, dynamic>;
     } catch (e) {
+      SdkLogger.e('[XBoardSDK] POST请求失败: $e');
       throw _convertDioError(e);
     }
   }
@@ -363,9 +367,10 @@ class HttpService {
 
     final jsonResponse = responseData;
 
-    // 兼容两种响应格式：
+    // 兼容多种响应格式：
     // 1. XBoard格式: {status: "success", data: {...}}
     // 2. 通用格式: {success: true, data: {...}}
+    // 3. V2Board格式: {data: {...}} 或 {data: [...]} (只有 data 字段，或 data + message)
     
     if (jsonResponse.containsKey('status')) {
       // XBoard格式 -> 转换为通用格式
@@ -379,6 +384,14 @@ class HttpService {
     } else if (jsonResponse.containsKey('success')) {
       // 已经是通用格式，直接返回
       return jsonResponse;
+    } else if (jsonResponse.containsKey('data')) {
+      // V2Board格式：{data: ...} 或 {data: ..., message: ...}
+      // 直接添加 success 字段，不再包装
+      return {
+        'success': true,
+        'data': jsonResponse['data'],
+        'message': jsonResponse['message'],
+      };
     } else {
       // 其他格式，包装为通用格式
       return {

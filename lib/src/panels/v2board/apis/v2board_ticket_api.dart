@@ -2,6 +2,7 @@ import '../../../core/http/http_service.dart';
 import '../../../core/exceptions/xboard_exceptions.dart';
 import '../../../core/models/api_response.dart';
 import '../../xboard/models/xboard_ticket_models.dart';
+import 'dart:developer' as developer;
 
 /// V2Board 工单 API 实现
 class V2BoardTicketApi {
@@ -26,21 +27,54 @@ class V2BoardTicketApi {
       final result = await _httpService.getRequest(
         '/api/v1/user/ticket/fetch?id=$ticketId',
       );
-      final ticket = TicketDetail.fromJson(result['data'] as Map<String, dynamic>);
+      developer.log('V2Board Ticket Detail Response: $result');
+      final data = result['data'] as Map<String, dynamic>;
+      developer.log('Ticket data: $data');
+      
+      // V2Board API 返回 'message' 字段（消息列表），需要转换为 'messages'
+      if (data.containsKey('message') && !data.containsKey('messages')) {
+        data['messages'] = data.remove('message');
+        developer.log('Converted message field to messages');
+      }
+      
+      developer.log('Messages raw: ${data['messages']}');
+      
+      // 确保messages字段存在且为正确的列表格式
+      if (data['messages'] == null) {
+        data['messages'] = [];
+      } else if (data['messages'] is List) {
+        // 验证每条消息的结构
+        final messagesList = data['messages'] as List<dynamic>;
+        developer.log('Messages count: ${messagesList.length}');
+        for (int i = 0; i < messagesList.length; i++) {
+          final msg = messagesList[i];
+          developer.log('Message $i: $msg');
+          if (msg is Map<String, dynamic>) {
+            // 确保is_me字段格式正确
+            if (msg.containsKey('is_me')) {
+              msg['is_me'] = msg['is_me'] == 1 || msg['is_me'] == true;
+            }
+          }
+        }
+      }
+      
+      final ticket = TicketDetail.fromJson(data);
+      developer.log('Parsed ticket messages count: ${ticket.messages.length}');
       return ApiResponse(success: true, data: ticket);
     } catch (e) {
+      developer.log('Error fetching ticket detail: $e', error: e);
       if (e is XBoardException) rethrow;
       throw ApiException('V2Board 获取工单详情失败: $e');
     }
   }
 
-  Future<ApiResponse<Ticket>> createTicket({
+  Future<ApiResponse<bool>> createTicket({
     required String subject,
     required int level,
     required String message,
   }) async {
     try {
-      final result = await _httpService.postRequest(
+      await _httpService.postRequest(
         '/api/v1/user/ticket/save',
         {
           'subject': subject,
@@ -48,8 +82,7 @@ class V2BoardTicketApi {
           'message': message,
         },
       );
-      final ticket = Ticket.fromJson(result['data'] as Map<String, dynamic>);
-      return ApiResponse(success: true, data: ticket);
+      return ApiResponse(success: true, data: true);
     } catch (e) {
       if (e is XBoardException) rethrow;
       throw ApiException('V2Board 创建工单失败: $e');

@@ -72,6 +72,28 @@ class V2BoardOrderApi {
     }
   }
 
+  Future<ApiResponse<String>> createTopUpOrder(double amount) async {
+    try {
+      final data = {
+        'plan_id': 0,
+        'period': 'month_price',
+        'deposit_amount': (amount * 100).toInt(),
+      };
+      
+      final result = await _httpService.postRequest('/api/v1/user/order/save', data);
+      
+      final tradeNo = result['data'] as String?;
+      return ApiResponse(
+        success: tradeNo != null,
+        data: tradeNo,
+        message: result['message'],
+      );
+    } catch (e) {
+      if (e is XBoardException) rethrow;
+      throw ApiException('V2Board 创建充值订单失败: $e');
+    }
+  }
+
   Future<ApiResponse<List<PaymentMethod>>> getPaymentMethods() async {
     try {
       final result = await _httpService.getRequest('/api/v1/user/order/getPaymentMethod');
@@ -112,7 +134,31 @@ class V2BoardOrderApi {
         },
       );
       
-      return CheckoutResult.fromJson(result);
+      // V2Board 返回格式可能为:
+      // {data: {type: 0, data: "url"}} 或 {type: -1/0/1, data: bool/String}
+      final dynamic resultData = result['data'];
+      
+      // 兼容两种返回格式
+      if (resultData is Map<String, dynamic>) {
+        // 格式1: {data: {type: 0, data: "url"}}
+        return CheckoutResult(
+          type: (resultData['type'] as int?) ?? 0,
+          data: resultData['data'],
+        );
+      } else if (resultData is bool && resultData == true) {
+        // 格式3: {data: true} (余额支付成功)
+        return CheckoutResult(
+          type: -1,
+          data: true,
+        );
+      } else {
+        // 格式2: {type: -1/0/1, data: bool/String}
+        final typeValue = (result['type'] as int?) ?? 0;
+        return CheckoutResult(
+          type: typeValue,
+          data: resultData,
+        );
+      }
     } catch (e) {
       if (e is XBoardException) rethrow;
       throw ApiException('V2Board 提交支付失败: $e');
