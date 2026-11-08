@@ -7,16 +7,16 @@ part of 'ticket_model.dart';
 // **************************************************************************
 
 _TicketModel _$TicketModelFromJson(Map<String, dynamic> json) => _TicketModel(
-      id: (json['id'] as num).toInt(),
-      level: (json['level'] as num).toInt(),
-      replyStatus: (json['reply_status'] as num).toInt(),
-      status: (json['status'] as num).toInt(),
-      subject: json['subject'] as String,
-      message: json['message'] as String?,
-      createdAt: _fromUnixTimestamp((json['created_at'] as num).toInt()),
-      updatedAt: _fromUnixTimestamp((json['updated_at'] as num).toInt()),
-      userId: (json['user_id'] as num).toInt(),
-    );
+  id: (json['id'] as num).toInt(),
+  level: (json['level'] as num).toInt(),
+  replyStatus: (json['reply_status'] as num).toInt(),
+  status: (json['status'] as num).toInt(),
+  subject: json['subject'] as String,
+  message: json['message'] as String?,
+  createdAt: _fromUnixTimestamp((json['created_at'] as num).toInt()),
+  updatedAt: _fromUnixTimestamp((json['updated_at'] as num).toInt()),
+  userId: (json['user_id'] as num).toInt(),
+);
 
 Map<String, dynamic> _$TicketModelToJson(_TicketModel instance) =>
     <String, dynamic>{
@@ -58,9 +58,11 @@ _TicketDetailModel _$TicketDetailModelFromJson(Map<String, dynamic> json) =>
       replyStatus: (json['reply_status'] as num).toInt(),
       status: (json['status'] as num).toInt(),
       subject: json['subject'] as String,
-      messages: (json['messages'] as List<dynamic>?)
+      messages:
+          (json['messages'] as List<dynamic>?)
               ?.map(
-                  (e) => TicketMessageModel.fromJson(e as Map<String, dynamic>))
+                (e) => TicketMessageModel.fromJson(e as Map<String, dynamic>),
+              )
               .toList() ??
           const [],
       createdAt: _fromUnixTimestamp((json['created_at'] as num).toInt()),

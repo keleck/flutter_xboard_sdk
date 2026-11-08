@@ -25,14 +25,16 @@ abstract class NoticeModel with _$NoticeModel {
     @JsonKey(name: 'img_url') String? imgUrl,
     List<String>? tags,
     @JsonKey(
-        name: 'created_at',
-        fromJson: _fromUnixTimestamp,
-        toJson: _toUnixTimestamp)
+      name: 'created_at',
+      fromJson: _fromUnixTimestamp,
+      toJson: _toUnixTimestamp,
+    )
     required int createdAt,
     @JsonKey(
-        name: 'updated_at',
-        fromJson: _fromUnixTimestamp,
-        toJson: _toUnixTimestamp)
+      name: 'updated_at',
+      fromJson: _fromUnixTimestamp,
+      toJson: _toUnixTimestamp,
+    )
     required int updatedAt,
   }) = _NoticeModel;
 

@@ -11,11 +11,10 @@ class XBoardCouponApi {
 
   Future<ApiResponse<CouponData>> checkCoupon(String code, int planId) async {
     try {
-      final result =
-          await _httpService.postRequest('/api/v1/user/coupon/check', {
-        'code': code,
-        'plan_id': planId,
-      });
+      final result = await _httpService.postRequest(
+        '/api/v1/user/coupon/check',
+        {'code': code, 'plan_id': planId},
+      );
       return ApiResponse.fromJson(
         result,
         (json) => CouponData.fromJson(json as Map<String, dynamic>),
@@ -30,10 +29,10 @@ class XBoardCouponApi {
   /// XBoard 使用 /api/v1/user/redeemgiftcard 端点
   Future<ApiResponse<void>> redeemGiftCard(String code) async {
     try {
-      final result =
-          await _httpService.postRequest('/api/v1/user/redeemgiftcard', {
-        'giftcard': code,
-      });
+      final result = await _httpService.postRequest(
+        '/api/v1/user/redeemgiftcard',
+        {'giftcard': code},
+      );
       return ApiResponse.fromJson(result, (_) => null);
     } catch (e) {
       if (e is XBoardException) rethrow;

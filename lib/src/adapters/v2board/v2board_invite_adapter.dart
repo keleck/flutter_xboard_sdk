@@ -32,21 +32,29 @@ class V2BoardInviteAdapter implements InviteApi {
   }
 
   @override
-  Future<List<CommissionDetailModel>> getCommissionDetails(
-      {int page = 1, int pageSize = 10}) async {
-    final response =
-        await _api.fetchCommissionDetails(current: page, pageSize: pageSize);
+  Future<List<CommissionDetailModel>> getCommissionDetails({
+    int page = 1,
+    int pageSize = 10,
+  }) async {
+    final response = await _api.fetchCommissionDetails(
+      current: page,
+      pageSize: pageSize,
+    );
     if (response.data == null) return [];
     return response.data!.map(_mapCommissionDetail).toList();
   }
 
   @override
-  Future<bool> withdrawCommission(
-      {required double amount,
-      required String method,
-      required Map<String, dynamic> params}) async {
+  Future<bool> withdrawCommission({
+    required double amount,
+    required String method,
+    required Map<String, dynamic> params,
+  }) async {
     final result = await _api.withdrawCommission(
-        amount: amount, method: method, account: params['account']);
+      amount: amount,
+      method: method,
+      account: params['account'],
+    );
     return result.success;
   }
 

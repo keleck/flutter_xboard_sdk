@@ -11,8 +11,10 @@ class V2BoardAppApi {
 
   Future<ApiResponse<AppInfo>> generateDedicatedApp() async {
     try {
-      final result =
-          await _httpService.postRequest('/api/v1/user/app/generate', {});
+      final result = await _httpService.postRequest(
+        '/api/v1/user/app/generate',
+        {},
+      );
       final appInfo = AppInfo.fromJson(result['data'] as Map<String, dynamic>);
       return ApiResponse(success: true, data: appInfo);
     } catch (e) {

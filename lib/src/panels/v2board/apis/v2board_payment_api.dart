@@ -11,20 +11,20 @@ class V2BoardPaymentApi {
 
   Future<ApiResponse<List<PaymentMethodInfo>>> getPaymentMethods() async {
     try {
-      final result =
-          await _httpService.getRequest('/api/v1/user/order/getPaymentMethod');
+      final result = await _httpService.getRequest(
+        '/api/v1/user/order/getPaymentMethod',
+      );
 
       if (result['data'] != null) {
         final List<dynamic> methodsJson = result['data'] as List;
         final methods = methodsJson
-            .map((json) =>
-                PaymentMethodInfo.fromJson(json as Map<String, dynamic>))
+            .map(
+              (json) =>
+                  PaymentMethodInfo.fromJson(json as Map<String, dynamic>),
+            )
             .toList();
 
-        return ApiResponse(
-          success: true,
-          data: methods,
-        );
+        return ApiResponse(success: true, data: methods);
       }
 
       return ApiResponse(
@@ -39,14 +39,12 @@ class V2BoardPaymentApi {
   }
 
   Future<ApiResponse<Map<String, dynamic>>> submitOrderPayment(
-      PaymentRequest request) async {
+    PaymentRequest request,
+  ) async {
     try {
       final result = await _httpService.postRequest(
         '/api/v1/user/order/checkout',
-        {
-          'trade_no': request.tradeNo,
-          'method': request.method,
-        },
+        {'trade_no': request.tradeNo, 'method': request.method},
       );
 
       return ApiResponse(
@@ -61,17 +59,15 @@ class V2BoardPaymentApi {
   }
 
   Future<ApiResponse<PaymentStatusResult>> checkPaymentStatus(
-      String tradeNo) async {
+    String tradeNo,
+  ) async {
     try {
       final result = await _httpService.getRequest(
         '/api/v1/user/order/check?trade_no=$tradeNo',
       );
 
       final status = PaymentStatusResult.fromJson(result);
-      return ApiResponse(
-        success: true,
-        data: status,
-      );
+      return ApiResponse(success: true, data: status);
     } catch (e) {
       if (e is XBoardException) rethrow;
       throw ApiException('V2Board 查询支付状态失败: $e');
@@ -79,7 +75,8 @@ class V2BoardPaymentApi {
   }
 
   Future<ApiResponse<PaymentStatusResult>> checkOrderStatus(
-      String tradeNo) async {
+    String tradeNo,
+  ) async {
     return checkPaymentStatus(tradeNo);
   }
 

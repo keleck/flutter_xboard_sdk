@@ -37,25 +37,29 @@ abstract class CouponModel with _$CouponModel {
     @JsonKey(name: 'limit_plan_ids') List<String>? limitPlanIds,
     dynamic limitPeriod,
     @JsonKey(
-        name: 'started_at',
-        fromJson: _fromUnixTimestamp,
-        toJson: _toUnixTimestamp)
+      name: 'started_at',
+      fromJson: _fromUnixTimestamp,
+      toJson: _toUnixTimestamp,
+    )
     DateTime? startedAt,
     @JsonKey(
-        name: 'ended_at',
-        fromJson: _fromUnixTimestamp,
-        toJson: _toUnixTimestamp)
+      name: 'ended_at',
+      fromJson: _fromUnixTimestamp,
+      toJson: _toUnixTimestamp,
+    )
     DateTime? endedAt,
     @JsonKey(fromJson: _intToBool, toJson: _boolToInt) bool? show,
     @JsonKey(
-        name: 'created_at',
-        fromJson: _fromUnixTimestamp,
-        toJson: _toUnixTimestamp)
+      name: 'created_at',
+      fromJson: _fromUnixTimestamp,
+      toJson: _toUnixTimestamp,
+    )
     DateTime? createdAt,
     @JsonKey(
-        name: 'updated_at',
-        fromJson: _fromUnixTimestamp,
-        toJson: _toUnixTimestamp)
+      name: 'updated_at',
+      fromJson: _fromUnixTimestamp,
+      toJson: _toUnixTimestamp,
+    )
     DateTime? updatedAt,
   }) = _CouponModel;
 

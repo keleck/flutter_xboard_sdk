@@ -13,13 +13,11 @@ class V2BoardCouponApi {
     try {
       final result = await _httpService.postRequest(
         '/api/v1/user/coupon/check',
-        {
-          'code': code,
-          'plan_id': planId,
-        },
+        {'code': code, 'plan_id': planId},
       );
-      final coupon =
-          CouponData.fromJson(result['data'] as Map<String, dynamic>);
+      final coupon = CouponData.fromJson(
+        result['data'] as Map<String, dynamic>,
+      );
       return ApiResponse(success: true, data: coupon);
     } catch (e) {
       if (e is XBoardException) rethrow;
@@ -33,9 +31,7 @@ class V2BoardCouponApi {
     try {
       final result = await _httpService.postRequest(
         '/api/v1/user/redeemgiftcard',
-        {
-          'giftcard': code,
-        },
+        {'giftcard': code},
       );
       return ApiResponse(success: result['data'] == true, data: null);
     } catch (e) {

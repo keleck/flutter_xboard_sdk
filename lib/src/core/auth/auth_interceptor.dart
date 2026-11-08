@@ -11,8 +11,8 @@ class AuthInterceptor extends Interceptor {
   AuthInterceptor({
     required TokenManager tokenManager,
     Set<String>? publicEndpoints,
-  })  : _tokenManager = tokenManager,
-        _publicEndpoints = publicEndpoints ?? _defaultPublicEndpoints;
+  }) : _tokenManager = tokenManager,
+       _publicEndpoints = publicEndpoints ?? _defaultPublicEndpoints;
 
   /// 默认的公开端点（无需token的接口）
   static const Set<String> _defaultPublicEndpoints = {
@@ -25,7 +25,9 @@ class AuthInterceptor extends Interceptor {
 
   @override
   void onRequest(
-      RequestOptions options, RequestInterceptorHandler handler) async {
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+  ) async {
     try {
       // 检查是否为公开端点
       if (_isPublicEndpoint(options.path)) {
@@ -51,7 +53,8 @@ class AuthInterceptor extends Interceptor {
   void onError(DioException err, ErrorInterceptorHandler handler) {
     if (err.response?.statusCode == 401) {
       SdkLogger.w(
-          '[AuthInterceptor] 401 Unauthorized: ${err.requestOptions.path}');
+        '[AuthInterceptor] 401 Unauthorized: ${err.requestOptions.path}',
+      );
       // TODO: 这里可以添加 Token 过期通知逻辑
     }
     handler.next(err);

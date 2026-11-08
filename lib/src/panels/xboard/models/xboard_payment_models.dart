@@ -59,11 +59,11 @@ abstract class PaymentStatusResult with _$PaymentStatusResult {
       _$PaymentStatusResultFromJson(json);
 
   factory PaymentStatusResult.success([String? message]) => PaymentStatusResult(
-        isSuccess: true,
-        isCanceled: false,
-        isPending: false,
-        message: message,
-      );
+    isSuccess: true,
+    isCanceled: false,
+    isPending: false,
+    message: message,
+  );
 
   factory PaymentStatusResult.canceled([String? message]) =>
       PaymentStatusResult(
@@ -74,18 +74,18 @@ abstract class PaymentStatusResult with _$PaymentStatusResult {
       );
 
   factory PaymentStatusResult.pending([String? message]) => PaymentStatusResult(
-        isSuccess: false,
-        isCanceled: false,
-        isPending: true,
-        message: message,
-      );
+    isSuccess: false,
+    isCanceled: false,
+    isPending: true,
+    message: message,
+  );
 
   factory PaymentStatusResult.failed([String? message]) => PaymentStatusResult(
-        isSuccess: false,
-        isCanceled: false,
-        isPending: false,
-        message: message,
-      );
+    isSuccess: false,
+    isCanceled: false,
+    isPending: false,
+    message: message,
+  );
 }
 
 // Helper functions for parsing
@@ -123,8 +123,9 @@ abstract class PaymentMethodInfo with _$PaymentMethodInfo {
     return PaymentMethodInfo(
       id: json['id']?.toString() ?? '',
       name: _parseString(json['name']),
-      feePercent:
-          _parseDouble(json['handling_fee_percent'] ?? json['fee_percent']),
+      feePercent: _parseDouble(
+        json['handling_fee_percent'] ?? json['fee_percent'],
+      ),
       icon: json['icon'] as String?,
       isAvailable: json['is_available'] != false,
       config: json['config'] as Map<String, dynamic>?,
@@ -203,9 +204,8 @@ sealed class PaymentResult with _$PaymentResult {
     Map<String, dynamic>? extra,
   }) = PaymentResultFailed;
 
-  const factory PaymentResult.canceled({
-    String? message,
-  }) = PaymentResultCanceled;
+  const factory PaymentResult.canceled({String? message}) =
+      PaymentResultCanceled;
 
   factory PaymentResult.fromJson(Map<String, dynamic> json) =>
       _$PaymentResultFromJson(json);

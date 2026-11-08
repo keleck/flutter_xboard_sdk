@@ -12,10 +12,7 @@ class V2BoardLoginApi {
     try {
       final result = await _httpService.postRequest(
         '/api/v1/passport/auth/login',
-        {
-          'email': email,
-          'password': password,
-        },
+        {'email': email, 'password': password},
       );
 
       // V2Board API 返回格式：{ "data": { "token": "xxx", "auth_data": "jwt", ...} }

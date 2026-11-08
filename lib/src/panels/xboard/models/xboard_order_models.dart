@@ -21,9 +21,10 @@ abstract class Order with _$Order {
     String? period,
     int? status,
     @JsonKey(
-        name: 'created_at',
-        fromJson: _fromUnixTimestamp,
-        toJson: _toUnixTimestamp)
+      name: 'created_at',
+      fromJson: _fromUnixTimestamp,
+      toJson: _toUnixTimestamp,
+    )
     DateTime? createdAt,
     @JsonKey(name: 'plan') OrderPlan? orderPlan,
   }) = _Order;
@@ -112,7 +113,7 @@ abstract class OrderPaymentInfoResponse with _$OrderPaymentInfoResponse {
 abstract class OrderResponse with _$OrderResponse {
   const factory OrderResponse({
     required List<Order>
-        data, // Renamed from orders to data to match ApiResponse
+    data, // Renamed from orders to data to match ApiResponse
     int? total,
   }) = _OrderResponse;
 
@@ -125,10 +126,7 @@ class CheckoutResult {
   final int type;
   final dynamic data; // 可以是 bool (免费订单) 或 String (付费订单)
 
-  CheckoutResult({
-    required this.type,
-    required this.data,
-  });
+  CheckoutResult({required this.type, required this.data});
 
   factory CheckoutResult.fromJson(Map<String, dynamic> json) {
     return CheckoutResult(
@@ -138,9 +136,6 @@ class CheckoutResult {
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'type': type,
-      'data': data,
-    };
+    return {'type': type, 'data': data};
   }
 }

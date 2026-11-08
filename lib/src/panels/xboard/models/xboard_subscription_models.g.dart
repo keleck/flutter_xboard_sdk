@@ -7,13 +7,13 @@ part of 'xboard_subscription_models.dart';
 // **************************************************************************
 
 _PlanDetails _$PlanDetailsFromJson(Map<String, dynamic> json) => _PlanDetails(
-      name: json['name'] as String?,
-      id: (json['id'] as num?)?.toInt(),
-      price: (json['price'] as num?)?.toDouble(),
-      description: json['description'] as String?,
-      transferEnable: (json['transfer_enable'] as num?)?.toInt(),
-      speedLimit: (json['speed_limit'] as num?)?.toInt(),
-    );
+  name: json['name'] as String?,
+  id: (json['id'] as num?)?.toInt(),
+  price: (json['price'] as num?)?.toDouble(),
+  description: json['description'] as String?,
+  transferEnable: (json['transfer_enable'] as num?)?.toInt(),
+  speedLimit: (json['speed_limit'] as num?)?.toInt(),
+);
 
 Map<String, dynamic> _$PlanDetailsToJson(_PlanDetails instance) =>
     <String, dynamic>{
@@ -62,19 +62,19 @@ Map<String, dynamic> _$SubscriptionInfoToJson(_SubscriptionInfo instance) =>
     };
 
 _SubscriptionResponse _$SubscriptionResponseFromJson(
-        Map<String, dynamic> json) =>
-    _SubscriptionResponse(
-      success: json['success'] as bool,
-      message: json['message'] as String?,
-      data: json['data'] == null
-          ? null
-          : SubscriptionInfo.fromJson(json['data'] as Map<String, dynamic>),
-    );
+  Map<String, dynamic> json,
+) => _SubscriptionResponse(
+  success: json['success'] as bool,
+  message: json['message'] as String?,
+  data: json['data'] == null
+      ? null
+      : SubscriptionInfo.fromJson(json['data'] as Map<String, dynamic>),
+);
 
 Map<String, dynamic> _$SubscriptionResponseToJson(
-        _SubscriptionResponse instance) =>
-    <String, dynamic>{
-      'success': instance.success,
-      'message': instance.message,
-      'data': instance.data,
-    };
+  _SubscriptionResponse instance,
+) => <String, dynamic>{
+  'success': instance.success,
+  'message': instance.message,
+  'data': instance.data,
+};

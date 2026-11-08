@@ -19,10 +19,7 @@ class V2BoardPlanApi {
             .map((json) => Plan.fromJson(json as Map<String, dynamic>))
             .toList();
 
-        return ApiResponse(
-          success: true,
-          data: plans,
-        );
+        return ApiResponse(success: true, data: plans);
       }
 
       return ApiResponse(

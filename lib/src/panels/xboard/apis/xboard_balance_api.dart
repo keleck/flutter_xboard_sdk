@@ -10,10 +10,9 @@ class XBoardBalanceApi {
 
   Future<TransferResult> transferCommission(int amount) async {
     try {
-      final response = await _httpService.postRequest(
-        '/api/v1/user/transfer',
-        {'transfer_amount': amount},
-      );
+      final response = await _httpService.postRequest('/api/v1/user/transfer', {
+        'transfer_amount': amount,
+      });
 
       // XBoard 返回 {data: true} 表示成功
       return TransferResult(
@@ -27,7 +26,9 @@ class XBoardBalanceApi {
   }
 
   Future<WithdrawResult> withdrawFunds(
-      String withdrawMethod, String withdrawAccount) async {
+    String withdrawMethod,
+    String withdrawAccount,
+  ) async {
     try {
       final response = await _httpService.postRequest(
         '/api/v1/user/ticket/withdraw',

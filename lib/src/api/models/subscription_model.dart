@@ -17,9 +17,10 @@ abstract class SubscriptionModel with _$SubscriptionModel {
     SubscriptionPlanModel? plan,
     String? token,
     @JsonKey(
-        name: 'expired_at',
-        fromJson: _fromUnixTimestamp,
-        toJson: _toUnixTimestamp)
+      name: 'expired_at',
+      fromJson: _fromUnixTimestamp,
+      toJson: _toUnixTimestamp,
+    )
     DateTime? expiredAt,
     int? u,
     int? d,
@@ -30,9 +31,10 @@ abstract class SubscriptionModel with _$SubscriptionModel {
     @JsonKey(name: 'device_limit') int? deviceLimit,
     @JsonKey(name: 'speed_limit') int? speedLimit,
     @JsonKey(
-        name: 'next_reset_at',
-        fromJson: _fromUnixTimestamp,
-        toJson: _toUnixTimestamp)
+      name: 'next_reset_at',
+      fromJson: _fromUnixTimestamp,
+      toJson: _toUnixTimestamp,
+    )
     DateTime? nextResetAt,
   }) = _SubscriptionModel;
 

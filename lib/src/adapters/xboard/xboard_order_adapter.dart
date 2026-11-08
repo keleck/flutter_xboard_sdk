@@ -21,8 +21,11 @@ class XBoardOrderAdapter implements OrderApi {
   }
 
   @override
-  Future<String> createOrder(int planId, String period,
-      {String? couponCode}) async {
+  Future<String> createOrder(
+    int planId,
+    String period, {
+    String? couponCode,
+  }) async {
     final response = await _api.createOrder(
       planId: planId,
       period: period,
@@ -43,7 +46,9 @@ class XBoardOrderAdapter implements OrderApi {
 
   @override
   Future<PaymentResultModel> checkoutOrder(
-      String tradeNo, String method) async {
+    String tradeNo,
+    String method,
+  ) async {
     final response = await _api.submitPayment(tradeNo: tradeNo, method: method);
 
     // type: -1 = 余额支付成功, 0 = 跳转支付, 1 = 二维码支付
@@ -60,7 +65,8 @@ class XBoardOrderAdapter implements OrderApi {
       }
     } else {
       return PaymentResultModel.failed(
-          message: 'Unknown payment result type: ${response.type}');
+        message: 'Unknown payment result type: ${response.type}',
+      );
     }
   }
 
@@ -92,8 +98,9 @@ class XBoardOrderAdapter implements OrderApi {
       period: order.period,
       status: order.status,
       createdAt: order.createdAt,
-      orderPlan:
-          order.orderPlan != null ? _mapOrderPlan(order.orderPlan!) : null,
+      orderPlan: order.orderPlan != null
+          ? _mapOrderPlan(order.orderPlan!)
+          : null,
     );
   }
 

@@ -12,10 +12,7 @@ class XBoardLoginApi {
     try {
       final result = await _httpService.postRequest(
         '/api/v1/passport/auth/login',
-        {
-          'email': email,
-          'password': password,
-        },
+        {'email': email, 'password': password},
       );
       return LoginResult.fromJson(result['data'] as Map<String, dynamic>);
     } catch (e) {

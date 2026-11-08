@@ -59,7 +59,8 @@ class XBoardSDK {
   }) async {
     if (_isInitialized) {
       SdkLogger.w(
-          'SDK is already initialized. Call dispose() first if you want to re-initialize.');
+        'SDK is already initialized. Call dispose() first if you want to re-initialize.',
+      );
       return;
     }
 
@@ -85,12 +86,10 @@ class XBoardSDK {
     _tokenManager = useMemoryStorage ? TokenManager.memory() : TokenManager();
 
     // 初始化HTTP服务
-    final finalHttpConfig = httpConfig ??
+    final finalHttpConfig =
+        httpConfig ??
         (proxyUrl != null || userAgent != null
-            ? HttpConfig.development(
-                proxyUrl: proxyUrl,
-                userAgent: userAgent,
-              )
+            ? HttpConfig.development(proxyUrl: proxyUrl, userAgent: userAgent)
             : HttpConfig.defaultConfig());
 
     _httpService = await HttpService.create(
@@ -229,7 +228,8 @@ class XBoardSDK {
       SdkLogger.i('[XBoardSDK] 调用 auth.login...');
       final token = await auth.login(email, password);
       SdkLogger.i(
-          '[XBoardSDK] auth.login 返回 token: ${token != null ? "有效" : "null"}');
+        '[XBoardSDK] auth.login 返回 token: ${token != null ? "有效" : "null"}',
+      );
       if (token != null) {
         await saveToken(token);
         SdkLogger.i('[XBoardSDK] Token 已保存');
@@ -279,7 +279,8 @@ class XBoardSDK {
   void _checkInitialized() {
     if (!_isInitialized) {
       throw ConfigException(
-          'XBoardSDK is not initialized. Call initialize() first.');
+        'XBoardSDK is not initialized. Call initialize() first.',
+      );
     }
   }
 }

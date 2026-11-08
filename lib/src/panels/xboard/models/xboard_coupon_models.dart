@@ -37,25 +37,29 @@ abstract class CouponData with _$CouponData {
     @JsonKey(name: 'limit_plan_ids') List<String>? limitPlanIds, // 限制的套餐ID列表
     dynamic limitPeriod, // Added limit_period
     @JsonKey(
-        name: 'started_at',
-        fromJson: _fromUnixTimestamp,
-        toJson: _toUnixTimestamp)
+      name: 'started_at',
+      fromJson: _fromUnixTimestamp,
+      toJson: _toUnixTimestamp,
+    )
     DateTime? startedAt, // 开始时间
     @JsonKey(
-        name: 'ended_at',
-        fromJson: _fromUnixTimestamp,
-        toJson: _toUnixTimestamp)
+      name: 'ended_at',
+      fromJson: _fromUnixTimestamp,
+      toJson: _toUnixTimestamp,
+    )
     DateTime? endedAt, // 结束时间
     @JsonKey(fromJson: _intToBool, toJson: _boolToInt) bool? show, // 是否显示
     @JsonKey(
-        name: 'created_at',
-        fromJson: _fromUnixTimestamp,
-        toJson: _toUnixTimestamp)
+      name: 'created_at',
+      fromJson: _fromUnixTimestamp,
+      toJson: _toUnixTimestamp,
+    )
     DateTime? createdAt,
     @JsonKey(
-        name: 'updated_at',
-        fromJson: _fromUnixTimestamp,
-        toJson: _toUnixTimestamp)
+      name: 'updated_at',
+      fromJson: _fromUnixTimestamp,
+      toJson: _toUnixTimestamp,
+    )
     DateTime? updatedAt,
   }) = _CouponData;
 

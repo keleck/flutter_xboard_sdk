@@ -34,14 +34,16 @@ abstract class UserModel with _$UserModel {
     required String email,
     @JsonKey(name: 'transfer_enable') @Default(0) double transferEnable,
     @JsonKey(
-        name: 'last_login_at',
-        fromJson: _fromUnixTimestamp,
-        toJson: _toUnixTimestamp)
+      name: 'last_login_at',
+      fromJson: _fromUnixTimestamp,
+      toJson: _toUnixTimestamp,
+    )
     DateTime? lastLoginAt,
     @JsonKey(
-        name: 'created_at',
-        fromJson: _fromUnixTimestamp,
-        toJson: _toUnixTimestamp)
+      name: 'created_at',
+      fromJson: _fromUnixTimestamp,
+      toJson: _toUnixTimestamp,
+    )
     DateTime? createdAt,
     @JsonKey(fromJson: _intToBool, toJson: _boolToInt)
     @Default(false)
@@ -56,9 +58,10 @@ abstract class UserModel with _$UserModel {
     @Default(false)
     bool autoRenewal,
     @JsonKey(
-        name: 'expired_at',
-        fromJson: _fromUnixTimestamp,
-        toJson: _toUnixTimestamp)
+      name: 'expired_at',
+      fromJson: _fromUnixTimestamp,
+      toJson: _toUnixTimestamp,
+    )
     DateTime? expiredAt,
     @Default(0) double balance,
     @JsonKey(name: 'commission_balance') @Default(0) double commissionBalance,
@@ -66,9 +69,10 @@ abstract class UserModel with _$UserModel {
     double? discount,
     @JsonKey(name: 'commission_rate') double? commissionRate,
     @JsonKey(
-        name: 'telegram_id',
-        fromJson: _telegramIdFromJson,
-        toJson: _telegramIdToJson)
+      name: 'telegram_id',
+      fromJson: _telegramIdFromJson,
+      toJson: _telegramIdToJson,
+    )
     String? telegramId,
     required String uuid,
     @JsonKey(name: 'avatar_url') @Default('') String avatarUrl,

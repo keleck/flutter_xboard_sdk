@@ -11,8 +11,9 @@ class XBoardPaymentApi {
 
   Future<ApiResponse<List<PaymentMethodInfo>>> getPaymentMethods() async {
     try {
-      final result =
-          await _httpService.getRequest('/api/v1/user/order/getPaymentMethod');
+      final result = await _httpService.getRequest(
+        '/api/v1/user/order/getPaymentMethod',
+      );
       return ApiResponse.fromJson(
         result,
         (json) => (json as List<dynamic>)
@@ -26,12 +27,17 @@ class XBoardPaymentApi {
   }
 
   Future<ApiResponse<Map<String, dynamic>>> submitOrderPayment(
-      PaymentRequest request) async {
+    PaymentRequest request,
+  ) async {
     try {
       final result = await _httpService.postRequest(
-          '/api/v1/user/order/checkout', request.toJson());
+        '/api/v1/user/order/checkout',
+        request.toJson(),
+      );
       return ApiResponse.fromJson(
-          result, (json) => json as Map<String, dynamic>);
+        result,
+        (json) => json as Map<String, dynamic>,
+      );
     } catch (e) {
       if (e is XBoardException) rethrow;
       throw ApiException('提交订单支付失败: $e');
@@ -39,10 +45,12 @@ class XBoardPaymentApi {
   }
 
   Future<ApiResponse<PaymentStatusResult>> checkPaymentStatus(
-      String tradeNo) async {
+    String tradeNo,
+  ) async {
     try {
-      final result = await _httpService
-          .getRequest('/api/v1/user/order/status?trade_no=$tradeNo');
+      final result = await _httpService.getRequest(
+        '/api/v1/user/order/status?trade_no=$tradeNo',
+      );
       return ApiResponse.fromJson(
         result,
         (json) => PaymentStatusResult.fromJson(json as Map<String, dynamic>),
@@ -54,10 +62,12 @@ class XBoardPaymentApi {
   }
 
   Future<ApiResponse<PaymentStatusResult>> checkOrderStatus(
-      String tradeNo) async {
+    String tradeNo,
+  ) async {
     try {
-      final result = await _httpService
-          .getRequest('/api/v1/user/order/check?trade_no=$tradeNo');
+      final result = await _httpService.getRequest(
+        '/api/v1/user/order/check?trade_no=$tradeNo',
+      );
       return ApiResponse.fromJson(result, (json) {
         // API返回的data字段是整数状态码，需要转换为PaymentStatusResult
         if (json is int) {
@@ -85,8 +95,10 @@ class XBoardPaymentApi {
 
   Future<ApiResponse<void>> cancelPayment(String tradeNo) async {
     try {
-      final result = await _httpService
-          .postRequest('/api/v1/user/order/cancel', {'trade_no': tradeNo});
+      final result = await _httpService.postRequest(
+        '/api/v1/user/order/cancel',
+        {'trade_no': tradeNo},
+      );
       return ApiResponse.fromJson(result, (json) {});
     } catch (e) {
       if (e is XBoardException) rethrow;

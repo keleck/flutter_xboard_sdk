@@ -59,8 +59,10 @@ class V2BoardOrderApi {
           'coupon_code': couponCode,
       };
 
-      final result =
-          await _httpService.postRequest('/api/v1/user/order/save', data);
+      final result = await _httpService.postRequest(
+        '/api/v1/user/order/save',
+        data,
+      );
 
       final tradeNo = result['data'] as String?;
       return ApiResponse(
@@ -82,8 +84,10 @@ class V2BoardOrderApi {
         'deposit_amount': (amount * 100).toInt(),
       };
 
-      final result =
-          await _httpService.postRequest('/api/v1/user/order/save', data);
+      final result = await _httpService.postRequest(
+        '/api/v1/user/order/save',
+        data,
+      );
 
       final tradeNo = result['data'] as String?;
       return ApiResponse(
@@ -99,8 +103,9 @@ class V2BoardOrderApi {
 
   Future<ApiResponse<List<PaymentMethod>>> getPaymentMethods() async {
     try {
-      final result =
-          await _httpService.getRequest('/api/v1/user/order/getPaymentMethod');
+      final result = await _httpService.getRequest(
+        '/api/v1/user/order/getPaymentMethod',
+      );
 
       if (result['data'] != null) {
         final List<dynamic> methodsJson = result['data'] as List;
@@ -108,10 +113,7 @@ class V2BoardOrderApi {
             .map((json) => PaymentMethod.fromJson(json as Map<String, dynamic>))
             .toList();
 
-        return ApiResponse(
-          success: true,
-          data: methods,
-        );
+        return ApiResponse(success: true, data: methods);
       }
 
       return ApiResponse(
@@ -132,10 +134,7 @@ class V2BoardOrderApi {
     try {
       final result = await _httpService.postRequest(
         '/api/v1/user/order/checkout',
-        {
-          'trade_no': tradeNo,
-          'method': method,
-        },
+        {'trade_no': tradeNo, 'method': method},
       );
 
       // V2Board 返回格式可能为:
@@ -151,17 +150,11 @@ class V2BoardOrderApi {
         );
       } else if (resultData is bool && resultData == true) {
         // 格式3: {data: true} (余额支付成功)
-        return CheckoutResult(
-          type: -1,
-          data: true,
-        );
+        return CheckoutResult(type: -1, data: true);
       } else {
         // 格式2: {type: -1/0/1, data: bool/String}
         final typeValue = (result['type'] as int?) ?? 0;
-        return CheckoutResult(
-          type: typeValue,
-          data: resultData,
-        );
+        return CheckoutResult(type: typeValue, data: resultData);
       }
     } catch (e) {
       if (e is XBoardException) rethrow;

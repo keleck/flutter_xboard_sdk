@@ -15,13 +15,13 @@ _PaymentStatusResult _$PaymentStatusResultFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$PaymentStatusResultToJson(
-        _PaymentStatusResult instance) =>
-    <String, dynamic>{
-      'isSuccess': instance.isSuccess,
-      'isCanceled': instance.isCanceled,
-      'isPending': instance.isPending,
-      'message': instance.message,
-    };
+  _PaymentStatusResult instance,
+) => <String, dynamic>{
+  'isSuccess': instance.isSuccess,
+  'isCanceled': instance.isCanceled,
+  'isPending': instance.isPending,
+  'message': instance.message,
+};
 
 _PaymentOrderInfo _$PaymentOrderInfoFromJson(Map<String, dynamic> json) =>
     _PaymentOrderInfo(
@@ -48,42 +48,42 @@ Map<String, dynamic> _$PaymentOrderInfoToJson(_PaymentOrderInfo instance) =>
     };
 
 PaymentResultSuccess _$PaymentResultSuccessFromJson(
-        Map<String, dynamic> json) =>
-    PaymentResultSuccess(
-      transactionId: json['transactionId'] as String?,
-      message: json['message'] as String?,
-      extra: json['extra'] as Map<String, dynamic>?,
-      $type: json['runtimeType'] as String?,
-    );
+  Map<String, dynamic> json,
+) => PaymentResultSuccess(
+  transactionId: json['transactionId'] as String?,
+  message: json['message'] as String?,
+  extra: json['extra'] as Map<String, dynamic>?,
+  $type: json['runtimeType'] as String?,
+);
 
 Map<String, dynamic> _$PaymentResultSuccessToJson(
-        PaymentResultSuccess instance) =>
-    <String, dynamic>{
-      'transactionId': instance.transactionId,
-      'message': instance.message,
-      'extra': instance.extra,
-      'runtimeType': instance.$type,
-    };
+  PaymentResultSuccess instance,
+) => <String, dynamic>{
+  'transactionId': instance.transactionId,
+  'message': instance.message,
+  'extra': instance.extra,
+  'runtimeType': instance.$type,
+};
 
 PaymentResultRedirect _$PaymentResultRedirectFromJson(
-        Map<String, dynamic> json) =>
-    PaymentResultRedirect(
-      url: json['url'] as String,
-      method: json['method'] as String?,
-      headers: (json['headers'] as Map<String, dynamic>?)?.map(
-        (k, e) => MapEntry(k, e as String),
-      ),
-      $type: json['runtimeType'] as String?,
-    );
+  Map<String, dynamic> json,
+) => PaymentResultRedirect(
+  url: json['url'] as String,
+  method: json['method'] as String?,
+  headers: (json['headers'] as Map<String, dynamic>?)?.map(
+    (k, e) => MapEntry(k, e as String),
+  ),
+  $type: json['runtimeType'] as String?,
+);
 
 Map<String, dynamic> _$PaymentResultRedirectToJson(
-        PaymentResultRedirect instance) =>
-    <String, dynamic>{
-      'url': instance.url,
-      'method': instance.method,
-      'headers': instance.headers,
-      'runtimeType': instance.$type,
-    };
+  PaymentResultRedirect instance,
+) => <String, dynamic>{
+  'url': instance.url,
+  'method': instance.method,
+  'headers': instance.headers,
+  'runtimeType': instance.$type,
+};
 
 PaymentResultFailed _$PaymentResultFailedFromJson(Map<String, dynamic> json) =>
     PaymentResultFailed(
@@ -94,27 +94,27 @@ PaymentResultFailed _$PaymentResultFailedFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$PaymentResultFailedToJson(
-        PaymentResultFailed instance) =>
-    <String, dynamic>{
-      'message': instance.message,
-      'errorCode': instance.errorCode,
-      'extra': instance.extra,
-      'runtimeType': instance.$type,
-    };
+  PaymentResultFailed instance,
+) => <String, dynamic>{
+  'message': instance.message,
+  'errorCode': instance.errorCode,
+  'extra': instance.extra,
+  'runtimeType': instance.$type,
+};
 
 PaymentResultCanceled _$PaymentResultCanceledFromJson(
-        Map<String, dynamic> json) =>
-    PaymentResultCanceled(
-      message: json['message'] as String?,
-      $type: json['runtimeType'] as String?,
-    );
+  Map<String, dynamic> json,
+) => PaymentResultCanceled(
+  message: json['message'] as String?,
+  $type: json['runtimeType'] as String?,
+);
 
 Map<String, dynamic> _$PaymentResultCanceledToJson(
-        PaymentResultCanceled instance) =>
-    <String, dynamic>{
-      'message': instance.message,
-      'runtimeType': instance.$type,
-    };
+  PaymentResultCanceled instance,
+) => <String, dynamic>{
+  'message': instance.message,
+  'runtimeType': instance.$type,
+};
 
 _PaymentRequest _$PaymentRequestFromJson(Map<String, dynamic> json) =>
     _PaymentRequest(
@@ -123,10 +123,7 @@ _PaymentRequest _$PaymentRequestFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$PaymentRequestToJson(_PaymentRequest instance) =>
-    <String, dynamic>{
-      'trade_no': instance.tradeNo,
-      'method': instance.method,
-    };
+    <String, dynamic>{'trade_no': instance.tradeNo, 'method': instance.method};
 
 _PaymentResponse _$PaymentResponseFromJson(Map<String, dynamic> json) =>
     _PaymentResponse(

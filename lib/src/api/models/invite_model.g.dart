@@ -43,21 +43,21 @@ Map<String, dynamic> _$InviteInfoModelToJson(_InviteInfoModel instance) =>
     };
 
 _CommissionDetailModel _$CommissionDetailModelFromJson(
-        Map<String, dynamic> json) =>
-    _CommissionDetailModel(
-      id: (json['id'] as num).toInt(),
-      orderAmount: (json['order_amount'] as num).toInt(),
-      tradeNo: json['trade_no'] as String,
-      getAmount: (json['get_amount'] as num).toInt(),
-      createdAt: _fromUnixTimestamp((json['created_at'] as num).toInt()),
-    );
+  Map<String, dynamic> json,
+) => _CommissionDetailModel(
+  id: (json['id'] as num).toInt(),
+  orderAmount: (json['order_amount'] as num).toInt(),
+  tradeNo: json['trade_no'] as String,
+  getAmount: (json['get_amount'] as num).toInt(),
+  createdAt: _fromUnixTimestamp((json['created_at'] as num).toInt()),
+);
 
 Map<String, dynamic> _$CommissionDetailModelToJson(
-        _CommissionDetailModel instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'order_amount': instance.orderAmount,
-      'trade_no': instance.tradeNo,
-      'get_amount': instance.getAmount,
-      'created_at': _toUnixTimestamp(instance.createdAt),
-    };
+  _CommissionDetailModel instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'order_amount': instance.orderAmount,
+  'trade_no': instance.tradeNo,
+  'get_amount': instance.getAmount,
+  'created_at': _toUnixTimestamp(instance.createdAt),
+};

@@ -7,21 +7,21 @@ part of 'notice.dart';
 // **************************************************************************
 
 _Notice _$NoticeFromJson(Map<String, dynamic> json) => _Notice(
-      id: (json['id'] as num?)?.toInt(),
-      title: json['title'] as String?,
-      content: json['content'] as String?,
-      show: (json['show'] as num?)?.toInt(),
-      imgUrl: json['img_url'] as String?,
-      createdAt: (json['created_at'] as num?)?.toInt(),
-      updatedAt: (json['updated_at'] as num?)?.toInt(),
-    );
+  id: (json['id'] as num?)?.toInt(),
+  title: json['title'] as String?,
+  content: json['content'] as String?,
+  show: (json['show'] as num?)?.toInt(),
+  imgUrl: json['img_url'] as String?,
+  createdAt: (json['created_at'] as num?)?.toInt(),
+  updatedAt: (json['updated_at'] as num?)?.toInt(),
+);
 
 Map<String, dynamic> _$NoticeToJson(_Notice instance) => <String, dynamic>{
-      'id': instance.id,
-      'title': instance.title,
-      'content': instance.content,
-      'show': instance.show,
-      'img_url': instance.imgUrl,
-      'created_at': instance.createdAt,
-      'updated_at': instance.updatedAt,
-    };
+  'id': instance.id,
+  'title': instance.title,
+  'content': instance.content,
+  'show': instance.show,
+  'img_url': instance.imgUrl,
+  'created_at': instance.createdAt,
+  'updated_at': instance.updatedAt,
+};

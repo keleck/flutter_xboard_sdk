@@ -55,21 +55,21 @@ Map<String, dynamic> _$WithdrawResultToJson(_WithdrawResult instance) =>
     };
 
 _CommissionHistoryItem _$CommissionHistoryItemFromJson(
-        Map<String, dynamic> json) =>
-    _CommissionHistoryItem(
-      id: (json['id'] as num).toInt(),
-      orderAmount: (json['order_amount'] as num).toInt(),
-      tradeNo: json['trade_no'] as String,
-      getAmount: (json['get_amount'] as num).toInt(),
-      createdAt: (json['created_at'] as num).toInt(),
-    );
+  Map<String, dynamic> json,
+) => _CommissionHistoryItem(
+  id: (json['id'] as num).toInt(),
+  orderAmount: (json['order_amount'] as num).toInt(),
+  tradeNo: json['trade_no'] as String,
+  getAmount: (json['get_amount'] as num).toInt(),
+  createdAt: (json['created_at'] as num).toInt(),
+);
 
 Map<String, dynamic> _$CommissionHistoryItemToJson(
-        _CommissionHistoryItem instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'order_amount': instance.orderAmount,
-      'trade_no': instance.tradeNo,
-      'get_amount': instance.getAmount,
-      'created_at': instance.createdAt,
-    };
+  _CommissionHistoryItem instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'order_amount': instance.orderAmount,
+  'trade_no': instance.tradeNo,
+  'get_amount': instance.getAmount,
+  'created_at': instance.createdAt,
+};

@@ -12,8 +12,9 @@ class V2BoardInviteApi {
   Future<ApiResponse<InviteInfo>> getInviteInfo() async {
     try {
       final result = await _httpService.getRequest('/api/v1/user/invite/fetch');
-      final inviteInfo =
-          InviteInfo.fromJson(result['data'] as Map<String, dynamic>);
+      final inviteInfo = InviteInfo.fromJson(
+        result['data'] as Map<String, dynamic>,
+      );
       return ApiResponse(success: true, data: inviteInfo);
     } catch (e) {
       if (e is XBoardException) rethrow;
@@ -28,10 +29,12 @@ class V2BoardInviteApi {
       // 如果返回的是 bool 或 null，我们需要重新获取邀请列表来拿到最新的邀请码
 
       // 重新获取邀请信息
-      final inviteInfoResult =
-          await _httpService.getRequest('/api/v1/user/invite/fetch');
-      final inviteInfo =
-          InviteInfo.fromJson(inviteInfoResult['data'] as Map<String, dynamic>);
+      final inviteInfoResult = await _httpService.getRequest(
+        '/api/v1/user/invite/fetch',
+      );
+      final inviteInfo = InviteInfo.fromJson(
+        inviteInfoResult['data'] as Map<String, dynamic>,
+      );
 
       if (inviteInfo.codes.isEmpty) {
         throw ApiException('生成邀请码成功，但未找到邀请码');
@@ -57,7 +60,8 @@ class V2BoardInviteApi {
       final List<dynamic> detailsJson = result['data'] as List? ?? [];
       final details = detailsJson
           .map(
-              (json) => CommissionDetail.fromJson(json as Map<String, dynamic>))
+            (json) => CommissionDetail.fromJson(json as Map<String, dynamic>),
+          )
           .toList();
       return ApiResponse(success: true, data: details);
     } catch (e) {

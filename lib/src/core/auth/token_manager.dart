@@ -170,7 +170,10 @@ class TokenManager {
       }
     } catch (e, stackTrace) {
       SdkLogger.e(
-          '[TokenManager] Failed to initialize token state', e, stackTrace);
+        '[TokenManager] Failed to initialize token state',
+        e,
+        stackTrace,
+      );
       _updateAuthState(AuthState.unauthenticated);
     }
   }

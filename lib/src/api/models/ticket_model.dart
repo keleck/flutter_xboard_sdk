@@ -18,14 +18,16 @@ abstract class TicketModel with _$TicketModel {
     required String subject,
     String? message,
     @JsonKey(
-        name: 'created_at',
-        fromJson: _fromUnixTimestamp,
-        toJson: _toUnixTimestamp)
+      name: 'created_at',
+      fromJson: _fromUnixTimestamp,
+      toJson: _toUnixTimestamp,
+    )
     required DateTime createdAt,
     @JsonKey(
-        name: 'updated_at',
-        fromJson: _fromUnixTimestamp,
-        toJson: _toUnixTimestamp)
+      name: 'updated_at',
+      fromJson: _fromUnixTimestamp,
+      toJson: _toUnixTimestamp,
+    )
     required DateTime updatedAt,
     @JsonKey(name: 'user_id') required int userId,
   }) = _TicketModel;
@@ -42,14 +44,16 @@ abstract class TicketMessageModel with _$TicketMessageModel {
     @JsonKey(name: 'is_me') required bool isMe,
     required String message,
     @JsonKey(
-        name: 'created_at',
-        fromJson: _fromUnixTimestamp,
-        toJson: _toUnixTimestamp)
+      name: 'created_at',
+      fromJson: _fromUnixTimestamp,
+      toJson: _toUnixTimestamp,
+    )
     required DateTime createdAt,
     @JsonKey(
-        name: 'updated_at',
-        fromJson: _fromUnixTimestamp,
-        toJson: _toUnixTimestamp)
+      name: 'updated_at',
+      fromJson: _fromUnixTimestamp,
+      toJson: _toUnixTimestamp,
+    )
     required DateTime updatedAt,
   }) = _TicketMessageModel;
 
@@ -67,14 +71,16 @@ abstract class TicketDetailModel with _$TicketDetailModel {
     required String subject,
     @Default([]) List<TicketMessageModel> messages,
     @JsonKey(
-        name: 'created_at',
-        fromJson: _fromUnixTimestamp,
-        toJson: _toUnixTimestamp)
+      name: 'created_at',
+      fromJson: _fromUnixTimestamp,
+      toJson: _toUnixTimestamp,
+    )
     required DateTime createdAt,
     @JsonKey(
-        name: 'updated_at',
-        fromJson: _fromUnixTimestamp,
-        toJson: _toUnixTimestamp)
+      name: 'updated_at',
+      fromJson: _fromUnixTimestamp,
+      toJson: _toUnixTimestamp,
+    )
     required DateTime updatedAt,
     @JsonKey(name: 'user_id') required int userId,
   }) = _TicketDetailModel;

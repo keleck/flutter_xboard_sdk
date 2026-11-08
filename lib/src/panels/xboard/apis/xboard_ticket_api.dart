@@ -31,12 +31,10 @@ class XBoardTicketApi {
     required String message,
   }) async {
     try {
-      final result =
-          await _httpService.postRequest('/api/v1/user/ticket/withdraw', {
-        'subject': subject,
-        'message': message,
-        'level': level,
-      });
+      final result = await _httpService.postRequest(
+        '/api/v1/user/ticket/withdraw',
+        {'subject': subject, 'message': message, 'level': level},
+      );
       // API可能返回bool表示成功，而不是返回Ticket对象
       return ApiResponse.fromJson(result, (json) {
         if (json is Map<String, dynamic>) {
@@ -53,8 +51,9 @@ class XBoardTicketApi {
 
   Future<ApiResponse<TicketDetail>> getTicketDetail(int ticketId) async {
     try {
-      final result = await _httpService
-          .getRequest('/api/v1/user/ticket/fetch?id=$ticketId');
+      final result = await _httpService.getRequest(
+        '/api/v1/user/ticket/fetch?id=$ticketId',
+      );
       developer.log('XBoard Ticket Detail Response: $result');
       return ApiResponse.fromJson(result, (json) {
         // 确保messages字段存在且为列表
@@ -88,8 +87,9 @@ class XBoardTicketApi {
         }
 
         final ticket = TicketDetail.fromJson(data);
-        developer
-            .log('Parsed ticket messages count: ${ticket.messages.length}');
+        developer.log(
+          'Parsed ticket messages count: ${ticket.messages.length}',
+        );
         return ticket;
       });
     } catch (e) {
@@ -104,11 +104,10 @@ class XBoardTicketApi {
     required String message,
   }) async {
     try {
-      final result =
-          await _httpService.postRequest('/api/v1/user/ticket/reply', {
-        'id': ticketId,
-        'message': message,
-      });
+      final result = await _httpService.postRequest(
+        '/api/v1/user/ticket/reply',
+        {'id': ticketId, 'message': message},
+      );
       return ApiResponse.fromJson(result, (json) {});
     } catch (e) {
       if (e is XBoardException) rethrow;
@@ -118,10 +117,10 @@ class XBoardTicketApi {
 
   Future<ApiResponse<void>> closeTicket(String ticketId) async {
     try {
-      final result =
-          await _httpService.postRequest('/api/v1/user/ticket/close', {
-        'id': ticketId,
-      });
+      final result = await _httpService.postRequest(
+        '/api/v1/user/ticket/close',
+        {'id': ticketId},
+      );
       return ApiResponse.fromJson(result, (json) {});
     } catch (e) {
       if (e is XBoardException) rethrow;

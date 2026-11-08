@@ -35,9 +35,10 @@ abstract class SubscriptionInfo with _$SubscriptionInfo {
     PlanDetails? plan,
     String? token,
     @JsonKey(
-        name: 'expired_at',
-        fromJson: _fromUnixTimestamp,
-        toJson: _toUnixTimestamp)
+      name: 'expired_at',
+      fromJson: _fromUnixTimestamp,
+      toJson: _toUnixTimestamp,
+    )
     DateTime? expiredAt,
     int? u, // 上传流量
     int? d, // 下载流量
@@ -48,9 +49,10 @@ abstract class SubscriptionInfo with _$SubscriptionInfo {
     @JsonKey(name: 'device_limit') int? deviceLimit, // 设备限制
     @JsonKey(name: 'speed_limit') int? speedLimit, // 速度限制
     @JsonKey(
-        name: 'next_reset_at',
-        fromJson: _fromUnixTimestamp,
-        toJson: _toUnixTimestamp)
+      name: 'next_reset_at',
+      fromJson: _fromUnixTimestamp,
+      toJson: _toUnixTimestamp,
+    )
     DateTime? nextResetAt, // 下次重置时间
   }) = _SubscriptionInfo;
 

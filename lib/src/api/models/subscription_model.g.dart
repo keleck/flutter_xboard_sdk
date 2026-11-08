@@ -12,7 +12,8 @@ _SubscriptionModel _$SubscriptionModelFromJson(Map<String, dynamic> json) =>
       plan: json['plan'] == null
           ? null
           : SubscriptionPlanModel.fromJson(
-              json['plan'] as Map<String, dynamic>),
+              json['plan'] as Map<String, dynamic>,
+            ),
       token: json['token'] as String?,
       expiredAt: _fromUnixTimestamp((json['expired_at'] as num?)?.toInt()),
       u: (json['u'] as num?)?.toInt(),
@@ -44,23 +45,23 @@ Map<String, dynamic> _$SubscriptionModelToJson(_SubscriptionModel instance) =>
     };
 
 _SubscriptionPlanModel _$SubscriptionPlanModelFromJson(
-        Map<String, dynamic> json) =>
-    _SubscriptionPlanModel(
-      name: json['name'] as String?,
-      id: (json['id'] as num?)?.toInt(),
-      price: (json['price'] as num?)?.toDouble(),
-      description: json['description'] as String?,
-      transferEnable: (json['transfer_enable'] as num?)?.toInt(),
-      speedLimit: (json['speed_limit'] as num?)?.toInt(),
-    );
+  Map<String, dynamic> json,
+) => _SubscriptionPlanModel(
+  name: json['name'] as String?,
+  id: (json['id'] as num?)?.toInt(),
+  price: (json['price'] as num?)?.toDouble(),
+  description: json['description'] as String?,
+  transferEnable: (json['transfer_enable'] as num?)?.toInt(),
+  speedLimit: (json['speed_limit'] as num?)?.toInt(),
+);
 
 Map<String, dynamic> _$SubscriptionPlanModelToJson(
-        _SubscriptionPlanModel instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-      'id': instance.id,
-      'price': instance.price,
-      'description': instance.description,
-      'transfer_enable': instance.transferEnable,
-      'speed_limit': instance.speedLimit,
-    };
+  _SubscriptionPlanModel instance,
+) => <String, dynamic>{
+  'name': instance.name,
+  'id': instance.id,
+  'price': instance.price,
+  'description': instance.description,
+  'transfer_enable': instance.transferEnable,
+  'speed_limit': instance.speedLimit,
+};

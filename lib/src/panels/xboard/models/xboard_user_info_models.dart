@@ -52,14 +52,16 @@ abstract class UserInfo with _$UserInfo {
     double transferEnable,
     @JsonKey(name: 'device_limit') int? deviceLimit,
     @JsonKey(
-        name: 'last_login_at',
-        fromJson: _fromUnixTimestamp,
-        toJson: _toUnixTimestamp)
+      name: 'last_login_at',
+      fromJson: _fromUnixTimestamp,
+      toJson: _toUnixTimestamp,
+    )
     DateTime? lastLoginAt,
     @JsonKey(
-        name: 'created_at',
-        fromJson: _fromUnixTimestamp,
-        toJson: _toUnixTimestamp)
+      name: 'created_at',
+      fromJson: _fromUnixTimestamp,
+      toJson: _toUnixTimestamp,
+    )
     DateTime? createdAt,
     @JsonKey(fromJson: _intToBool, toJson: _boolToInt)
     @Default(false)
@@ -74,9 +76,10 @@ abstract class UserInfo with _$UserInfo {
     @Default(true)
     bool remindTraffic,
     @JsonKey(
-        name: 'expired_at',
-        fromJson: _fromUnixTimestamp,
-        toJson: _toUnixTimestamp)
+      name: 'expired_at',
+      fromJson: _fromUnixTimestamp,
+      toJson: _toUnixTimestamp,
+    )
     DateTime? expiredAt,
     @JsonKey(fromJson: _toDouble) @Default(0) double balance,
     @JsonKey(name: 'commission_balance', fromJson: _toDouble)
@@ -87,9 +90,10 @@ abstract class UserInfo with _$UserInfo {
     @JsonKey(name: 'commission_rate', fromJson: _toDouble)
     double? commissionRate,
     @JsonKey(
-        name: 'telegram_id',
-        fromJson: _telegramIdFromJson,
-        toJson: _telegramIdToJson)
+      name: 'telegram_id',
+      fromJson: _telegramIdFromJson,
+      toJson: _telegramIdToJson,
+    )
     String? telegramId,
     required String uuid,
     @JsonKey(name: 'avatar_url') @Default('') String avatarUrl,

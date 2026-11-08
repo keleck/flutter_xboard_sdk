@@ -7,28 +7,25 @@ part of 'invite_info.dart';
 // **************************************************************************
 
 _InviteInfo _$InviteInfoFromJson(Map<String, dynamic> json) => _InviteInfo(
-      codes: (json['codes'] as List<dynamic>?)
-          ?.map((e) => InviteCode.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      stat: json['stat'] == null
-          ? null
-          : InviteStat.fromJson(json['stat'] as Map<String, dynamic>),
-    );
+  codes: (json['codes'] as List<dynamic>?)
+      ?.map((e) => InviteCode.fromJson(e as Map<String, dynamic>))
+      .toList(),
+  stat: json['stat'] == null
+      ? null
+      : InviteStat.fromJson(json['stat'] as Map<String, dynamic>),
+);
 
 Map<String, dynamic> _$InviteInfoToJson(_InviteInfo instance) =>
-    <String, dynamic>{
-      'codes': instance.codes,
-      'stat': instance.stat,
-    };
+    <String, dynamic>{'codes': instance.codes, 'stat': instance.stat};
 
 _InviteCode _$InviteCodeFromJson(Map<String, dynamic> json) => _InviteCode(
-      id: (json['id'] as num?)?.toInt(),
-      userId: (json['user_id'] as num?)?.toInt(),
-      code: json['code'] as String?,
-      status: (json['status'] as num?)?.toInt(),
-      createdAt: (json['created_at'] as num?)?.toInt(),
-      updatedAt: (json['updated_at'] as num?)?.toInt(),
-    );
+  id: (json['id'] as num?)?.toInt(),
+  userId: (json['user_id'] as num?)?.toInt(),
+  code: json['code'] as String?,
+  status: (json['status'] as num?)?.toInt(),
+  createdAt: (json['created_at'] as num?)?.toInt(),
+  updatedAt: (json['updated_at'] as num?)?.toInt(),
+);
 
 Map<String, dynamic> _$InviteCodeToJson(_InviteCode instance) =>
     <String, dynamic>{
@@ -41,12 +38,12 @@ Map<String, dynamic> _$InviteCodeToJson(_InviteCode instance) =>
     };
 
 _InviteStat _$InviteStatFromJson(Map<String, dynamic> json) => _InviteStat(
-      registerCount: (json['register_count'] as num?)?.toInt(),
-      commissionRate: (json['commission_rate'] as num?)?.toInt(),
-      commissionBalance: (json['commission_balance'] as num?)?.toInt(),
-      commissionPendingBalance:
-          (json['commission_pending_balance'] as num?)?.toInt(),
-    );
+  registerCount: (json['register_count'] as num?)?.toInt(),
+  commissionRate: (json['commission_rate'] as num?)?.toInt(),
+  commissionBalance: (json['commission_balance'] as num?)?.toInt(),
+  commissionPendingBalance: (json['commission_pending_balance'] as num?)
+      ?.toInt(),
+);
 
 Map<String, dynamic> _$InviteStatToJson(_InviteStat instance) =>
     <String, dynamic>{

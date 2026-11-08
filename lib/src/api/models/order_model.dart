@@ -20,9 +20,10 @@ abstract class OrderModel with _$OrderModel {
     String? period,
     int? status,
     @JsonKey(
-        name: 'created_at',
-        fromJson: _fromUnixTimestamp,
-        toJson: _toUnixTimestamp)
+      name: 'created_at',
+      fromJson: _fromUnixTimestamp,
+      toJson: _toUnixTimestamp,
+    )
     DateTime? createdAt,
     @JsonKey(name: 'plan') OrderPlanModel? orderPlan,
   }) = _OrderModel;

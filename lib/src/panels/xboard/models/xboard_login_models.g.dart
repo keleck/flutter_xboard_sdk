@@ -13,16 +13,13 @@ _LoginRequest _$LoginRequestFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$LoginRequestToJson(_LoginRequest instance) =>
-    <String, dynamic>{
-      'email': instance.email,
-      'password': instance.password,
-    };
+    <String, dynamic>{'email': instance.email, 'password': instance.password};
 
 _LoginData _$LoginDataFromJson(Map<String, dynamic> json) => _LoginData(
-      token: json['token'] as String?,
-      authData: json['auth_data'] as String?,
-      user: json['user'] as Map<String, dynamic>?,
-    );
+  token: json['token'] as String?,
+  authData: json['auth_data'] as String?,
+  user: json['user'] as Map<String, dynamic>?,
+);
 
 Map<String, dynamic> _$LoginDataToJson(_LoginData instance) =>
     <String, dynamic>{

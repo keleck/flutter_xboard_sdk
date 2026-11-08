@@ -7,28 +7,28 @@ part of 'xboard_ticket_models.dart';
 // **************************************************************************
 
 _Ticket _$TicketFromJson(Map<String, dynamic> json) => _Ticket(
-      id: (json['id'] as num).toInt(),
-      level: (json['level'] as num).toInt(),
-      replyStatus: (json['reply_status'] as num).toInt(),
-      status: (json['status'] as num).toInt(),
-      subject: json['subject'] as String,
-      message: json['message'] as String?,
-      createdAt: _fromUnixTimestamp((json['created_at'] as num).toInt()),
-      updatedAt: _fromUnixTimestamp((json['updated_at'] as num).toInt()),
-      userId: (json['user_id'] as num).toInt(),
-    );
+  id: (json['id'] as num).toInt(),
+  level: (json['level'] as num).toInt(),
+  replyStatus: (json['reply_status'] as num).toInt(),
+  status: (json['status'] as num).toInt(),
+  subject: json['subject'] as String,
+  message: json['message'] as String?,
+  createdAt: _fromUnixTimestamp((json['created_at'] as num).toInt()),
+  updatedAt: _fromUnixTimestamp((json['updated_at'] as num).toInt()),
+  userId: (json['user_id'] as num).toInt(),
+);
 
 Map<String, dynamic> _$TicketToJson(_Ticket instance) => <String, dynamic>{
-      'id': instance.id,
-      'level': instance.level,
-      'reply_status': instance.replyStatus,
-      'status': instance.status,
-      'subject': instance.subject,
-      'message': instance.message,
-      'created_at': _toUnixTimestamp(instance.createdAt),
-      'updated_at': _toUnixTimestamp(instance.updatedAt),
-      'user_id': instance.userId,
-    };
+  'id': instance.id,
+  'level': instance.level,
+  'reply_status': instance.replyStatus,
+  'status': instance.status,
+  'subject': instance.subject,
+  'message': instance.message,
+  'created_at': _toUnixTimestamp(instance.createdAt),
+  'updated_at': _toUnixTimestamp(instance.updatedAt),
+  'user_id': instance.userId,
+};
 
 _TicketMessage _$TicketMessageFromJson(Map<String, dynamic> json) =>
     _TicketMessage(
@@ -57,7 +57,8 @@ _TicketDetail _$TicketDetailFromJson(Map<String, dynamic> json) =>
       replyStatus: (json['reply_status'] as num).toInt(),
       status: (json['status'] as num).toInt(),
       subject: json['subject'] as String,
-      messages: (json['messages'] as List<dynamic>?)
+      messages:
+          (json['messages'] as List<dynamic>?)
               ?.map((e) => TicketMessage.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],

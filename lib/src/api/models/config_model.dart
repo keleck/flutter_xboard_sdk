@@ -34,17 +34,24 @@ abstract class ConfigModel with _$ConfigModel {
   const factory ConfigModel({
     @JsonKey(name: 'tos_url') String? tosUrl,
     @JsonKey(
-        name: 'is_email_verify', fromJson: _intToBoolSafe, toJson: _boolToInt)
+      name: 'is_email_verify',
+      fromJson: _intToBoolSafe,
+      toJson: _boolToInt,
+    )
     @Default(false)
     bool isEmailVerify,
     @JsonKey(
-        name: 'is_invite_force', fromJson: _intToBoolSafe, toJson: _boolToInt)
+      name: 'is_invite_force',
+      fromJson: _intToBoolSafe,
+      toJson: _boolToInt,
+    )
     @Default(false)
     bool isInviteForce,
     @JsonKey(
-        name: 'email_whitelist_suffix',
-        fromJson: _emailWhitelistFromJson,
-        toJson: _emailWhitelistToJson)
+      name: 'email_whitelist_suffix',
+      fromJson: _emailWhitelistFromJson,
+      toJson: _emailWhitelistToJson,
+    )
     @Default([])
     List<String> emailWhitelistSuffix,
     @JsonKey(name: 'is_captcha', fromJson: _intToBoolSafe, toJson: _boolToInt)

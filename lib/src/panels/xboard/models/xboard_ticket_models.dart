@@ -20,14 +20,16 @@ abstract class Ticket with _$Ticket {
     required String subject,
     String? message,
     @JsonKey(
-        name: 'created_at',
-        fromJson: _fromUnixTimestamp,
-        toJson: _toUnixTimestamp)
+      name: 'created_at',
+      fromJson: _fromUnixTimestamp,
+      toJson: _toUnixTimestamp,
+    )
     required DateTime createdAt,
     @JsonKey(
-        name: 'updated_at',
-        fromJson: _fromUnixTimestamp,
-        toJson: _toUnixTimestamp)
+      name: 'updated_at',
+      fromJson: _fromUnixTimestamp,
+      toJson: _toUnixTimestamp,
+    )
     required DateTime updatedAt,
     @JsonKey(name: 'user_id') required int userId,
   }) = _Ticket;
@@ -43,14 +45,16 @@ abstract class TicketMessage with _$TicketMessage {
     @JsonKey(name: 'is_me') required bool isMe,
     required String message,
     @JsonKey(
-        name: 'created_at',
-        fromJson: _fromUnixTimestamp,
-        toJson: _toUnixTimestamp)
+      name: 'created_at',
+      fromJson: _fromUnixTimestamp,
+      toJson: _toUnixTimestamp,
+    )
     required DateTime createdAt,
     @JsonKey(
-        name: 'updated_at',
-        fromJson: _fromUnixTimestamp,
-        toJson: _toUnixTimestamp)
+      name: 'updated_at',
+      fromJson: _fromUnixTimestamp,
+      toJson: _toUnixTimestamp,
+    )
     required DateTime updatedAt,
   }) = _TicketMessage;
 
@@ -68,14 +72,16 @@ abstract class TicketDetail with _$TicketDetail {
     required String subject,
     @Default([]) List<TicketMessage> messages,
     @JsonKey(
-        name: 'created_at',
-        fromJson: _fromUnixTimestamp,
-        toJson: _toUnixTimestamp)
+      name: 'created_at',
+      fromJson: _fromUnixTimestamp,
+      toJson: _toUnixTimestamp,
+    )
     required DateTime createdAt,
     @JsonKey(
-        name: 'updated_at',
-        fromJson: _fromUnixTimestamp,
-        toJson: _toUnixTimestamp)
+      name: 'updated_at',
+      fromJson: _fromUnixTimestamp,
+      toJson: _toUnixTimestamp,
+    )
     required DateTime updatedAt,
     @JsonKey(name: 'user_id') required int userId,
   }) = _TicketDetail;

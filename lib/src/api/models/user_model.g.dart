@@ -7,30 +7,30 @@ part of 'user_model.dart';
 // **************************************************************************
 
 _UserModel _$UserModelFromJson(Map<String, dynamic> json) => _UserModel(
-      email: json['email'] as String,
-      transferEnable: (json['transfer_enable'] as num?)?.toDouble() ?? 0,
-      lastLoginAt: _fromUnixTimestamp((json['last_login_at'] as num?)?.toInt()),
-      createdAt: _fromUnixTimestamp((json['created_at'] as num?)?.toInt()),
-      banned: json['banned'] == null ? false : _intToBool(json['banned']),
-      remindExpire: json['remind_expire'] == null
-          ? true
-          : _intToBool(json['remind_expire']),
-      remindTraffic: json['remind_traffic'] == null
-          ? true
-          : _intToBool(json['remind_traffic']),
-      autoRenewal: json['auto_renewal'] == null
-          ? false
-          : _intToBool(json['auto_renewal']),
-      expiredAt: _fromUnixTimestamp((json['expired_at'] as num?)?.toInt()),
-      balance: (json['balance'] as num?)?.toDouble() ?? 0,
-      commissionBalance: (json['commission_balance'] as num?)?.toDouble() ?? 0,
-      planId: (json['plan_id'] as num?)?.toInt(),
-      discount: (json['discount'] as num?)?.toDouble(),
-      commissionRate: (json['commission_rate'] as num?)?.toDouble(),
-      telegramId: _telegramIdFromJson(json['telegram_id']),
-      uuid: json['uuid'] as String,
-      avatarUrl: json['avatar_url'] as String? ?? '',
-    );
+  email: json['email'] as String,
+  transferEnable: (json['transfer_enable'] as num?)?.toDouble() ?? 0,
+  lastLoginAt: _fromUnixTimestamp((json['last_login_at'] as num?)?.toInt()),
+  createdAt: _fromUnixTimestamp((json['created_at'] as num?)?.toInt()),
+  banned: json['banned'] == null ? false : _intToBool(json['banned']),
+  remindExpire: json['remind_expire'] == null
+      ? true
+      : _intToBool(json['remind_expire']),
+  remindTraffic: json['remind_traffic'] == null
+      ? true
+      : _intToBool(json['remind_traffic']),
+  autoRenewal: json['auto_renewal'] == null
+      ? false
+      : _intToBool(json['auto_renewal']),
+  expiredAt: _fromUnixTimestamp((json['expired_at'] as num?)?.toInt()),
+  balance: (json['balance'] as num?)?.toDouble() ?? 0,
+  commissionBalance: (json['commission_balance'] as num?)?.toDouble() ?? 0,
+  planId: (json['plan_id'] as num?)?.toInt(),
+  discount: (json['discount'] as num?)?.toDouble(),
+  commissionRate: (json['commission_rate'] as num?)?.toDouble(),
+  telegramId: _telegramIdFromJson(json['telegram_id']),
+  uuid: json['uuid'] as String,
+  avatarUrl: json['avatar_url'] as String? ?? '',
+);
 
 Map<String, dynamic> _$UserModelToJson(_UserModel instance) =>
     <String, dynamic>{

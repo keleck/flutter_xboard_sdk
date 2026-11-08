@@ -9,8 +9,10 @@ class XBoardTicketAdapter implements TicketApi {
   XBoardTicketAdapter(this._api);
 
   @override
-  Future<List<TicketModel>> getTickets(
-      {int page = 1, int pageSize = 10}) async {
+  Future<List<TicketModel>> getTickets({
+    int page = 1,
+    int pageSize = 10,
+  }) async {
     final response = await _api.fetchTickets();
     if (response.data == null) return [];
     return response.data!.map(_mapTicket).toList();

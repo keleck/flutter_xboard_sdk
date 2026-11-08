@@ -19,11 +19,7 @@ class HttpService {
   String? _expectedCertificatePem;
   bool _certificateLoadFailed = false;
 
-  HttpService._internal(
-    this.baseUrl,
-    this.httpConfig,
-    this._tokenManager,
-  );
+  HttpService._internal(this.baseUrl, this.httpConfig, this._tokenManager);
 
   /// 创建 HttpService 实例（异步工厂方法）
   static Future<HttpService> create(
@@ -47,21 +43,24 @@ class HttpService {
 
   /// 初始化Dio配置
   void _initializeDio() {
-    _dio = Dio(BaseOptions(
-      baseUrl: baseUrl,
-      connectTimeout: Duration(seconds: httpConfig.connectTimeoutSeconds),
-      receiveTimeout: Duration(seconds: httpConfig.receiveTimeoutSeconds),
-      sendTimeout: Duration(seconds: httpConfig.sendTimeoutSeconds),
-      responseType: ResponseType.plain,
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        // 使用配置的 User-Agent，如果未设置则使用默认值
-        // 使用浏览器User-Agent避免WAF拦截
-        'User-Agent': httpConfig.userAgent ??
-            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-      },
-    ));
+    _dio = Dio(
+      BaseOptions(
+        baseUrl: baseUrl,
+        connectTimeout: Duration(seconds: httpConfig.connectTimeoutSeconds),
+        receiveTimeout: Duration(seconds: httpConfig.receiveTimeoutSeconds),
+        sendTimeout: Duration(seconds: httpConfig.sendTimeoutSeconds),
+        responseType: ResponseType.plain,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          // 使用配置的 User-Agent，如果未设置则使用默认值
+          // 使用浏览器User-Agent避免WAF拦截
+          'User-Agent':
+              httpConfig.userAgent ??
+              'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        },
+      ),
+    );
 
     // 配置客户端证书和SSL验证
     (_dio.httpClientAdapter as IOHttpClientAdapter).createHttpClient = () {
@@ -74,7 +73,8 @@ class HttpService {
 
         final proxyConfig = _parseProxyConfig(httpConfig.proxyUrl!);
         SdkLogger.d(
-            '[XBoardSDK] 🔄 解析: host=${proxyConfig['host']}, port=${proxyConfig['port']}, auth=${proxyConfig['username'] != null}');
+          '[XBoardSDK] 🔄 解析: host=${proxyConfig['host']}, port=${proxyConfig['port']}, auth=${proxyConfig['username'] != null}',
+        );
 
         // 使用 socks5_proxy 配置代理
         final proxySettings = ProxySettings(
@@ -93,17 +93,17 @@ class HttpService {
           httpConfig.ignoreCertificateHostname) {
         client.badCertificateCallback =
             (X509Certificate cert, String host, int port) {
-          // 如果启用了证书固定，进行严格验证
-          if (httpConfig.enableCertificatePinning) {
-            return _verifyCertificate(cert, host, port);
-          }
-          // 如果允许忽略主机名验证（仅开发环境）
-          if (httpConfig.ignoreCertificateHostname) {
-            return true;
-          }
-          // 默认使用标准验证
-          return false;
-        };
+              // 如果启用了证书固定，进行严格验证
+              if (httpConfig.enableCertificatePinning) {
+                return _verifyCertificate(cert, host, port);
+              }
+              // 如果允许忽略主机名验证（仅开发环境）
+              if (httpConfig.ignoreCertificateHostname) {
+                return true;
+              }
+              // 默认使用标准验证
+              return false;
+            };
       }
 
       return client;
@@ -112,29 +112,32 @@ class HttpService {
     // 添加拦截器（生产环境移除日志拦截器）
 
     // 添加请求日志和响应格式化拦截器
-    _dio.interceptors.add(InterceptorsWrapper(
-      onRequest: (options, handler) {
-        // 打印请求信息和代理状态
-        final fullUrl = options.uri.toString();
-        final proxyStatus =
-            httpConfig.proxyUrl != null && httpConfig.proxyUrl!.isNotEmpty;
-        final proxyInfo = proxyStatus ? httpConfig.proxyUrl : 'DIRECT';
-        SdkLogger.d(
-            '[XBoardSDK] 📡 ${options.method} $fullUrl | proxy: $proxyStatus ($proxyInfo)');
+    _dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) {
+          // 打印请求信息和代理状态
+          final fullUrl = options.uri.toString();
+          final proxyStatus =
+              httpConfig.proxyUrl != null && httpConfig.proxyUrl!.isNotEmpty;
+          final proxyInfo = proxyStatus ? httpConfig.proxyUrl : 'DIRECT';
+          SdkLogger.d(
+            '[XBoardSDK] 📡 ${options.method} $fullUrl | proxy: $proxyStatus ($proxyInfo)',
+          );
 
-        handler.next(options);
-      },
-      onResponse: (response, handler) {
-        // 检查是否需要解混淆
-        response.data = _deobfuscateResponse(response);
-        response.data = _normalizeResponse(response.data);
-        handler.next(response);
-      },
-      onError: (error, handler) {
-        final normalizedError = _handleDioError(error);
-        handler.next(normalizedError);
-      },
-    ));
+          handler.next(options);
+        },
+        onResponse: (response, handler) {
+          // 检查是否需要解混淆
+          response.data = _deobfuscateResponse(response);
+          response.data = _normalizeResponse(response.data);
+          handler.next(response);
+        },
+        onError: (error, handler) {
+          final normalizedError = _handleDioError(error);
+          handler.next(normalizedError);
+        },
+      ),
+    );
 
     // 添加认证拦截器（最后添加，确保它能处理认证相关错误）
     if (_tokenManager != null) {
@@ -158,13 +161,12 @@ class HttpService {
   }
 
   /// 发送GET请求
-  Future<Map<String, dynamic>> getRequest(String path,
-      {Map<String, String>? headers}) async {
+  Future<Map<String, dynamic>> getRequest(
+    String path, {
+    Map<String, String>? headers,
+  }) async {
     try {
-      final response = await _dio.get(
-        path,
-        options: Options(headers: headers),
-      );
+      final response = await _dio.get(path, options: Options(headers: headers));
 
       return response.data as Map<String, dynamic>;
     } catch (e) {
@@ -174,8 +176,10 @@ class HttpService {
 
   /// 发送POST请求
   Future<Map<String, dynamic>> postRequest(
-      String path, Map<String, dynamic> data,
-      {Map<String, String>? headers}) async {
+    String path,
+    Map<String, dynamic> data, {
+    Map<String, String>? headers,
+  }) async {
     try {
       SdkLogger.d('[XBoardSDK] POST请求开始: $path');
       final response = await _dio.post(
@@ -194,8 +198,10 @@ class HttpService {
 
   /// 发送PUT请求
   Future<Map<String, dynamic>> putRequest(
-      String path, Map<String, dynamic> data,
-      {Map<String, String>? headers}) async {
+    String path,
+    Map<String, dynamic> data, {
+    Map<String, String>? headers,
+  }) async {
     try {
       final response = await _dio.put(
         path,
@@ -210,8 +216,10 @@ class HttpService {
   }
 
   /// 发送DELETE请求
-  Future<Map<String, dynamic>> deleteRequest(String path,
-      {Map<String, String>? headers}) async {
+  Future<Map<String, dynamic>> deleteRequest(
+    String path, {
+    Map<String, String>? headers,
+  }) async {
     try {
       final response = await _dio.delete(
         path,
@@ -237,13 +245,16 @@ class HttpService {
           httpConfig.obfuscationPrefix != null &&
           httpConfig.obfuscationPrefix!.isNotEmpty) {
         // 检测是否包含混淆前缀
-        final containsObfuscationPrefix =
-            responseText.contains(httpConfig.obfuscationPrefix!);
+        final containsObfuscationPrefix = responseText.contains(
+          httpConfig.obfuscationPrefix!,
+        );
 
         if (containsObfuscationPrefix) {
           // 反混淆：移除混淆前缀
-          final deobfuscated =
-              responseText.replaceAll(httpConfig.obfuscationPrefix!, '');
+          final deobfuscated = responseText.replaceAll(
+            httpConfig.obfuscationPrefix!,
+            '',
+          );
           return jsonDecode(deobfuscated);
         }
       }
@@ -275,8 +286,9 @@ class HttpService {
       if (_certificateLoadFailed) {
         SdkLogger.e('[HttpService] ❌ 证书加载失败，拒绝连接');
         throw CertificateException(
-            'Certificate pinning is enabled but certificate failed to load. '
-            'Refusing connection for security reasons.');
+          'Certificate pinning is enabled but certificate failed to load. '
+          'Refusing connection for security reasons.',
+        );
       }
 
       // 安全检查：如果启用了证书固定但没有期望的证书，拒绝连接
@@ -284,8 +296,9 @@ class HttpService {
           _expectedCertificatePem == null) {
         SdkLogger.e('[HttpService] ❌ 证书固定已启用但未加载期望证书');
         throw CertificateException(
-            'Certificate pinning is enabled but no expected certificate is available. '
-            'Refusing connection for security reasons.');
+          'Certificate pinning is enabled but no expected certificate is available. '
+          'Refusing connection for security reasons.',
+        );
       }
 
       // 打印服务器证书信息
@@ -293,19 +306,23 @@ class HttpService {
       SdkLogger.i('[HttpService]   - 主体: ${cert.subject}');
       SdkLogger.i('[HttpService]   - 签发者: ${cert.issuer}');
       SdkLogger.i(
-          '[HttpService]   - 有效期: ${cert.startValidity} ~ ${cert.endValidity}');
+        '[HttpService]   - 有效期: ${cert.startValidity} ~ ${cert.endValidity}',
+      );
 
       // 获取当前证书的PEM格式
       final currentCertPem = cert.pem;
 
       SdkLogger.i('[HttpService] 🔍 比较证书指纹...');
       SdkLogger.i(
-          '[HttpService]   - 期望证书长度: ${_expectedCertificatePem!.length} 字符');
+        '[HttpService]   - 期望证书长度: ${_expectedCertificatePem!.length} 字符',
+      );
       SdkLogger.i('[HttpService]   - 服务器证书长度: ${currentCertPem.length} 字符');
 
       // 比较证书内容（忽略空白字符差异）
-      final expectedNormalized =
-          _expectedCertificatePem!.replaceAll(RegExp(r'\s+'), '');
+      final expectedNormalized = _expectedCertificatePem!.replaceAll(
+        RegExp(r'\s+'),
+        '',
+      );
       final currentNormalized = currentCertPem.replaceAll(RegExp(r'\s+'), '');
 
       SdkLogger.i('[HttpService]   - 标准化后期望证书长度: ${expectedNormalized.length}');
@@ -316,12 +333,15 @@ class HttpService {
       if (!isValid) {
         SdkLogger.e('[HttpService] ❌ 证书不匹配！');
         SdkLogger.e(
-            '[HttpService]   - 期望证书前100字符: ${expectedNormalized.substring(0, 100.clamp(0, expectedNormalized.length))}');
+          '[HttpService]   - 期望证书前100字符: ${expectedNormalized.substring(0, 100.clamp(0, expectedNormalized.length))}',
+        );
         SdkLogger.e(
-            '[HttpService]   - 服务器证书前100字符: ${currentNormalized.substring(0, 100.clamp(0, currentNormalized.length))}');
+          '[HttpService]   - 服务器证书前100字符: ${currentNormalized.substring(0, 100.clamp(0, currentNormalized.length))}',
+        );
         throw CertificateException(
-            'Certificate verification failed for $host:$port. '
-            'The certificate does not match the expected certificate.');
+          'Certificate verification failed for $host:$port. '
+          'The certificate does not match the expected certificate.',
+        );
       }
 
       SdkLogger.i('[HttpService] ✅ 证书验证成功！');
@@ -340,7 +360,8 @@ class HttpService {
   Future<void> _loadClientCertificate() async {
     SdkLogger.i('[HttpService] 📋 开始加载证书...');
     SdkLogger.i(
-        '[HttpService]   - 证书固定: ${httpConfig.enableCertificatePinning}');
+      '[HttpService]   - 证书固定: ${httpConfig.enableCertificatePinning}',
+    );
     SdkLogger.i('[HttpService]   - 证书路径: ${httpConfig.certificatePath}');
 
     if (httpConfig.certificatePath == null ||
@@ -365,7 +386,8 @@ class HttpService {
       SdkLogger.i('[HttpService] ✅ 证书加载成功！');
       SdkLogger.i('[HttpService]   - 证书内容长度: ${certContent.length} 字符');
       SdkLogger.i(
-          '[HttpService]   - 证书前100字符: ${certContent.substring(0, 100.clamp(0, certContent.length))}');
+        '[HttpService]   - 证书前100字符: ${certContent.substring(0, 100.clamp(0, certContent.length))}',
+      );
     } catch (error) {
       _certificateLoadFailed = true;
       _expectedCertificatePem = null;
@@ -378,10 +400,7 @@ class HttpService {
   /// 标准化响应格式
   Map<String, dynamic> _normalizeResponse(dynamic responseData) {
     if (responseData is! Map<String, dynamic>) {
-      return {
-        'success': true,
-        'data': responseData,
-      };
+      return {'success': true, 'data': responseData};
     }
 
     final jsonResponse = responseData;
@@ -413,10 +432,7 @@ class HttpService {
       };
     } else {
       // 其他格式，包装为通用格式
-      return {
-        'success': true,
-        'data': jsonResponse,
-      };
+      return {'success': true, 'data': jsonResponse};
     }
   }
 
@@ -432,7 +448,8 @@ class HttpService {
 
       // 打印响应数据以便调试
       SdkLogger.w(
-          '[HttpService] Error Response (status: $statusCode): $responseData');
+        '[HttpService] Error Response (status: $statusCode): $responseData',
+      );
 
       // 尝试从响应中提取错误信息
       if (responseData is Map<String, dynamic>) {

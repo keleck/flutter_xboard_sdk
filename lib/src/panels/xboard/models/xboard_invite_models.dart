@@ -28,14 +28,16 @@ abstract class InviteCode with _$InviteCode {
     @Default(false)
     bool status,
     @JsonKey(
-        name: 'created_at',
-        fromJson: _fromUnixTimestamp,
-        toJson: _toUnixTimestamp)
+      name: 'created_at',
+      fromJson: _fromUnixTimestamp,
+      toJson: _toUnixTimestamp,
+    )
     required DateTime createdAt,
     @JsonKey(
-        name: 'updated_at',
-        fromJson: _fromUnixTimestamp,
-        toJson: _toUnixTimestamp)
+      name: 'updated_at',
+      fromJson: _fromUnixTimestamp,
+      toJson: _toUnixTimestamp,
+    )
     required DateTime updatedAt,
   }) = _InviteCode;
 
@@ -81,9 +83,10 @@ abstract class CommissionDetail with _$CommissionDetail {
     @JsonKey(name: 'trade_no') required String tradeNo,
     @JsonKey(name: 'get_amount') required int getAmount,
     @JsonKey(
-        name: 'created_at',
-        fromJson: _fromUnixTimestamp,
-        toJson: _toUnixTimestamp)
+      name: 'created_at',
+      fromJson: _fromUnixTimestamp,
+      toJson: _toUnixTimestamp,
+    )
     required DateTime createdAt,
   }) = _CommissionDetail;
 

@@ -12,10 +12,9 @@ class V2BoardBalanceApi {
     try {
       // V2Board expects amount in cents (integer)
       final amountInCents = (amount * 100).toInt();
-      final result = await _httpService.postRequest(
-        '/api/v1/user/transfer',
-        {'transfer_amount': amountInCents},
-      );
+      final result = await _httpService.postRequest('/api/v1/user/transfer', {
+        'transfer_amount': amountInCents,
+      });
       return TransferResult.fromJson(result);
     } catch (e) {
       if (e is XBoardException) rethrow;
@@ -24,7 +23,9 @@ class V2BoardBalanceApi {
   }
 
   Future<WithdrawResult> withdrawFunds(
-      String withdrawMethod, String withdrawAccount) async {
+    String withdrawMethod,
+    String withdrawAccount,
+  ) async {
     try {
       final result = await _httpService.postRequest(
         '/api/v1/user/comm/withdraw',

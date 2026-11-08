@@ -12,8 +12,9 @@ class XBoardInviteApi {
   Future<ApiResponse<InviteCode>> generateInviteCode() async {
     try {
       // 调用生成邀请码接口（返回 boolean）
-      final response =
-          await _httpService.getRequest('/api/v1/user/invite/save');
+      final response = await _httpService.getRequest(
+        '/api/v1/user/invite/save',
+      );
 
       // 检查是否成功
       if (response['data'] != true) {
@@ -21,10 +22,12 @@ class XBoardInviteApi {
       }
 
       // 重新获取邀请信息以获取新生成的邀请码
-      final inviteInfoResponse =
-          await _httpService.getRequest('/api/v1/user/invite/fetch');
+      final inviteInfoResponse = await _httpService.getRequest(
+        '/api/v1/user/invite/fetch',
+      );
       final inviteInfo = InviteInfo.fromJson(
-          inviteInfoResponse['data'] as Map<String, dynamic>);
+        inviteInfoResponse['data'] as Map<String, dynamic>,
+      );
 
       // 获取最新的邀请码（第一个）
       if (inviteInfo.codes.isEmpty) {
@@ -46,8 +49,9 @@ class XBoardInviteApi {
 
   Future<ApiResponse<InviteInfo>> getInviteInfo() async {
     try {
-      final response =
-          await _httpService.getRequest('/api/v1/user/invite/fetch');
+      final response = await _httpService.getRequest(
+        '/api/v1/user/invite/fetch',
+      );
       return ApiResponse.fromJson(
         response,
         (json) => InviteInfo.fromJson(json as Map<String, dynamic>),
@@ -108,10 +112,7 @@ class XBoardInviteApi {
 
     // 使用第一个有效的邀请码
     final code = codes
-        .firstWhere(
-          (c) => c.isActive,
-          orElse: () => codes.first,
-        )
+        .firstWhere((c) => c.isActive, orElse: () => codes.first)
         .code;
 
     return '$baseUrl/?code=$code';
@@ -123,12 +124,10 @@ class XBoardInviteApi {
     required Map<String, dynamic> params,
   }) async {
     try {
-      final response =
-          await _httpService.postRequest('/api/v1/user/invite/withdraw', {
-        'amount': amount,
-        'method': method,
-        ...params,
-      });
+      final response = await _httpService.postRequest(
+        '/api/v1/user/invite/withdraw',
+        {'amount': amount, 'method': method, ...params},
+      );
 
       return ApiResponse(
         success: true,
@@ -147,10 +146,10 @@ class XBoardInviteApi {
     try {
       // 假设接口为 /api/v1/user/invite/transfer
       // 如果实际接口不同，请修改此处
-      final response =
-          await _httpService.postRequest('/api/v1/user/invite/transfer', {
-        'amount': amount,
-      });
+      final response = await _httpService.postRequest(
+        '/api/v1/user/invite/transfer',
+        {'amount': amount},
+      );
 
       return ApiResponse(
         success: true,

@@ -7,15 +7,15 @@ part of 'notice_model.dart';
 // **************************************************************************
 
 _NoticeModel _$NoticeModelFromJson(Map<String, dynamic> json) => _NoticeModel(
-      id: (json['id'] as num).toInt(),
-      title: json['title'] as String,
-      content: json['content'] as String,
-      show: _showFromJson(json['show']),
-      imgUrl: json['img_url'] as String?,
-      tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
-      createdAt: _fromUnixTimestamp((json['created_at'] as num?)?.toInt()),
-      updatedAt: _fromUnixTimestamp((json['updated_at'] as num?)?.toInt()),
-    );
+  id: (json['id'] as num).toInt(),
+  title: json['title'] as String,
+  content: json['content'] as String,
+  show: _showFromJson(json['show']),
+  imgUrl: json['img_url'] as String?,
+  tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
+  createdAt: _fromUnixTimestamp((json['created_at'] as num?)?.toInt()),
+  updatedAt: _fromUnixTimestamp((json['updated_at'] as num?)?.toInt()),
+);
 
 Map<String, dynamic> _$NoticeModelToJson(_NoticeModel instance) =>
     <String, dynamic>{

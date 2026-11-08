@@ -72,14 +72,11 @@ class XBoardOrderApi {
 
   Future<ApiResponse<String>> createTopUpOrder(double amount) async {
     try {
-      final result = await _httpService.postRequest(
-        "/api/v1/user/order/save",
-        {
-          'plan_id': 0,
-          'period': 'month_price',
-          'deposit_amount': (amount * 100).toInt(),
-        },
-      );
+      final result = await _httpService.postRequest("/api/v1/user/order/save", {
+        'plan_id': 0,
+        'period': 'month_price',
+        'deposit_amount': (amount * 100).toInt(),
+      });
       return ApiResponse.fromJson(result, (data) => data.toString());
     } catch (e) {
       if (e is XBoardException) rethrow;
@@ -89,8 +86,9 @@ class XBoardOrderApi {
 
   Future<ApiResponse<List<PaymentMethod>>> getPaymentMethods() async {
     try {
-      final result =
-          await _httpService.getRequest("/api/v1/user/order/getPaymentMethod");
+      final result = await _httpService.getRequest(
+        "/api/v1/user/order/getPaymentMethod",
+      );
       return ApiResponse.fromJson(
         result,
         (json) => (json as List<dynamic>)
@@ -108,10 +106,7 @@ class XBoardOrderApi {
     required String method,
   }) async {
     try {
-      final request = SubmitOrderRequest(
-        tradeNo: tradeNo,
-        method: method,
-      );
+      final request = SubmitOrderRequest(tradeNo: tradeNo, method: method);
 
       final result = await _httpService.postRequest(
         "/api/v1/user/order/checkout",

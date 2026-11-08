@@ -7,14 +7,14 @@ part of 'xboard_invite_models.dart';
 // **************************************************************************
 
 _InviteCode _$InviteCodeFromJson(Map<String, dynamic> json) => _InviteCode(
-      id: (json['id'] as num?)?.toInt(),
-      userId: (json['user_id'] as num).toInt(),
-      code: json['code'] as String,
-      pv: (json['pv'] as num?)?.toInt() ?? 0,
-      status: json['status'] == null ? false : _intToBool(json['status']),
-      createdAt: _fromUnixTimestamp((json['created_at'] as num).toInt()),
-      updatedAt: _fromUnixTimestamp((json['updated_at'] as num).toInt()),
-    );
+  id: (json['id'] as num?)?.toInt(),
+  userId: (json['user_id'] as num).toInt(),
+  code: json['code'] as String,
+  pv: (json['pv'] as num?)?.toInt() ?? 0,
+  status: json['status'] == null ? false : _intToBool(json['status']),
+  createdAt: _fromUnixTimestamp((json['created_at'] as num).toInt()),
+  updatedAt: _fromUnixTimestamp((json['updated_at'] as num).toInt()),
+);
 
 Map<String, dynamic> _$InviteCodeToJson(_InviteCode instance) =>
     <String, dynamic>{
@@ -28,13 +28,11 @@ Map<String, dynamic> _$InviteCodeToJson(_InviteCode instance) =>
     };
 
 _InviteInfo _$InviteInfoFromJson(Map<String, dynamic> json) => _InviteInfo(
-      codes: (json['codes'] as List<dynamic>)
-          .map((e) => InviteCode.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      stat: (json['stat'] as List<dynamic>)
-          .map((e) => (e as num).toInt())
-          .toList(),
-    );
+  codes: (json['codes'] as List<dynamic>)
+      .map((e) => InviteCode.fromJson(e as Map<String, dynamic>))
+      .toList(),
+  stat: (json['stat'] as List<dynamic>).map((e) => (e as num).toInt()).toList(),
+);
 
 Map<String, dynamic> _$InviteInfoToJson(_InviteInfo instance) =>
     <String, dynamic>{

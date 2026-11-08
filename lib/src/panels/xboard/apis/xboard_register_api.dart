@@ -16,10 +16,7 @@ class XBoardRegisterApi {
   ) async {
     try {
       // 构建请求数据：只有非空值才传递字段
-      final data = <String, dynamic>{
-        "email": email,
-        "password": password,
-      };
+      final data = <String, dynamic>{"email": email, "password": password};
 
       // 邀请码：只有非空时才添加字段
       if (inviteCode != null && inviteCode.isNotEmpty) {

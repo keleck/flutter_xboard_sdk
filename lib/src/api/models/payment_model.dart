@@ -46,9 +46,8 @@ abstract class PaymentResultModel with _$PaymentResultModel {
     Map<String, dynamic>? extra,
   }) = PaymentResultFailed;
 
-  const factory PaymentResultModel.canceled({
-    String? message,
-  }) = PaymentResultCanceled;
+  const factory PaymentResultModel.canceled({String? message}) =
+      PaymentResultCanceled;
 
   factory PaymentResultModel.fromJson(Map<String, dynamic> json) =>
       _$PaymentResultModelFromJson(json);

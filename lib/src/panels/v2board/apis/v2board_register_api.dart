@@ -16,10 +16,7 @@ class V2BoardRegisterApi {
   ) async {
     try {
       // 只有非空值才添加字段
-      final data = <String, dynamic>{
-        'email': email,
-        'password': password,
-      };
+      final data = <String, dynamic>{'email': email, 'password': password};
 
       if (inviteCode != null && inviteCode.isNotEmpty) {
         data['invite_code'] = inviteCode;

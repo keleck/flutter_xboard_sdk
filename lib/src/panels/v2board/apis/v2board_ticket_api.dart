@@ -76,14 +76,11 @@ class V2BoardTicketApi {
     required String message,
   }) async {
     try {
-      await _httpService.postRequest(
-        '/api/v1/user/ticket/save',
-        {
-          'subject': subject,
-          'level': level,
-          'message': message,
-        },
-      );
+      await _httpService.postRequest('/api/v1/user/ticket/save', {
+        'subject': subject,
+        'level': level,
+        'message': message,
+      });
       return ApiResponse(success: true, data: true);
     } catch (e) {
       if (e is XBoardException) rethrow;

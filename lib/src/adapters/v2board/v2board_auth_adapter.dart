@@ -26,10 +26,18 @@ class V2BoardAuthAdapter implements AuthApi {
   }
 
   @override
-  Future<bool> register(String email, String password,
-      {String? emailCode, String? inviteCode}) async {
-    final response =
-        await _registerApi.register(email, password, inviteCode, emailCode);
+  Future<bool> register(
+    String email,
+    String password, {
+    String? emailCode,
+    String? inviteCode,
+  }) async {
+    final response = await _registerApi.register(
+      email,
+      password,
+      inviteCode,
+      emailCode,
+    );
     final data = response.data as Map<String, dynamic>?;
     return data != null && data.containsKey('token');
   }
@@ -47,7 +55,10 @@ class V2BoardAuthAdapter implements AuthApi {
 
   @override
   Future<bool> forgotPassword(
-      String email, String code, String newPassword) async {
+    String email,
+    String code,
+    String newPassword,
+  ) async {
     final response = await _resetPasswordApi.resetPassword(
       email: email,
       password: newPassword,

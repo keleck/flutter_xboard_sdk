@@ -32,14 +32,16 @@ abstract class Notice with _$Notice {
     @JsonKey(name: 'img_url') String? imgUrl,
     List<String>? tags,
     @JsonKey(
-        name: 'created_at',
-        fromJson: _fromUnixTimestamp,
-        toJson: _toUnixTimestamp)
+      name: 'created_at',
+      fromJson: _fromUnixTimestamp,
+      toJson: _toUnixTimestamp,
+    )
     required int createdAt,
     @JsonKey(
-        name: 'updated_at',
-        fromJson: _fromUnixTimestamp,
-        toJson: _toUnixTimestamp)
+      name: 'updated_at',
+      fromJson: _fromUnixTimestamp,
+      toJson: _toUnixTimestamp,
+    )
     required int updatedAt,
   }) = _Notice;
 
@@ -50,7 +52,7 @@ abstract class Notice with _$Notice {
 abstract class NoticeResponse with _$NoticeResponse {
   const factory NoticeResponse({
     required List<Notice>
-        data, // Renamed from notices to data to match ApiResponse
+    data, // Renamed from notices to data to match ApiResponse
     required int total,
   }) = _NoticeResponse;
 
@@ -64,10 +66,7 @@ abstract class NoticeResponse with _$NoticeResponse {
       final List<Notice> notices = dataField
           .map((e) => Notice.fromJson(e as Map<String, dynamic>))
           .toList();
-      return NoticeResponse(
-        data: notices,
-        total: notices.length,
-      );
+      return NoticeResponse(data: notices, total: notices.length);
     } else if (dataField is Map<String, dynamic>) {
       // If data is a map containing 'data' array and 'total'
       final Map<String, dynamic> innerData = dataField;
@@ -76,16 +75,10 @@ abstract class NoticeResponse with _$NoticeResponse {
           .toList();
       final int totalCount = innerData['total'] as int? ?? notices.length;
 
-      return NoticeResponse(
-        data: notices,
-        total: totalCount,
-      );
+      return NoticeResponse(data: notices, total: totalCount);
     } else {
       // Fallback: empty response
-      return const NoticeResponse(
-        data: [],
-        total: 0,
-      );
+      return const NoticeResponse(data: [], total: 0);
     }
   }
 }

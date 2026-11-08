@@ -85,13 +85,11 @@ class HttpConfig {
   /// 创建开发环境配置
   ///
   /// ⚠️ 警告：此配置仅用于开发/测试，不应在生产环境使用
-  factory HttpConfig.development({
-    String? userAgent,
-    String? proxyUrl,
-  }) {
+  factory HttpConfig.development({String? userAgent, String? proxyUrl}) {
     return HttpConfig(
       // 使用浏览器User-Agent避免WAF拦截
-      userAgent: userAgent ??
+      userAgent:
+          userAgent ??
           'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
       proxyUrl: proxyUrl,
       enableCertificatePinning: false,
@@ -144,10 +142,12 @@ class HttpConfig {
     String? proxyUrl,
   }) async {
     final userAgent = await getUserAgent();
-    final obfuscationPrefix =
-        getObfuscationPrefix != null ? await getObfuscationPrefix() : null;
-    final certPath =
-        getCertificatePath != null ? await getCertificatePath() : null;
+    final obfuscationPrefix = getObfuscationPrefix != null
+        ? await getObfuscationPrefix()
+        : null;
+    final certPath = getCertificatePath != null
+        ? await getCertificatePath()
+        : null;
     final certPinning = enableCertificatePinning != null
         ? await enableCertificatePinning()
         : false;

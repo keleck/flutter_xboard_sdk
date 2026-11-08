@@ -16,11 +16,7 @@ class V2BoardResetPasswordApi {
     try {
       final result = await _httpService.postRequest(
         '/api/v1/passport/auth/forget',
-        {
-          'email': email,
-          'password': password,
-          'email_code': emailCode,
-        },
+        {'email': email, 'password': password, 'email_code': emailCode},
       );
 
       return ApiResponse.fromJson(result, null);
