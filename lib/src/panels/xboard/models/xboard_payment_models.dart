@@ -34,15 +34,16 @@ enum PaymentStatus {
   }
 
   bool get isFinal {
-    return this == PaymentStatus.success || 
-           this == PaymentStatus.failed || 
-           this == PaymentStatus.canceled ||
-           this == PaymentStatus.timeout;
+    return this == PaymentStatus.success ||
+        this == PaymentStatus.failed ||
+        this == PaymentStatus.canceled ||
+        this == PaymentStatus.timeout;
   }
 
   bool get isSuccess => this == PaymentStatus.success;
 
-  bool get isFailed => this == PaymentStatus.failed || this == PaymentStatus.timeout;
+  bool get isFailed =>
+      this == PaymentStatus.failed || this == PaymentStatus.timeout;
 }
 
 @freezed
@@ -54,36 +55,34 @@ abstract class PaymentStatusResult with _$PaymentStatusResult {
     String? message,
   }) = _PaymentStatusResult;
 
-  factory PaymentStatusResult.fromJson(Map<String, dynamic> json) => _$PaymentStatusResultFromJson(json);
+  factory PaymentStatusResult.fromJson(Map<String, dynamic> json) =>
+      _$PaymentStatusResultFromJson(json);
 
-  factory PaymentStatusResult.success([String? message]) => 
-      PaymentStatusResult(
-        isSuccess: true, 
-        isCanceled: false, 
+  factory PaymentStatusResult.success([String? message]) => PaymentStatusResult(
+        isSuccess: true,
+        isCanceled: false,
         isPending: false,
         message: message,
       );
 
-  factory PaymentStatusResult.canceled([String? message]) => 
+  factory PaymentStatusResult.canceled([String? message]) =>
       PaymentStatusResult(
-        isSuccess: false, 
-        isCanceled: true, 
+        isSuccess: false,
+        isCanceled: true,
         isPending: false,
         message: message,
       );
 
-  factory PaymentStatusResult.pending([String? message]) => 
-      PaymentStatusResult(
-        isSuccess: false, 
-        isCanceled: false, 
+  factory PaymentStatusResult.pending([String? message]) => PaymentStatusResult(
+        isSuccess: false,
+        isCanceled: false,
         isPending: true,
         message: message,
       );
 
-  factory PaymentStatusResult.failed([String? message]) => 
-      PaymentStatusResult(
-        isSuccess: false, 
-        isCanceled: false, 
+  factory PaymentStatusResult.failed([String? message]) => PaymentStatusResult(
+        isSuccess: false,
+        isCanceled: false,
         isPending: false,
         message: message,
       );
@@ -124,7 +123,8 @@ abstract class PaymentMethodInfo with _$PaymentMethodInfo {
     return PaymentMethodInfo(
       id: json['id']?.toString() ?? '',
       name: _parseString(json['name']),
-      feePercent: _parseDouble(json['handling_fee_percent'] ?? json['fee_percent']),
+      feePercent:
+          _parseDouble(json['handling_fee_percent'] ?? json['fee_percent']),
       icon: json['icon'] as String?,
       isAvailable: json['is_available'] != false,
       config: json['config'] as Map<String, dynamic>?,
@@ -163,7 +163,8 @@ abstract class PaymentOrderInfo with _$PaymentOrderInfo {
 
   const PaymentOrderInfo._();
 
-  factory PaymentOrderInfo.fromJson(Map<String, dynamic> json) => _$PaymentOrderInfoFromJson(json);
+  factory PaymentOrderInfo.fromJson(Map<String, dynamic> json) =>
+      _$PaymentOrderInfoFromJson(json);
 
   double get actualDiscountAmount {
     return discountAmount ?? (originalAmount - finalAmount);
@@ -206,7 +207,8 @@ sealed class PaymentResult with _$PaymentResult {
     String? message,
   }) = PaymentResultCanceled;
 
-  factory PaymentResult.fromJson(Map<String, dynamic> json) => _$PaymentResultFromJson(json);
+  factory PaymentResult.fromJson(Map<String, dynamic> json) =>
+      _$PaymentResultFromJson(json);
 }
 
 @freezed
@@ -215,12 +217,15 @@ sealed class PaymentError with _$PaymentError {
 
   const factory PaymentError.noToken() = NoTokenError;
   const factory PaymentError.networkError([String? message]) = NetworkError;
-  const factory PaymentError.invalidResponse([String? message]) = InvalidResponseError;
+  const factory PaymentError.invalidResponse([String? message]) =
+      InvalidResponseError;
   const factory PaymentError.preCheckFailed([String? message]) = PreCheckError;
   const factory PaymentError.cannotLaunchUrl([String? url]) = UrlLaunchError;
   const factory PaymentError.timeout([String? message]) = PaymentTimeoutError;
-  const factory PaymentError.invalidAmount([String? message]) = InvalidAmountError;
-  const factory PaymentError.paymentMethodUnavailable([String? message]) = PaymentMethodUnavailableError;
+  const factory PaymentError.invalidAmount([String? message]) =
+      InvalidAmountError;
+  const factory PaymentError.paymentMethodUnavailable([String? message]) =
+      PaymentMethodUnavailableError;
   const factory PaymentError.unknownError(String message) = UnknownError;
 
   factory PaymentError.fromException(dynamic e) {
@@ -232,13 +237,20 @@ sealed class PaymentError with _$PaymentError {
   String toString() {
     return map(
       noToken: (_) => 'PaymentError(NO_TOKEN): No access token available',
-      networkError: (e) => 'PaymentError(NETWORK_ERROR): ${e.message ?? 'Network request failed'}',
-      invalidResponse: (e) => 'PaymentError(INVALID_RESPONSE): ${e.message ?? 'Invalid server response'}',
-      preCheckFailed: (e) => 'PaymentError(PRE_CHECK_FAILED): ${e.message ?? 'Payment pre-check failed'}',
-      cannotLaunchUrl: (e) => 'PaymentError(URL_LAUNCH_ERROR): ${e.url != null ? 'Cannot launch payment URL: ${e.url}' : 'Cannot launch payment URL'}',
-      timeout: (e) => 'PaymentError(TIMEOUT): ${e.message ?? 'Payment timeout'}',
-      invalidAmount: (e) => 'PaymentError(INVALID_AMOUNT): ${e.message ?? 'Invalid payment amount'}',
-      paymentMethodUnavailable: (e) => 'PaymentError(METHOD_UNAVAILABLE): ${e.message ?? 'Payment method is not available'}',
+      networkError: (e) =>
+          'PaymentError(NETWORK_ERROR): ${e.message ?? 'Network request failed'}',
+      invalidResponse: (e) =>
+          'PaymentError(INVALID_RESPONSE): ${e.message ?? 'Invalid server response'}',
+      preCheckFailed: (e) =>
+          'PaymentError(PRE_CHECK_FAILED): ${e.message ?? 'Payment pre-check failed'}',
+      cannotLaunchUrl: (e) =>
+          'PaymentError(URL_LAUNCH_ERROR): ${e.url != null ? 'Cannot launch payment URL: ${e.url}' : 'Cannot launch payment URL'}',
+      timeout: (e) =>
+          'PaymentError(TIMEOUT): ${e.message ?? 'Payment timeout'}',
+      invalidAmount: (e) =>
+          'PaymentError(INVALID_AMOUNT): ${e.message ?? 'Invalid payment amount'}',
+      paymentMethodUnavailable: (e) =>
+          'PaymentError(METHOD_UNAVAILABLE): ${e.message ?? 'Payment method is not available'}',
       unknownError: (e) => 'PaymentError(UNKNOWN_ERROR): ${e.message}',
     );
   }
@@ -258,10 +270,10 @@ abstract class PaymentState with _$PaymentState {
   const PaymentState._();
 
   bool get canPay {
-    return orderInfo != null && 
-           !isLoading && 
-           status != PaymentStatus.processing &&
-           paymentMethods.isNotEmpty;
+    return orderInfo != null &&
+        !isLoading &&
+        status != PaymentStatus.processing &&
+        paymentMethods.isNotEmpty;
   }
 
   bool get isCompleted {
@@ -280,7 +292,8 @@ abstract class PaymentRequest with _$PaymentRequest {
     required String method,
   }) = _PaymentRequest;
 
-  factory PaymentRequest.fromJson(Map<String, dynamic> json) => _$PaymentRequestFromJson(json);
+  factory PaymentRequest.fromJson(Map<String, dynamic> json) =>
+      _$PaymentRequestFromJson(json);
 }
 
 @freezed
@@ -292,5 +305,6 @@ abstract class PaymentResponse with _$PaymentResponse {
     Map<String, dynamic>? data,
   }) = _PaymentResponse;
 
-  factory PaymentResponse.fromJson(Map<String, dynamic> json) => _$PaymentResponseFromJson(json);
+  factory PaymentResponse.fromJson(Map<String, dynamic> json) =>
+      _$PaymentResponseFromJson(json);
 }

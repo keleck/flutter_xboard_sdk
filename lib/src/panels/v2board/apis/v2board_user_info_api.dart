@@ -13,15 +13,16 @@ class V2BoardUserInfoApi {
   Future<ApiResponse<UserInfo>> getUserInfo() async {
     try {
       final result = await _httpService.getRequest('/api/v1/user/info');
-      
+
       if (result['data'] != null) {
-        final userInfo = UserInfo.fromJson(result['data'] as Map<String, dynamic>);
+        final userInfo =
+            UserInfo.fromJson(result['data'] as Map<String, dynamic>);
         return ApiResponse(
           success: true,
           data: userInfo,
         );
       }
-      
+
       return ApiResponse(
         success: false,
         message: result['message'] ?? '获取用户信息失败',
@@ -34,7 +35,8 @@ class V2BoardUserInfoApi {
 
   Future<ApiResponse<List<TrafficLog>>> getTrafficLogs() async {
     try {
-      final result = await _httpService.getRequest('/api/v1/user/stat/getTrafficLog');
+      final result =
+          await _httpService.getRequest('/api/v1/user/stat/getTrafficLog');
       return ApiResponse.fromJson(
         result,
         (json) => (json as List)
@@ -62,10 +64,10 @@ class V2BoardUserInfoApi {
   Future<ApiResponse<String?>> getSubscriptionLink() async {
     try {
       final result = await _httpService.getRequest('/api/v1/user/getSubscribe');
-      
+
       final data = result['data'] as Map<String, dynamic>?;
       final subscribeUrl = data?['subscribe_url'] as String?;
-      
+
       return ApiResponse(
         success: subscribeUrl != null,
         data: subscribeUrl,
@@ -78,8 +80,9 @@ class V2BoardUserInfoApi {
 
   Future<ApiResponse<String?>> resetSubscriptionLink() async {
     try {
-      final result = await _httpService.getRequest('/api/v1/user/resetSecurity');
-      
+      final result =
+          await _httpService.getRequest('/api/v1/user/resetSecurity');
+
       final data = result['data'] as String?;
       return ApiResponse(
         success: data != null,
@@ -97,7 +100,7 @@ class V2BoardUserInfoApi {
         '/api/v1/user/update',
         {'remind_traffic': value ? 1 : 0},
       );
-      
+
       return ApiResponse.fromJson(result, null);
     } catch (e) {
       if (e is XBoardException) rethrow;
@@ -111,16 +114,18 @@ class V2BoardUserInfoApi {
         '/api/v1/user/update',
         {'remind_expire': value ? 1 : 0},
       );
-      
+
       return ApiResponse.fromJson(result, null);
     } catch (e) {
       if (e is XBoardException) rethrow;
       throw ApiException('V2Board 切换到期提醒失败: $e');
     }
   }
+
   Future<ApiResponse<void>> updateUserInfo(Map<String, dynamic> data) async {
     try {
-      final result = await _httpService.postRequest('/api/v1/user/update', data);
+      final result =
+          await _httpService.postRequest('/api/v1/user/update', data);
       return ApiResponse.fromJson(result, null);
     } catch (e) {
       if (e is XBoardException) rethrow;
@@ -131,7 +136,8 @@ class V2BoardUserInfoApi {
   /// 提前开启流量周期（重置流量）
   Future<ApiResponse<bool>> fetchTransfer() async {
     try {
-      final result = await _httpService.postRequest('/api/v1/user/newPeriod', {});
+      final result =
+          await _httpService.postRequest('/api/v1/user/newPeriod', {});
       return ApiResponse(
         success: result['data'] == true,
         data: result['data'] == true,

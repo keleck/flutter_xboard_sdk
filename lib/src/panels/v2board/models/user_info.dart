@@ -8,7 +8,7 @@ part 'user_info.g.dart';
 @freezed
 abstract class UserInfo with _$UserInfo {
   const UserInfo._();
-  
+
   const factory UserInfo({
     required String email,
     @JsonKey(name: 'transfer_enable') int? transferEnable,
@@ -28,35 +28,36 @@ abstract class UserInfo with _$UserInfo {
     @JsonKey(name: 'telegram_id') int? telegramId,
     String? uuid,
     @JsonKey(name: 'avatar_url') String? avatarUrl,
-    
+
     /// 已上传流量 (bytes)
     int? u,
-    
+
     /// 已下载流量 (bytes)
     int? d,
   }) = _UserInfo;
-  
-  factory UserInfo.fromJson(Map<String, dynamic> json) => _$UserInfoFromJson(json);
-  
+
+  factory UserInfo.fromJson(Map<String, dynamic> json) =>
+      _$UserInfoFromJson(json);
+
   /// 是否已过期
   bool get isExpired {
     if (expiredAt == null) return false;
     return expiredAt! * 1000 < DateTime.now().millisecondsSinceEpoch;
   }
-  
+
   /// 是否被封禁
   bool get isBanned => banned == 1;
-  
+
   /// 已使用流量 (bytes)
   int get usedTraffic => (u ?? 0) + (d ?? 0);
-  
+
   /// 剩余流量 (bytes)
   int get remainingTraffic {
     final total = transferEnable ?? 0;
     final used = usedTraffic;
     return (total - used).clamp(0, total);
   }
-  
+
   /// 流量使用百分比 (0-100)
   double get trafficUsagePercent {
     final total = transferEnable ?? 0;

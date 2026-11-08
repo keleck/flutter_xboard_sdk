@@ -21,27 +21,31 @@ class XBoardOrderAdapter implements OrderApi {
   }
 
   @override
-  Future<String> createOrder(int planId, String period, {String? couponCode}) async {
+  Future<String> createOrder(int planId, String period,
+      {String? couponCode}) async {
     final response = await _api.createOrder(
       planId: planId,
       period: period,
       couponCode: couponCode,
     );
-    if (response.data == null) throw Exception('Order creation failed: no data returned');
+    if (response.data == null)
+      throw Exception('Order creation failed: no data returned');
     return response.data!;
   }
 
   @override
   Future<String> createTopUpOrder(double amount) async {
     final response = await _api.createTopUpOrder(amount);
-    if (response.data == null) throw Exception('Top-up order creation failed: no data returned');
+    if (response.data == null)
+      throw Exception('Top-up order creation failed: no data returned');
     return response.data!;
   }
 
   @override
-  Future<PaymentResultModel> checkoutOrder(String tradeNo, String method) async {
+  Future<PaymentResultModel> checkoutOrder(
+      String tradeNo, String method) async {
     final response = await _api.submitPayment(tradeNo: tradeNo, method: method);
-    
+
     // type: -1 = 余额支付成功, 0 = 跳转支付, 1 = 二维码支付
     if (response.type == -1) {
       // 余额支付成功
@@ -55,7 +59,8 @@ class XBoardOrderAdapter implements OrderApi {
         return PaymentResultModel.failed(message: '支付URL为空');
       }
     } else {
-      return PaymentResultModel.failed(message: 'Unknown payment result type: ${response.type}');
+      return PaymentResultModel.failed(
+          message: 'Unknown payment result type: ${response.type}');
     }
   }
 
@@ -87,7 +92,8 @@ class XBoardOrderAdapter implements OrderApi {
       period: order.period,
       status: order.status,
       createdAt: order.createdAt,
-      orderPlan: order.orderPlan != null ? _mapOrderPlan(order.orderPlan!) : null,
+      orderPlan:
+          order.orderPlan != null ? _mapOrderPlan(order.orderPlan!) : null,
     );
   }
 
@@ -109,6 +115,7 @@ class XBoardOrderAdapter implements OrderApi {
       config: method.config,
     );
   }
+
   @override
   Future<CouponModel?> checkCoupon(String code, int planId) async {
     try {

@@ -22,7 +22,7 @@ class V2BoardResetPasswordApi {
           'email_code': emailCode,
         },
       );
-      
+
       return ApiResponse.fromJson(result, null);
     } catch (e) {
       if (e is XBoardException) rethrow;

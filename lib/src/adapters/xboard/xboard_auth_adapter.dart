@@ -24,14 +24,17 @@ class XBoardAuthAdapter implements AuthApi {
   }
 
   @override
-  Future<bool> register(String email, String password, {String? emailCode, String? inviteCode}) async {
-    final response = await _registerApi.register(email, password, inviteCode, emailCode);
+  Future<bool> register(String email, String password,
+      {String? emailCode, String? inviteCode}) async {
+    final response =
+        await _registerApi.register(email, password, inviteCode, emailCode);
     // Assuming response.data is Map and contains token
     final data = response.data as Map<String, dynamic>?;
     return data != null && data.containsKey('token');
   }
 
-  Future<bool> resetPassword(String email, String password, String emailCode) async {
+  Future<bool> resetPassword(
+      String email, String password, String emailCode) async {
     final response = await _resetPasswordApi.resetPassword(
       email: email,
       password: password,
@@ -54,7 +57,8 @@ class XBoardAuthAdapter implements AuthApi {
   }
 
   @override
-  Future<bool> forgotPassword(String email, String code, String newPassword) async {
+  Future<bool> forgotPassword(
+      String email, String code, String newPassword) async {
     final response = await _resetPasswordApi.resetPassword(
       email: email,
       password: newPassword,

@@ -12,7 +12,8 @@ class V2BoardInviteApi {
   Future<ApiResponse<InviteInfo>> getInviteInfo() async {
     try {
       final result = await _httpService.getRequest('/api/v1/user/invite/fetch');
-      final inviteInfo = InviteInfo.fromJson(result['data'] as Map<String, dynamic>);
+      final inviteInfo =
+          InviteInfo.fromJson(result['data'] as Map<String, dynamic>);
       return ApiResponse(success: true, data: inviteInfo);
     } catch (e) {
       if (e is XBoardException) rethrow;
@@ -25,15 +26,17 @@ class V2BoardInviteApi {
       final result = await _httpService.getRequest('/api/v1/user/invite/save');
       // V2Board 的 save 接口可能不直接返回邀请码对象，而是返回成功状态或空
       // 如果返回的是 bool 或 null，我们需要重新获取邀请列表来拿到最新的邀请码
-      
+
       // 重新获取邀请信息
-      final inviteInfoResult = await _httpService.getRequest('/api/v1/user/invite/fetch');
-      final inviteInfo = InviteInfo.fromJson(inviteInfoResult['data'] as Map<String, dynamic>);
-      
+      final inviteInfoResult =
+          await _httpService.getRequest('/api/v1/user/invite/fetch');
+      final inviteInfo =
+          InviteInfo.fromJson(inviteInfoResult['data'] as Map<String, dynamic>);
+
       if (inviteInfo.codes.isEmpty) {
         throw ApiException('生成邀请码成功，但未找到邀请码');
       }
-      
+
       // 返回最新的邀请码（通常是列表中的第一个或最后一个，取决于排序，这里假设是第一个）
       // 如果需要更精确的逻辑，可以比较创建时间
       return ApiResponse(success: true, data: inviteInfo.codes.first);
@@ -53,7 +56,8 @@ class V2BoardInviteApi {
       );
       final List<dynamic> detailsJson = result['data'] as List? ?? [];
       final details = detailsJson
-          .map((json) => CommissionDetail.fromJson(json as Map<String, dynamic>))
+          .map(
+              (json) => CommissionDetail.fromJson(json as Map<String, dynamic>))
           .toList();
       return ApiResponse(success: true, data: details);
     } catch (e) {

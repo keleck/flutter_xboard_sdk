@@ -11,7 +11,7 @@ enum PanelType {
   xv2b('xv2b');
 
   const PanelType(this.value);
-  
+
   /// 字符串值
   final String value;
 

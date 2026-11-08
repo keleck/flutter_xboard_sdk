@@ -5,9 +5,12 @@ part 'xboard_coupon_models.freezed.dart';
 part 'xboard_coupon_models.g.dart';
 
 // Helper functions for DateTime to Unix timestamp conversion
-int? _toUnixTimestamp(DateTime? date) => date?.millisecondsSinceEpoch == null ? null : date!.millisecondsSinceEpoch ~/ 1000;
-DateTime? _fromUnixTimestamp(int? timestamp) =>
-    timestamp != null ? DateTime.fromMillisecondsSinceEpoch(timestamp * 1000) : null;
+int? _toUnixTimestamp(DateTime? date) => date?.millisecondsSinceEpoch == null
+    ? null
+    : date!.millisecondsSinceEpoch ~/ 1000;
+DateTime? _fromUnixTimestamp(int? timestamp) => timestamp != null
+    ? DateTime.fromMillisecondsSinceEpoch(timestamp * 1000)
+    : null;
 
 // Helper functions for int/bool conversion
 bool _intToBool(dynamic value) {
@@ -33,19 +36,31 @@ abstract class CouponData with _$CouponData {
     @JsonKey(name: 'limit_use_with_user') int? limitUseWithUser, // 单用户使用限制
     @JsonKey(name: 'limit_plan_ids') List<String>? limitPlanIds, // 限制的套餐ID列表
     dynamic limitPeriod, // Added limit_period
-    @JsonKey(name: 'started_at', fromJson: _fromUnixTimestamp, toJson: _toUnixTimestamp)
+    @JsonKey(
+        name: 'started_at',
+        fromJson: _fromUnixTimestamp,
+        toJson: _toUnixTimestamp)
     DateTime? startedAt, // 开始时间
-    @JsonKey(name: 'ended_at', fromJson: _fromUnixTimestamp, toJson: _toUnixTimestamp)
+    @JsonKey(
+        name: 'ended_at',
+        fromJson: _fromUnixTimestamp,
+        toJson: _toUnixTimestamp)
     DateTime? endedAt, // 结束时间
-    @JsonKey(fromJson: _intToBool, toJson: _boolToInt)
-    bool? show, // 是否显示
-    @JsonKey(name: 'created_at', fromJson: _fromUnixTimestamp, toJson: _toUnixTimestamp)
+    @JsonKey(fromJson: _intToBool, toJson: _boolToInt) bool? show, // 是否显示
+    @JsonKey(
+        name: 'created_at',
+        fromJson: _fromUnixTimestamp,
+        toJson: _toUnixTimestamp)
     DateTime? createdAt,
-    @JsonKey(name: 'updated_at', fromJson: _fromUnixTimestamp, toJson: _toUnixTimestamp)
+    @JsonKey(
+        name: 'updated_at',
+        fromJson: _fromUnixTimestamp,
+        toJson: _toUnixTimestamp)
     DateTime? updatedAt,
   }) = _CouponData;
 
-  factory CouponData.fromJson(Map<String, dynamic> json) => _$CouponDataFromJson(json);
+  factory CouponData.fromJson(Map<String, dynamic> json) =>
+      _$CouponDataFromJson(json);
 }
 
 @freezed
@@ -57,5 +72,6 @@ abstract class CouponResponse with _$CouponResponse {
     Map<String, dynamic>? errors,
   }) = _CouponResponse;
 
-  factory CouponResponse.fromJson(Map<String, dynamic> json) => _$CouponResponseFromJson(json);
+  factory CouponResponse.fromJson(Map<String, dynamic> json) =>
+      _$CouponResponseFromJson(json);
 }

@@ -42,4 +42,3 @@ export 'src/api/models/ticket_model.dart';
 export 'src/api/models/user_model.dart';
 export 'src/api/models/coupon_model.dart';
 export 'src/api/models/traffic_log_model.dart';
-

@@ -14,7 +14,7 @@ class V2BoardSendEmailCodeApi {
         '/api/v1/passport/comm/sendEmailVerify',
         {'email': email},
       );
-      
+
       return SendEmailCodeResult.fromJson(result);
     } catch (e) {
       if (e is XBoardException) rethrow;

@@ -23,7 +23,8 @@ class V2BoardBalanceApi {
     }
   }
 
-  Future<WithdrawResult> withdrawFunds(String withdrawMethod, String withdrawAccount) async {
+  Future<WithdrawResult> withdrawFunds(
+      String withdrawMethod, String withdrawAccount) async {
     try {
       final result = await _httpService.postRequest(
         '/api/v1/user/comm/withdraw',

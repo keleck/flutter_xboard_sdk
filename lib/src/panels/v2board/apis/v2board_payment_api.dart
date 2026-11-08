@@ -11,20 +11,22 @@ class V2BoardPaymentApi {
 
   Future<ApiResponse<List<PaymentMethodInfo>>> getPaymentMethods() async {
     try {
-      final result = await _httpService.getRequest('/api/v1/user/order/getPaymentMethod');
-      
+      final result =
+          await _httpService.getRequest('/api/v1/user/order/getPaymentMethod');
+
       if (result['data'] != null) {
         final List<dynamic> methodsJson = result['data'] as List;
         final methods = methodsJson
-            .map((json) => PaymentMethodInfo.fromJson(json as Map<String, dynamic>))
+            .map((json) =>
+                PaymentMethodInfo.fromJson(json as Map<String, dynamic>))
             .toList();
-        
+
         return ApiResponse(
           success: true,
           data: methods,
         );
       }
-      
+
       return ApiResponse(
         success: false,
         data: [],
@@ -36,7 +38,8 @@ class V2BoardPaymentApi {
     }
   }
 
-  Future<ApiResponse<Map<String, dynamic>>> submitOrderPayment(PaymentRequest request) async {
+  Future<ApiResponse<Map<String, dynamic>>> submitOrderPayment(
+      PaymentRequest request) async {
     try {
       final result = await _httpService.postRequest(
         '/api/v1/user/order/checkout',
@@ -45,7 +48,7 @@ class V2BoardPaymentApi {
           'method': request.method,
         },
       );
-      
+
       return ApiResponse(
         success: true,
         data: result['data'] as Map<String, dynamic>?,
@@ -57,12 +60,13 @@ class V2BoardPaymentApi {
     }
   }
 
-  Future<ApiResponse<PaymentStatusResult>> checkPaymentStatus(String tradeNo) async {
+  Future<ApiResponse<PaymentStatusResult>> checkPaymentStatus(
+      String tradeNo) async {
     try {
       final result = await _httpService.getRequest(
         '/api/v1/user/order/check?trade_no=$tradeNo',
       );
-      
+
       final status = PaymentStatusResult.fromJson(result);
       return ApiResponse(
         success: true,
@@ -74,7 +78,8 @@ class V2BoardPaymentApi {
     }
   }
 
-  Future<ApiResponse<PaymentStatusResult>> checkOrderStatus(String tradeNo) async {
+  Future<ApiResponse<PaymentStatusResult>> checkOrderStatus(
+      String tradeNo) async {
     return checkPaymentStatus(tradeNo);
   }
 
@@ -84,7 +89,7 @@ class V2BoardPaymentApi {
         '/api/v1/user/order/cancel',
         {'trade_no': tradeNo},
       );
-      
+
       return ApiResponse.fromJson(result, null);
     } catch (e) {
       if (e is XBoardException) rethrow;

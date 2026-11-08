@@ -20,17 +20,17 @@ class XBoardRegisterApi {
         "email": email,
         "password": password,
       };
-      
+
       // 邀请码：只有非空时才添加字段
       if (inviteCode != null && inviteCode.isNotEmpty) {
         data["invite_code"] = inviteCode;
       }
-      
+
       // 邮箱验证码：只有非空时才添加字段
       if (emailCode != null && emailCode.isNotEmpty) {
         data["email_code"] = emailCode;
       }
-      
+
       final response = await _httpService.postRequest(
         "/api/v1/passport/auth/register",
         data,

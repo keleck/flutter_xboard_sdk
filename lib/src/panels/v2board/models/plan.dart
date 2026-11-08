@@ -8,7 +8,7 @@ part 'plan.g.dart';
 @freezed
 abstract class Plan with _$Plan {
   const Plan._();
-  
+
   const factory Plan({
     required int id,
     @JsonKey(name: 'group_id') int? groupId,
@@ -31,9 +31,9 @@ abstract class Plan with _$Plan {
     @JsonKey(name: 'speed_limit') int? speedLimit,
     @JsonKey(name: 'device_limit') int? deviceLimit,
   }) = _Plan;
-  
+
   factory Plan.fromJson(Map<String, dynamic> json) => _$PlanFromJson(json);
-  
+
   /// 获取指定周期的价格
   int? getPriceForPeriod(String period) {
     switch (period) {
@@ -57,13 +57,13 @@ abstract class Plan with _$Plan {
         return null;
     }
   }
-  
+
   /// 是否显示
   bool get isVisible => show == 1;
-  
+
   /// 是否可续费
   bool get isRenewable => renew == 1;
-  
+
   /// 流量大小（GB）
   double? get transferGB {
     if (transferEnable == null) return null;

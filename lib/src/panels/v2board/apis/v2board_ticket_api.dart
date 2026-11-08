@@ -14,7 +14,9 @@ class V2BoardTicketApi {
     try {
       final result = await _httpService.getRequest('/api/v1/user/ticket/fetch');
       final List<dynamic> ticketsJson = result['data'] as List? ?? [];
-      final tickets = ticketsJson.map((json) => Ticket.fromJson(json as Map<String, dynamic>)).toList();
+      final tickets = ticketsJson
+          .map((json) => Ticket.fromJson(json as Map<String, dynamic>))
+          .toList();
       return ApiResponse(success: true, data: tickets);
     } catch (e) {
       if (e is XBoardException) rethrow;
@@ -30,15 +32,15 @@ class V2BoardTicketApi {
       developer.log('V2Board Ticket Detail Response: $result');
       final data = result['data'] as Map<String, dynamic>;
       developer.log('Ticket data: $data');
-      
+
       // V2Board API 返回 'message' 字段（消息列表），需要转换为 'messages'
       if (data.containsKey('message') && !data.containsKey('messages')) {
         data['messages'] = data.remove('message');
         developer.log('Converted message field to messages');
       }
-      
+
       developer.log('Messages raw: ${data['messages']}');
-      
+
       // 确保messages字段存在且为正确的列表格式
       if (data['messages'] == null) {
         data['messages'] = [];
@@ -57,7 +59,7 @@ class V2BoardTicketApi {
           }
         }
       }
-      
+
       final ticket = TicketDetail.fromJson(data);
       developer.log('Parsed ticket messages count: ${ticket.messages.length}');
       return ApiResponse(success: true, data: ticket);

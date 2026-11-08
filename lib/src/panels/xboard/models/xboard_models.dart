@@ -1,5 +1,5 @@
 /// 统一导出所有 XBoard 数据模型
-/// 
+///
 /// 使用方式：
 /// ```dart
 /// import '../models/xboard_models.dart';

@@ -7,7 +7,8 @@ class SdkLogger {
   static bool _usePrint = false;
   static String _tag = 'XBoardSDK';
 
-  static void enable({bool enabled = true, String tag = 'XBoardSDK', bool usePrint = false}) {
+  static void enable(
+      {bool enabled = true, String tag = 'XBoardSDK', bool usePrint = false}) {
     _enabled = enabled;
     _tag = tag;
     _usePrint = usePrint;
@@ -20,7 +21,8 @@ class SdkLogger {
         if (error != null) print('Error: $error');
         if (stackTrace != null) print('StackTrace: $stackTrace');
       } else {
-        developer.log(message, name: _tag, error: error, stackTrace: stackTrace, level: 500);
+        developer.log(message,
+            name: _tag, error: error, stackTrace: stackTrace, level: 500);
       }
     }
   }
@@ -31,7 +33,8 @@ class SdkLogger {
         print('[$_tag] ℹ️ $message');
         if (error != null) print('Error: $error');
       } else {
-        developer.log(message, name: _tag, error: error, stackTrace: stackTrace, level: 800);
+        developer.log(message,
+            name: _tag, error: error, stackTrace: stackTrace, level: 800);
       }
     }
   }
@@ -43,7 +46,8 @@ class SdkLogger {
         if (error != null) print('Error: $error');
         if (stackTrace != null) print('StackTrace: $stackTrace');
       } else {
-        developer.log(message, name: _tag, error: error, stackTrace: stackTrace, level: 900);
+        developer.log(message,
+            name: _tag, error: error, stackTrace: stackTrace, level: 900);
       }
     }
   }
@@ -55,7 +59,8 @@ class SdkLogger {
         if (error != null) print('Error: $error');
         if (stackTrace != null) print('StackTrace: $stackTrace');
       } else {
-        developer.log(message, name: _tag, error: error, stackTrace: stackTrace, level: 1000);
+        developer.log(message,
+            name: _tag, error: error, stackTrace: stackTrace, level: 1000);
       }
     }
   }

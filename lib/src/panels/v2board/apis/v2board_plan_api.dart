@@ -12,19 +12,19 @@ class V2BoardPlanApi {
   Future<ApiResponse<List<Plan>>> fetchPlans() async {
     try {
       final result = await _httpService.getRequest('/api/v1/user/plan/fetch');
-      
+
       if (result['data'] != null) {
         final List<dynamic> plansJson = result['data'] as List;
         final plans = plansJson
             .map((json) => Plan.fromJson(json as Map<String, dynamic>))
             .toList();
-        
+
         return ApiResponse(
           success: true,
           data: plans,
         );
       }
-      
+
       return ApiResponse(
         success: false,
         data: [],

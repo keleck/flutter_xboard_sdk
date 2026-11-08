@@ -9,7 +9,7 @@ abstract class PaymentMethodModel with _$PaymentMethodModel {
   const factory PaymentMethodModel({
     required String id,
     required String name,
-    @JsonKey(name: 'payment') String? paymentMethod,  // API字段为payment
+    @JsonKey(name: 'payment') String? paymentMethod, // API字段为payment
     @JsonKey(name: 'handling_fee_fixed') double? handlingFeeFixed,
     @JsonKey(name: 'handling_fee_percent') double? handlingFeePercent,
     String? icon,
@@ -22,7 +22,8 @@ abstract class PaymentMethodModel with _$PaymentMethodModel {
 
   const PaymentMethodModel._();
 
-  factory PaymentMethodModel.fromJson(Map<String, dynamic> json) => _$PaymentMethodModelFromJson(json);
+  factory PaymentMethodModel.fromJson(Map<String, dynamic> json) =>
+      _$PaymentMethodModelFromJson(json);
 }
 
 @freezed
@@ -49,5 +50,6 @@ abstract class PaymentResultModel with _$PaymentResultModel {
     String? message,
   }) = PaymentResultCanceled;
 
-  factory PaymentResultModel.fromJson(Map<String, dynamic> json) => _$PaymentResultModelFromJson(json);
+  factory PaymentResultModel.fromJson(Map<String, dynamic> json) =>
+      _$PaymentResultModelFromJson(json);
 }

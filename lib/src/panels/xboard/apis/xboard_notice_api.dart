@@ -12,10 +12,10 @@ class XBoardNoticeApi {
   Future<ApiResponse<List<Notice>>> fetchNotices() async {
     try {
       final result = await _httpService.getRequest('/api/v1/user/notice/fetch');
-      
+
       // API 返回的 data 可能是 Map (包含 data 数组和 total) 或直接是 List
       final dynamic dataField = result['data'];
-      
+
       List<Notice> notices;
       if (dataField is List) {
         // 如果 data 直接是数组
@@ -31,7 +31,7 @@ class XBoardNoticeApi {
       } else {
         notices = [];
       }
-      
+
       return ApiResponse(
         success: true,
         data: notices,

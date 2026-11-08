@@ -19,7 +19,8 @@ class V2BoardPaymentAdapter implements PaymentApi {
     return PaymentMethodModel(
       id: method.id.toString(),
       name: method.name,
-      paymentMethod: method.name, // Fallback to name as identifier is not available
+      paymentMethod:
+          method.name, // Fallback to name as identifier is not available
       handlingFeeFixed: 0, // Not available in PaymentMethodInfo
       handlingFeePercent: 0, // Not available in PaymentMethodInfo
       icon: method.icon,

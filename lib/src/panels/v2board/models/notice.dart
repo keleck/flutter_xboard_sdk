@@ -8,7 +8,7 @@ part 'notice.g.dart';
 @freezed
 abstract class Notice with _$Notice {
   const Notice._();
-  
+
   const factory Notice({
     int? id,
     String? title,
@@ -18,9 +18,9 @@ abstract class Notice with _$Notice {
     @JsonKey(name: 'created_at') int? createdAt,
     @JsonKey(name: 'updated_at') int? updatedAt,
   }) = _Notice;
-  
+
   factory Notice.fromJson(Map<String, dynamic> json) => _$NoticeFromJson(json);
-  
+
   /// 是否显示
   bool get isVisible => show == 1;
 }

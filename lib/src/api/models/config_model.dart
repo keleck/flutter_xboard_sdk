@@ -33,27 +33,39 @@ dynamic _emailWhitelistToJson(List<String> value) {
 abstract class ConfigModel with _$ConfigModel {
   const factory ConfigModel({
     @JsonKey(name: 'tos_url') String? tosUrl,
-    @JsonKey(name: 'is_email_verify', fromJson: _intToBoolSafe, toJson: _boolToInt)
-    @Default(false) bool isEmailVerify,
-    @JsonKey(name: 'is_invite_force', fromJson: _intToBoolSafe, toJson: _boolToInt)
-    @Default(false) bool isInviteForce,
-    @JsonKey(name: 'email_whitelist_suffix', fromJson: _emailWhitelistFromJson, toJson: _emailWhitelistToJson)
-    @Default([]) List<String> emailWhitelistSuffix,
+    @JsonKey(
+        name: 'is_email_verify', fromJson: _intToBoolSafe, toJson: _boolToInt)
+    @Default(false)
+    bool isEmailVerify,
+    @JsonKey(
+        name: 'is_invite_force', fromJson: _intToBoolSafe, toJson: _boolToInt)
+    @Default(false)
+    bool isInviteForce,
+    @JsonKey(
+        name: 'email_whitelist_suffix',
+        fromJson: _emailWhitelistFromJson,
+        toJson: _emailWhitelistToJson)
+    @Default([])
+    List<String> emailWhitelistSuffix,
     @JsonKey(name: 'is_captcha', fromJson: _intToBoolSafe, toJson: _boolToInt)
-    @Default(false) bool isCaptcha,
+    @Default(false)
+    bool isCaptcha,
     @JsonKey(name: 'captcha_type') @Default('') String captchaType,
     @JsonKey(name: 'recaptcha_site_key') String? recaptchaSiteKey,
     @JsonKey(name: 'recaptcha_v3_site_key') String? recaptchaV3SiteKey,
     @JsonKey(name: 'recaptcha_v3_score_threshold')
-    @Default(0.5) double recaptchaV3ScoreThreshold,
+    @Default(0.5)
+    double recaptchaV3ScoreThreshold,
     @JsonKey(name: 'turnstile_site_key') String? turnstileSiteKey,
     @JsonKey(name: 'app_description') @Default('') String appDescription,
     @JsonKey(name: 'app_url') @Default('') String appUrl,
     String? logo,
     @JsonKey(name: 'is_recaptcha', fromJson: _intToBoolSafe, toJson: _boolToInt)
-    @Default(false) bool isRecaptcha,
+    @Default(false)
+    bool isRecaptcha,
     @JsonKey(name: 'telegram_discuss_link') String? telegramDiscussLink,
   }) = _ConfigModel;
 
-  factory ConfigModel.fromJson(Map<String, dynamic> json) => _$ConfigModelFromJson(json);
+  factory ConfigModel.fromJson(Map<String, dynamic> json) =>
+      _$ConfigModelFromJson(json);
 }

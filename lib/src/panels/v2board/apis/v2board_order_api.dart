@@ -24,7 +24,7 @@ class V2BoardOrderApi {
       final result = await _httpService.getRequest(
         '/api/v1/user/order/detail?trade_no=$tradeNo',
       );
-      
+
       return Order.fromJson(result['data'] as Map<String, dynamic>);
     } catch (e) {
       if (e is XBoardException) rethrow;
@@ -38,7 +38,7 @@ class V2BoardOrderApi {
         '/api/v1/user/order/cancel',
         {'trade_no': tradeNo},
       );
-      
+
       return ApiResponse.fromJson(result, null);
     } catch (e) {
       if (e is XBoardException) rethrow;
@@ -55,11 +55,13 @@ class V2BoardOrderApi {
       final data = {
         'plan_id': planId,
         'period': period,
-        if (couponCode != null && couponCode.isNotEmpty) 'coupon_code': couponCode,
+        if (couponCode != null && couponCode.isNotEmpty)
+          'coupon_code': couponCode,
       };
-      
-      final result = await _httpService.postRequest('/api/v1/user/order/save', data);
-      
+
+      final result =
+          await _httpService.postRequest('/api/v1/user/order/save', data);
+
       final tradeNo = result['data'] as String?;
       return ApiResponse(
         success: tradeNo != null,
@@ -79,9 +81,10 @@ class V2BoardOrderApi {
         'period': 'month_price',
         'deposit_amount': (amount * 100).toInt(),
       };
-      
-      final result = await _httpService.postRequest('/api/v1/user/order/save', data);
-      
+
+      final result =
+          await _httpService.postRequest('/api/v1/user/order/save', data);
+
       final tradeNo = result['data'] as String?;
       return ApiResponse(
         success: tradeNo != null,
@@ -96,20 +99,21 @@ class V2BoardOrderApi {
 
   Future<ApiResponse<List<PaymentMethod>>> getPaymentMethods() async {
     try {
-      final result = await _httpService.getRequest('/api/v1/user/order/getPaymentMethod');
-      
+      final result =
+          await _httpService.getRequest('/api/v1/user/order/getPaymentMethod');
+
       if (result['data'] != null) {
         final List<dynamic> methodsJson = result['data'] as List;
         final methods = methodsJson
             .map((json) => PaymentMethod.fromJson(json as Map<String, dynamic>))
             .toList();
-        
+
         return ApiResponse(
           success: true,
           data: methods,
         );
       }
-      
+
       return ApiResponse(
         success: false,
         data: [],
@@ -133,11 +137,11 @@ class V2BoardOrderApi {
           'method': method,
         },
       );
-      
+
       // V2Board 返回格式可能为:
       // {data: {type: 0, data: "url"}} 或 {type: -1/0/1, data: bool/String}
       final dynamic resultData = result['data'];
-      
+
       // 兼容两种返回格式
       if (resultData is Map<String, dynamic>) {
         // 格式1: {data: {type: 0, data: "url"}}

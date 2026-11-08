@@ -89,7 +89,8 @@ class XBoardOrderApi {
 
   Future<ApiResponse<List<PaymentMethod>>> getPaymentMethods() async {
     try {
-      final result = await _httpService.getRequest("/api/v1/user/order/getPaymentMethod");
+      final result =
+          await _httpService.getRequest("/api/v1/user/order/getPaymentMethod");
       return ApiResponse.fromJson(
         result,
         (json) => (json as List<dynamic>)
@@ -116,10 +117,10 @@ class XBoardOrderApi {
         "/api/v1/user/order/checkout",
         request.toJson(),
       );
-      
+
       // XBoard 返回: {type: -1, data: true} (免费) 或 {type: 0/1, data: "url"} (付费)
       final dynamic resultData = result['data'];
-      
+
       // 兼容两种返回格式
       if (resultData is Map<String, dynamic>) {
         // 格式1: {data: {type: 0, data: "url"}}

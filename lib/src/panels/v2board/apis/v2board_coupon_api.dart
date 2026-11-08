@@ -18,7 +18,8 @@ class V2BoardCouponApi {
           'plan_id': planId,
         },
       );
-      final coupon = CouponData.fromJson(result['data'] as Map<String, dynamic>);
+      final coupon =
+          CouponData.fromJson(result['data'] as Map<String, dynamic>);
       return ApiResponse(success: true, data: coupon);
     } catch (e) {
       if (e is XBoardException) rethrow;

@@ -40,25 +40,35 @@ abstract class PlanModel with _$PlanModel {
     @JsonKey(name: 'speed_limit') int? speedLimit,
     @JsonKey(fromJson: _intToBool, toJson: _boolToInt) required bool show,
     String? content,
-    @JsonKey(name: 'onetime_price', fromJson: _priceFromJson, toJson: _priceToJson)
+    @JsonKey(
+        name: 'onetime_price', fromJson: _priceFromJson, toJson: _priceToJson)
     double? onetimePrice,
-    @JsonKey(name: 'month_price', fromJson: _priceFromJson, toJson: _priceToJson)
+    @JsonKey(
+        name: 'month_price', fromJson: _priceFromJson, toJson: _priceToJson)
     double? monthPrice,
-    @JsonKey(name: 'quarter_price', fromJson: _priceFromJson, toJson: _priceToJson)
+    @JsonKey(
+        name: 'quarter_price', fromJson: _priceFromJson, toJson: _priceToJson)
     double? quarterPrice,
-    @JsonKey(name: 'half_year_price', fromJson: _priceFromJson, toJson: _priceToJson)
+    @JsonKey(
+        name: 'half_year_price', fromJson: _priceFromJson, toJson: _priceToJson)
     double? halfYearPrice,
     @JsonKey(name: 'year_price', fromJson: _priceFromJson, toJson: _priceToJson)
     double? yearPrice,
-    @JsonKey(name: 'two_year_price', fromJson: _priceFromJson, toJson: _priceToJson)
+    @JsonKey(
+        name: 'two_year_price', fromJson: _priceFromJson, toJson: _priceToJson)
     double? twoYearPrice,
-    @JsonKey(name: 'three_year_price', fromJson: _priceFromJson, toJson: _priceToJson)
+    @JsonKey(
+        name: 'three_year_price',
+        fromJson: _priceFromJson,
+        toJson: _priceToJson)
     double? threeYearPrice,
-    @JsonKey(name: 'reset_price', fromJson: _priceFromJson, toJson: _priceToJson)
+    @JsonKey(
+        name: 'reset_price', fromJson: _priceFromJson, toJson: _priceToJson)
     double? resetPrice,
     @JsonKey(name: 'capacity_limit') dynamic capacityLimit,
     @JsonKey(name: 'device_limit') int? deviceLimit,
-    @JsonKey(fromJson: _intToBool, toJson: _boolToInt, defaultValue: true) bool? sell,
+    @JsonKey(fromJson: _intToBool, toJson: _boolToInt, defaultValue: true)
+    bool? sell,
     @JsonKey(fromJson: _intToBool, toJson: _boolToInt) required bool renew,
     @JsonKey(name: 'reset_traffic_method') int? resetTrafficMethod,
     int? sort,
@@ -68,8 +78,17 @@ abstract class PlanModel with _$PlanModel {
 
   const PlanModel._();
 
-  factory PlanModel.fromJson(Map<String, dynamic> json) => _$PlanModelFromJson(json);
+  factory PlanModel.fromJson(Map<String, dynamic> json) =>
+      _$PlanModelFromJson(json);
 
   bool get isVisible => show;
-  bool get hasPrice => [onetimePrice, monthPrice, quarterPrice, halfYearPrice, yearPrice, twoYearPrice, threeYearPrice].any((p) => p != null && p > 0);
+  bool get hasPrice => [
+        onetimePrice,
+        monthPrice,
+        quarterPrice,
+        halfYearPrice,
+        yearPrice,
+        twoYearPrice,
+        threeYearPrice
+      ].any((p) => p != null && p > 0);
 }

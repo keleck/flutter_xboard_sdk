@@ -58,7 +58,8 @@ class XBoardSDK {
     bool usePrintLogger = false,
   }) async {
     if (_isInitialized) {
-      SdkLogger.w('SDK is already initialized. Call dispose() first if you want to re-initialize.');
+      SdkLogger.w(
+          'SDK is already initialized. Call dispose() first if you want to re-initialize.');
       return;
     }
 
@@ -84,17 +85,17 @@ class XBoardSDK {
     _tokenManager = useMemoryStorage ? TokenManager.memory() : TokenManager();
 
     // 初始化HTTP服务
-    final finalHttpConfig = httpConfig ?? 
-      (proxyUrl != null || userAgent != null
-        ? HttpConfig.development(
-            proxyUrl: proxyUrl,
-            userAgent: userAgent,
-          )
-        : HttpConfig.defaultConfig());
-    
+    final finalHttpConfig = httpConfig ??
+        (proxyUrl != null || userAgent != null
+            ? HttpConfig.development(
+                proxyUrl: proxyUrl,
+                userAgent: userAgent,
+              )
+            : HttpConfig.defaultConfig());
+
     _httpService = await HttpService.create(
-      cleanUrl, 
-      tokenManager: _tokenManager, 
+      cleanUrl,
+      tokenManager: _tokenManager,
       httpConfig: finalHttpConfig,
     );
 
@@ -227,7 +228,8 @@ class XBoardSDK {
     try {
       SdkLogger.i('[XBoardSDK] 调用 auth.login...');
       final token = await auth.login(email, password);
-      SdkLogger.i('[XBoardSDK] auth.login 返回 token: ${token != null ? "有效" : "null"}');
+      SdkLogger.i(
+          '[XBoardSDK] auth.login 返回 token: ${token != null ? "有效" : "null"}');
       if (token != null) {
         await saveToken(token);
         SdkLogger.i('[XBoardSDK] Token 已保存');
@@ -255,7 +257,7 @@ class XBoardSDK {
     if (_isInitialized) {
       _tokenManager.dispose();
       _httpService.dispose();
-      
+
       // Reset all lazy loaded APIs
       _userApi = null;
       _planApi = null;
@@ -276,7 +278,8 @@ class XBoardSDK {
 
   void _checkInitialized() {
     if (!_isInitialized) {
-      throw ConfigException('XBoardSDK is not initialized. Call initialize() first.');
+      throw ConfigException(
+          'XBoardSDK is not initialized. Call initialize() first.');
     }
   }
 }

@@ -8,7 +8,7 @@ part 'coupon.g.dart';
 @freezed
 abstract class Coupon with _$Coupon {
   const Coupon._();
-  
+
   const factory Coupon({
     int? id,
     String? code,
@@ -23,13 +23,13 @@ abstract class Coupon with _$Coupon {
     @JsonKey(name: 'created_at') int? createdAt,
     @JsonKey(name: 'updated_at') int? updatedAt,
   }) = _Coupon;
-  
+
   factory Coupon.fromJson(Map<String, dynamic> json) => _$CouponFromJson(json);
-  
+
   /// 优惠券类型：1=金额，2=百分比
   bool get isAmountType => type == 1;
   bool get isPercentType => type == 2;
-  
+
   /// 计算折扣金额
   int calculateDiscount(int originalAmount) {
     if (type == 1) {

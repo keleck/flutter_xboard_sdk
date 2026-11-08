@@ -12,7 +12,8 @@ abstract class LoginRequest with _$LoginRequest {
     required String password,
   }) = _LoginRequest;
 
-  factory LoginRequest.fromJson(Map<String, dynamic> json) => _$LoginRequestFromJson(json);
+  factory LoginRequest.fromJson(Map<String, dynamic> json) =>
+      _$LoginRequestFromJson(json);
 }
 
 /// 登录数据模型
@@ -24,7 +25,8 @@ abstract class LoginData with _$LoginData {
     Map<String, dynamic>? user,
   }) = _LoginData;
 
-  factory LoginData.fromJson(Map<String, dynamic> json) => _$LoginDataFromJson(json);
+  factory LoginData.fromJson(Map<String, dynamic> json) =>
+      _$LoginDataFromJson(json);
 }
 
 /// 登录响应模型 - 兼容XBoard API格式
@@ -36,7 +38,8 @@ abstract class LoginResponse with _$LoginResponse {
     LoginData? data, // 将data字段类型改为LoginData
   }) = _LoginResponse;
 
-  factory LoginResponse.fromJson(Map<String, dynamic> json) => _$LoginResponseFromJson(json);
+  factory LoginResponse.fromJson(Map<String, dynamic> json) =>
+      _$LoginResponseFromJson(json);
 }
 
 /// LoginResult 别名（向后兼容）

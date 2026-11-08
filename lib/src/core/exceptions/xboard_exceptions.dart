@@ -7,7 +7,7 @@ abstract class XBoardException implements Exception {
 
   @override
   String toString() {
-    return code != null 
+    return code != null
         ? 'XBoardException($code): $message'
         : 'XBoardException: $message';
   }
@@ -41,4 +41,4 @@ class ParameterException extends XBoardException {
 /// 证书验证异常
 class CertificateException extends XBoardException {
   CertificateException(super.message, [super.code]);
-} 
+}

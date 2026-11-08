@@ -1,5 +1,5 @@
 /// 统一导出所有 V2Board 数据模型
-/// 
+///
 /// 使用方式：
 /// ```dart
 /// import '../models/v2board_models.dart';

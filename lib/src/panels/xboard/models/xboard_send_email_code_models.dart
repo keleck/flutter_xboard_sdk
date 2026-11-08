@@ -11,7 +11,8 @@ abstract class VerificationCodeResponse with _$VerificationCodeResponse {
     String? message,
   }) = _VerificationCodeResponse;
 
-  factory VerificationCodeResponse.fromJson(Map<String, dynamic> json) => _$VerificationCodeResponseFromJson(json);
+  factory VerificationCodeResponse.fromJson(Map<String, dynamic> json) =>
+      _$VerificationCodeResponseFromJson(json);
 }
 
 /// SendEmailCodeResult 别名（向后兼容）

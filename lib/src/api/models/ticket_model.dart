@@ -4,7 +4,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'ticket_model.freezed.dart';
 part 'ticket_model.g.dart';
 
-DateTime _fromUnixTimestamp(int timestamp) => DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+DateTime _fromUnixTimestamp(int timestamp) =>
+    DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
 int _toUnixTimestamp(DateTime date) => date.millisecondsSinceEpoch ~/ 1000;
 
 @freezed
@@ -16,12 +17,21 @@ abstract class TicketModel with _$TicketModel {
     required int status,
     required String subject,
     String? message,
-    @JsonKey(name: 'created_at', fromJson: _fromUnixTimestamp, toJson: _toUnixTimestamp) required DateTime createdAt,
-    @JsonKey(name: 'updated_at', fromJson: _fromUnixTimestamp, toJson: _toUnixTimestamp) required DateTime updatedAt,
+    @JsonKey(
+        name: 'created_at',
+        fromJson: _fromUnixTimestamp,
+        toJson: _toUnixTimestamp)
+    required DateTime createdAt,
+    @JsonKey(
+        name: 'updated_at',
+        fromJson: _fromUnixTimestamp,
+        toJson: _toUnixTimestamp)
+    required DateTime updatedAt,
     @JsonKey(name: 'user_id') required int userId,
   }) = _TicketModel;
 
-  factory TicketModel.fromJson(Map<String, dynamic> json) => _$TicketModelFromJson(json);
+  factory TicketModel.fromJson(Map<String, dynamic> json) =>
+      _$TicketModelFromJson(json);
 }
 
 @freezed
@@ -31,11 +41,20 @@ abstract class TicketMessageModel with _$TicketMessageModel {
     @JsonKey(name: 'ticket_id') required int ticketId,
     @JsonKey(name: 'is_me') required bool isMe,
     required String message,
-    @JsonKey(name: 'created_at', fromJson: _fromUnixTimestamp, toJson: _toUnixTimestamp) required DateTime createdAt,
-    @JsonKey(name: 'updated_at', fromJson: _fromUnixTimestamp, toJson: _toUnixTimestamp) required DateTime updatedAt,
+    @JsonKey(
+        name: 'created_at',
+        fromJson: _fromUnixTimestamp,
+        toJson: _toUnixTimestamp)
+    required DateTime createdAt,
+    @JsonKey(
+        name: 'updated_at',
+        fromJson: _fromUnixTimestamp,
+        toJson: _toUnixTimestamp)
+    required DateTime updatedAt,
   }) = _TicketMessageModel;
 
-  factory TicketMessageModel.fromJson(Map<String, dynamic> json) => _$TicketMessageModelFromJson(json);
+  factory TicketMessageModel.fromJson(Map<String, dynamic> json) =>
+      _$TicketMessageModelFromJson(json);
 }
 
 @freezed
@@ -47,10 +66,19 @@ abstract class TicketDetailModel with _$TicketDetailModel {
     required int status,
     required String subject,
     @Default([]) List<TicketMessageModel> messages,
-    @JsonKey(name: 'created_at', fromJson: _fromUnixTimestamp, toJson: _toUnixTimestamp) required DateTime createdAt,
-    @JsonKey(name: 'updated_at', fromJson: _fromUnixTimestamp, toJson: _toUnixTimestamp) required DateTime updatedAt,
+    @JsonKey(
+        name: 'created_at',
+        fromJson: _fromUnixTimestamp,
+        toJson: _toUnixTimestamp)
+    required DateTime createdAt,
+    @JsonKey(
+        name: 'updated_at',
+        fromJson: _fromUnixTimestamp,
+        toJson: _toUnixTimestamp)
+    required DateTime updatedAt,
     @JsonKey(name: 'user_id') required int userId,
   }) = _TicketDetailModel;
 
-  factory TicketDetailModel.fromJson(Map<String, dynamic> json) => _$TicketDetailModelFromJson(json);
+  factory TicketDetailModel.fromJson(Map<String, dynamic> json) =>
+      _$TicketDetailModelFromJson(json);
 }

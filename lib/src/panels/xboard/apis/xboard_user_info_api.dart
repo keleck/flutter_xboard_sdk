@@ -25,7 +25,8 @@ class XBoardUserInfoApi {
 
   Future<ApiResponse<List<TrafficLog>>> getTrafficLogs() async {
     try {
-      final result = await _httpService.getRequest('/api/v1/user/stat/getTrafficLog');
+      final result =
+          await _httpService.getRequest('/api/v1/user/stat/getTrafficLog');
       return ApiResponse.fromJson(
         result,
         (json) => (json as List)
@@ -42,7 +43,8 @@ class XBoardUserInfoApi {
     try {
       final result = await _httpService.getRequest('/api/v1/user/getSubscribe');
       // 如果能成功获取订阅信息，说明token有效
-      return ApiResponse.fromJson(result, (json) => json['subscribe_url'] != null);
+      return ApiResponse.fromJson(
+          result, (json) => json['subscribe_url'] != null);
     } catch (e) {
       // 如果请求失败（401等），说明token无效
       return ApiResponse(
@@ -56,7 +58,8 @@ class XBoardUserInfoApi {
   Future<ApiResponse<String?>> getSubscriptionLink() async {
     try {
       final result = await _httpService.getRequest('/api/v1/user/getSubscribe');
-      return ApiResponse.fromJson(result, (json) => json['subscribe_url'] as String?);
+      return ApiResponse.fromJson(
+          result, (json) => json['subscribe_url'] as String?);
     } catch (e) {
       if (e is XBoardException) rethrow;
       throw ApiException('获取订阅链接失败: $e');
@@ -65,7 +68,8 @@ class XBoardUserInfoApi {
 
   Future<ApiResponse<String?>> resetSubscriptionLink() async {
     try {
-      final result = await _httpService.getRequest('/api/v1/user/resetSecurity');
+      final result =
+          await _httpService.getRequest('/api/v1/user/resetSecurity');
       return ApiResponse.fromJson(result, (json) => json as String?);
     } catch (e) {
       if (e is XBoardException) rethrow;
@@ -96,9 +100,11 @@ class XBoardUserInfoApi {
       throw ApiException('切换到期提醒失败: $e');
     }
   }
+
   Future<ApiResponse<void>> updateUserInfo(Map<String, dynamic> data) async {
     try {
-      final result = await _httpService.postRequest('/api/v1/user/update', data);
+      final result =
+          await _httpService.postRequest('/api/v1/user/update', data);
       return ApiResponse.fromJson(result, (json) {});
     } catch (e) {
       if (e is XBoardException) rethrow;
@@ -109,7 +115,8 @@ class XBoardUserInfoApi {
   /// 提前开启流量周期（重置流量）
   Future<ApiResponse<bool>> fetchTransfer() async {
     try {
-      final result = await _httpService.postRequest('/api/v1/user/newPeriod', {});
+      final result =
+          await _httpService.postRequest('/api/v1/user/newPeriod', {});
       return ApiResponse(
         success: result['data'] == true,
         data: result['data'] == true,

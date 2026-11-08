@@ -20,20 +20,20 @@ class V2BoardRegisterApi {
         'email': email,
         'password': password,
       };
-      
+
       if (inviteCode != null && inviteCode.isNotEmpty) {
         data['invite_code'] = inviteCode;
       }
-      
+
       if (emailCode != null && emailCode.isNotEmpty) {
         data['email_code'] = emailCode;
       }
-      
+
       final result = await _httpService.postRequest(
         '/api/v1/passport/auth/register',
         data,
       );
-      
+
       return ApiResponse.fromJson(result, null);
     } catch (e) {
       if (e is XBoardException) rethrow;

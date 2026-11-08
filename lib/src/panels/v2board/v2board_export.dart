@@ -1,5 +1,5 @@
 /// V2Board Export
-/// 
+///
 /// 使用方式：
 /// ```dart
 /// import 'panels/v2board/v2board_export.dart';

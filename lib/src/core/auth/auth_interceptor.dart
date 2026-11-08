@@ -24,7 +24,8 @@ class AuthInterceptor extends Interceptor {
   };
 
   @override
-  void onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
+  void onRequest(
+      RequestOptions options, RequestInterceptorHandler handler) async {
     try {
       // 检查是否为公开端点
       if (_isPublicEndpoint(options.path)) {
@@ -49,7 +50,8 @@ class AuthInterceptor extends Interceptor {
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
     if (err.response?.statusCode == 401) {
-      SdkLogger.w('[AuthInterceptor] 401 Unauthorized: ${err.requestOptions.path}');
+      SdkLogger.w(
+          '[AuthInterceptor] 401 Unauthorized: ${err.requestOptions.path}');
       // TODO: 这里可以添加 Token 过期通知逻辑
     }
     handler.next(err);
@@ -67,7 +69,9 @@ class AuthInterceptor extends Interceptor {
       if (path.startsWith(endpoint)) {
         // 确保是完整路径匹配，避免误匹配
         final remaining = path.substring(endpoint.length);
-        if (remaining.isEmpty || remaining.startsWith('?') || remaining.startsWith('/')) {
+        if (remaining.isEmpty ||
+            remaining.startsWith('?') ||
+            remaining.startsWith('/')) {
           return true;
         }
       }

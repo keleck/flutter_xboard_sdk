@@ -4,7 +4,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'invite_model.freezed.dart';
 part 'invite_model.g.dart';
 
-DateTime _fromUnixTimestamp(int timestamp) => DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+DateTime _fromUnixTimestamp(int timestamp) =>
+    DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
 int _toUnixTimestamp(DateTime date) => date.millisecondsSinceEpoch ~/ 1000;
 
 @freezed
@@ -14,13 +15,22 @@ abstract class InviteCodeModel with _$InviteCodeModel {
     required String code,
     required int pv,
     required bool status,
-    @JsonKey(name: 'created_at', fromJson: _fromUnixTimestamp, toJson: _toUnixTimestamp) required DateTime createdAt,
-    @JsonKey(name: 'updated_at', fromJson: _fromUnixTimestamp, toJson: _toUnixTimestamp) required DateTime updatedAt,
+    @JsonKey(
+        name: 'created_at',
+        fromJson: _fromUnixTimestamp,
+        toJson: _toUnixTimestamp)
+    required DateTime createdAt,
+    @JsonKey(
+        name: 'updated_at',
+        fromJson: _fromUnixTimestamp,
+        toJson: _toUnixTimestamp)
+    required DateTime updatedAt,
   }) = _InviteCodeModel;
 
   const InviteCodeModel._();
 
-  factory InviteCodeModel.fromJson(Map<String, dynamic> json) => _$InviteCodeModelFromJson(json);
+  factory InviteCodeModel.fromJson(Map<String, dynamic> json) =>
+      _$InviteCodeModelFromJson(json);
 
   bool get isActive => status;
 }
@@ -35,18 +45,19 @@ abstract class InviteInfoModel with _$InviteInfoModel {
 
   const InviteInfoModel._();
 
-  factory InviteInfoModel.fromJson(Map<String, dynamic> json) => _$InviteInfoModelFromJson(json);
+  factory InviteInfoModel.fromJson(Map<String, dynamic> json) =>
+      _$InviteInfoModelFromJson(json);
 
   int get totalInvites => stat.isNotEmpty ? stat[0] : 0;
   int get totalCommission => stat.length > 1 ? stat[1] : 0;
   int get pendingCommission => stat.length > 2 ? stat[2] : 0;
-  
+
   /// 佣金比例（原始整数值，如 50 表示 50%）
   int get commissionRate => stat.length > 3 ? stat[3] : 0;
-  
+
   /// 佣金比例的百分比表示（0-100），用于UI显示
   double get commissionRatePercent => commissionRate.toDouble();
-  
+
   int get availableCommission => stat.length > 4 ? stat[4] : 0;
 }
 
@@ -57,12 +68,17 @@ abstract class CommissionDetailModel with _$CommissionDetailModel {
     @JsonKey(name: 'order_amount') required int orderAmount,
     @JsonKey(name: 'trade_no') required String tradeNo,
     @JsonKey(name: 'get_amount') required int getAmount,
-    @JsonKey(name: 'created_at', fromJson: _fromUnixTimestamp, toJson: _toUnixTimestamp) required DateTime createdAt,
+    @JsonKey(
+        name: 'created_at',
+        fromJson: _fromUnixTimestamp,
+        toJson: _toUnixTimestamp)
+    required DateTime createdAt,
   }) = _CommissionDetailModel;
 
   const CommissionDetailModel._();
 
-  factory CommissionDetailModel.fromJson(Map<String, dynamic> json) => _$CommissionDetailModelFromJson(json);
+  factory CommissionDetailModel.fromJson(Map<String, dynamic> json) =>
+      _$CommissionDetailModelFromJson(json);
 
   double get orderAmountInYuan => orderAmount / 100.0;
   double get getAmountInYuan => getAmount / 100.0;

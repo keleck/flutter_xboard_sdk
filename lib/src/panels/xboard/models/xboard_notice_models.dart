@@ -6,7 +6,8 @@ part 'xboard_notice_models.g.dart';
 
 // Helper functions for DateTime to Unix timestamp conversion
 int? _toUnixTimestamp(int? date) => date; // Already Unix timestamp
-int _fromUnixTimestamp(int? timestamp) => timestamp ?? 0; // Return 0 if timestamp is null
+int _fromUnixTimestamp(int? timestamp) =>
+    timestamp ?? 0; // Return 0 if timestamp is null
 
 // Helper function for 'show' field (bool or int)
 bool _showFromJson(dynamic value) {
@@ -30,9 +31,15 @@ abstract class Notice with _$Notice {
     required bool show, // Convert to bool
     @JsonKey(name: 'img_url') String? imgUrl,
     List<String>? tags,
-    @JsonKey(name: 'created_at', fromJson: _fromUnixTimestamp, toJson: _toUnixTimestamp)
+    @JsonKey(
+        name: 'created_at',
+        fromJson: _fromUnixTimestamp,
+        toJson: _toUnixTimestamp)
     required int createdAt,
-    @JsonKey(name: 'updated_at', fromJson: _fromUnixTimestamp, toJson: _toUnixTimestamp)
+    @JsonKey(
+        name: 'updated_at',
+        fromJson: _fromUnixTimestamp,
+        toJson: _toUnixTimestamp)
     required int updatedAt,
   }) = _Notice;
 
@@ -42,14 +49,15 @@ abstract class Notice with _$Notice {
 @freezed
 abstract class NoticeResponse with _$NoticeResponse {
   const factory NoticeResponse({
-    required List<Notice> data, // Renamed from notices to data to match ApiResponse
+    required List<Notice>
+        data, // Renamed from notices to data to match ApiResponse
     required int total,
   }) = _NoticeResponse;
 
   factory NoticeResponse.fromJson(Map<String, dynamic> json) {
     // Extract 'data' and 'total' from the nested map
     final dynamic dataField = json['data'];
-    
+
     // Handle case where 'data' might be a List instead of Map
     if (dataField is List) {
       // If data is directly a list of notices

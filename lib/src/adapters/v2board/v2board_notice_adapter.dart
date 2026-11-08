@@ -9,7 +9,8 @@ class V2BoardNoticeAdapter implements NoticeApi {
   V2BoardNoticeAdapter(this._api);
 
   @override
-  Future<List<NoticeModel>> getNotices({int page = 1, int pageSize = 10}) async {
+  Future<List<NoticeModel>> getNotices(
+      {int page = 1, int pageSize = 10}) async {
     final response = await _api.fetchNotices();
     if (response.data == null) return [];
     return response.data!.map(_mapNotice).toList();

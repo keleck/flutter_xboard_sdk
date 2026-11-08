@@ -11,7 +11,7 @@ abstract class SubscriptionInfo with _$SubscriptionInfo {
     @JsonKey(name: 'subscribe_url') String? subscribeUrl,
     String? token,
   }) = _SubscriptionInfo;
-  
-  factory SubscriptionInfo.fromJson(Map<String, dynamic> json) => 
+
+  factory SubscriptionInfo.fromJson(Map<String, dynamic> json) =>
       _$SubscriptionInfoFromJson(json);
 }

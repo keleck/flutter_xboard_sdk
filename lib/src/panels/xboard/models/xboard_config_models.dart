@@ -8,29 +8,41 @@ part 'xboard_config_models.g.dart';
 abstract class ConfigData with _$ConfigData {
   const factory ConfigData({
     @JsonKey(name: 'tos_url') String? tosUrl,
-    @JsonKey(name: 'is_email_verify', fromJson: _intToBoolSafe, toJson: _boolToInt)
-    @Default(false) bool isEmailVerify,
-    @JsonKey(name: 'is_invite_force', fromJson: _intToBoolSafe, toJson: _boolToInt)
-    @Default(false) bool isInviteForce,
-    @JsonKey(name: 'email_whitelist_suffix', fromJson: _emailWhitelistFromJson, toJson: _emailWhitelistToJson)
-    @Default([]) List<String> emailWhitelistSuffix,
+    @JsonKey(
+        name: 'is_email_verify', fromJson: _intToBoolSafe, toJson: _boolToInt)
+    @Default(false)
+    bool isEmailVerify,
+    @JsonKey(
+        name: 'is_invite_force', fromJson: _intToBoolSafe, toJson: _boolToInt)
+    @Default(false)
+    bool isInviteForce,
+    @JsonKey(
+        name: 'email_whitelist_suffix',
+        fromJson: _emailWhitelistFromJson,
+        toJson: _emailWhitelistToJson)
+    @Default([])
+    List<String> emailWhitelistSuffix,
     @JsonKey(name: 'is_captcha', fromJson: _intToBoolSafe, toJson: _boolToInt)
-    @Default(false) bool isCaptcha,
+    @Default(false)
+    bool isCaptcha,
     @JsonKey(name: 'captcha_type') @Default('') String captchaType,
     @JsonKey(name: 'recaptcha_site_key') String? recaptchaSiteKey,
     @JsonKey(name: 'recaptcha_v3_site_key') String? recaptchaV3SiteKey,
     @JsonKey(name: 'recaptcha_v3_score_threshold')
-    @Default(0.5) double recaptchaV3ScoreThreshold,
+    @Default(0.5)
+    double recaptchaV3ScoreThreshold,
     @JsonKey(name: 'turnstile_site_key') String? turnstileSiteKey,
     @JsonKey(name: 'app_description') @Default('') String appDescription,
     @JsonKey(name: 'app_url') @Default('') String appUrl,
     String? logo,
     @JsonKey(name: 'is_recaptcha', fromJson: _intToBoolSafe, toJson: _boolToInt)
-    @Default(false) bool isRecaptcha,
+    @Default(false)
+    bool isRecaptcha,
     @JsonKey(name: 'telegram_discuss_link') String? telegramDiscussLink,
   }) = _ConfigData;
 
-  factory ConfigData.fromJson(Map<String, dynamic> json) => _$ConfigDataFromJson(json);
+  factory ConfigData.fromJson(Map<String, dynamic> json) =>
+      _$ConfigDataFromJson(json);
 }
 
 /// 安全地将整数或布尔值转换为布尔值
@@ -66,7 +78,6 @@ dynamic _emailWhitelistToJson(List<String> value) {
   return value;
 }
 
-
 @freezed
 abstract class ConfigResponse with _$ConfigResponse {
   const factory ConfigResponse({
@@ -76,5 +87,6 @@ abstract class ConfigResponse with _$ConfigResponse {
     dynamic error,
   }) = _ConfigResponse;
 
-  factory ConfigResponse.fromJson(Map<String, dynamic> json) => _$ConfigResponseFromJson(json);
+  factory ConfigResponse.fromJson(Map<String, dynamic> json) =>
+      _$ConfigResponseFromJson(json);
 }

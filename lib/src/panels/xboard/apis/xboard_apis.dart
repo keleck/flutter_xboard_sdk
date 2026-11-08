@@ -1,5 +1,5 @@
 /// 统一导出所有 XBoard API 实现
-/// 
+///
 /// 使用方式：
 /// ```dart
 /// import 'panels/xboard/apis/xboard_apis.dart';

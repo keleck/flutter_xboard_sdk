@@ -13,7 +13,9 @@ class V2BoardNoticeApi {
     try {
       final result = await _httpService.getRequest('/api/v1/user/notice/fetch');
       final List<dynamic> noticesJson = result['data'] as List? ?? [];
-      final notices = noticesJson.map((json) => Notice.fromJson(json as Map<String, dynamic>)).toList();
+      final notices = noticesJson
+          .map((json) => Notice.fromJson(json as Map<String, dynamic>))
+          .toList();
       return ApiResponse(success: true, data: notices);
     } catch (e) {
       if (e is XBoardException) rethrow;

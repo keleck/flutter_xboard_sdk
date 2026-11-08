@@ -11,5 +11,6 @@ abstract class AppInfo with _$AppInfo {
     required String description,
   }) = _AppInfo;
 
-  factory AppInfo.fromJson(Map<String, dynamic> json) => _$AppInfoFromJson(json);
+  factory AppInfo.fromJson(Map<String, dynamic> json) =>
+      _$AppInfoFromJson(json);
 }

@@ -1,6 +1,6 @@
 /// XBoard 面板统一导出
 /// 包含所有 APIs 和 Models
-/// 
+///
 /// 使用方式：
 /// ```dart
 /// import 'panels/xboard/xboard_export.dart';

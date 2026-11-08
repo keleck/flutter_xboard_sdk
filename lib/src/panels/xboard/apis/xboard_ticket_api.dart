@@ -31,7 +31,8 @@ class XBoardTicketApi {
     required String message,
   }) async {
     try {
-      final result = await _httpService.postRequest('/api/v1/user/ticket/withdraw', {
+      final result =
+          await _httpService.postRequest('/api/v1/user/ticket/withdraw', {
         'subject': subject,
         'message': message,
         'level': level,
@@ -52,21 +53,22 @@ class XBoardTicketApi {
 
   Future<ApiResponse<TicketDetail>> getTicketDetail(int ticketId) async {
     try {
-      final result = await _httpService.getRequest('/api/v1/user/ticket/fetch?id=$ticketId');
+      final result = await _httpService
+          .getRequest('/api/v1/user/ticket/fetch?id=$ticketId');
       developer.log('XBoard Ticket Detail Response: $result');
       return ApiResponse.fromJson(result, (json) {
         // 确保messages字段存在且为列表
         final data = json as Map<String, dynamic>;
         developer.log('Ticket data: $data');
-        
+
         // XBoard API 可能返回 'message' 字段（消息列表），需要转换为 'messages'
         if (data.containsKey('message') && !data.containsKey('messages')) {
           data['messages'] = data.remove('message');
           developer.log('Converted message field to messages');
         }
-        
+
         developer.log('Messages raw: ${data['messages']}');
-        
+
         if (data['messages'] == null) {
           data['messages'] = [];
         } else if (data['messages'] is List) {
@@ -84,9 +86,10 @@ class XBoardTicketApi {
             }
           }
         }
-        
+
         final ticket = TicketDetail.fromJson(data);
-        developer.log('Parsed ticket messages count: ${ticket.messages.length}');
+        developer
+            .log('Parsed ticket messages count: ${ticket.messages.length}');
         return ticket;
       });
     } catch (e) {
@@ -101,7 +104,8 @@ class XBoardTicketApi {
     required String message,
   }) async {
     try {
-      final result = await _httpService.postRequest('/api/v1/user/ticket/reply', {
+      final result =
+          await _httpService.postRequest('/api/v1/user/ticket/reply', {
         'id': ticketId,
         'message': message,
       });
@@ -114,7 +118,8 @@ class XBoardTicketApi {
 
   Future<ApiResponse<void>> closeTicket(String ticketId) async {
     try {
-      final result = await _httpService.postRequest('/api/v1/user/ticket/close', {
+      final result =
+          await _httpService.postRequest('/api/v1/user/ticket/close', {
         'id': ticketId,
       });
       return ApiResponse.fromJson(result, (json) {});

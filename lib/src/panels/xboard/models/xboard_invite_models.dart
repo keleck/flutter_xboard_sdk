@@ -5,7 +5,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'xboard_invite_models.freezed.dart';
 part 'xboard_invite_models.g.dart';
 
-DateTime _fromUnixTimestamp(int timestamp) => DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+DateTime _fromUnixTimestamp(int timestamp) =>
+    DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
 int _toUnixTimestamp(DateTime date) => date.millisecondsSinceEpoch ~/ 1000;
 
 bool _intToBool(dynamic value) {
@@ -13,6 +14,7 @@ bool _intToBool(dynamic value) {
   if (value is int) return value == 1;
   return false;
 }
+
 int _boolToInt(bool value) => value ? 1 : 0;
 
 @freezed
@@ -22,14 +24,25 @@ abstract class InviteCode with _$InviteCode {
     @JsonKey(name: 'user_id') required int userId,
     required String code,
     @Default(0) int pv,
-    @JsonKey(fromJson: _intToBool, toJson: _boolToInt) @Default(false) bool status,
-    @JsonKey(name: 'created_at', fromJson: _fromUnixTimestamp, toJson: _toUnixTimestamp) required DateTime createdAt,
-    @JsonKey(name: 'updated_at', fromJson: _fromUnixTimestamp, toJson: _toUnixTimestamp) required DateTime updatedAt,
+    @JsonKey(fromJson: _intToBool, toJson: _boolToInt)
+    @Default(false)
+    bool status,
+    @JsonKey(
+        name: 'created_at',
+        fromJson: _fromUnixTimestamp,
+        toJson: _toUnixTimestamp)
+    required DateTime createdAt,
+    @JsonKey(
+        name: 'updated_at',
+        fromJson: _fromUnixTimestamp,
+        toJson: _toUnixTimestamp)
+    required DateTime updatedAt,
   }) = _InviteCode;
 
   const InviteCode._();
 
-  factory InviteCode.fromJson(Map<String, dynamic> json) => _$InviteCodeFromJson(json);
+  factory InviteCode.fromJson(Map<String, dynamic> json) =>
+      _$InviteCodeFromJson(json);
 
   bool get isActive => status;
 }
@@ -44,7 +57,8 @@ abstract class InviteInfo with _$InviteInfo {
 
   const InviteInfo._();
 
-  factory InviteInfo.fromJson(Map<String, dynamic> json) => _$InviteInfoFromJson(json);
+  factory InviteInfo.fromJson(Map<String, dynamic> json) =>
+      _$InviteInfoFromJson(json);
 
   // stat 数组结构（基于旧版本定义）:
   // stat[0] - 总邀请数 (totalInvites)
@@ -66,12 +80,17 @@ abstract class CommissionDetail with _$CommissionDetail {
     @JsonKey(name: 'order_amount') required int orderAmount,
     @JsonKey(name: 'trade_no') required String tradeNo,
     @JsonKey(name: 'get_amount') required int getAmount,
-    @JsonKey(name: 'created_at', fromJson: _fromUnixTimestamp, toJson: _toUnixTimestamp) required DateTime createdAt,
+    @JsonKey(
+        name: 'created_at',
+        fromJson: _fromUnixTimestamp,
+        toJson: _toUnixTimestamp)
+    required DateTime createdAt,
   }) = _CommissionDetail;
 
   const CommissionDetail._();
 
-  factory CommissionDetail.fromJson(Map<String, dynamic> json) => _$CommissionDetailFromJson(json);
+  factory CommissionDetail.fromJson(Map<String, dynamic> json) =>
+      _$CommissionDetailFromJson(json);
 
   double get orderAmountInYuan => orderAmount / 100.0;
   double get getAmountInYuan => getAmount / 100.0;

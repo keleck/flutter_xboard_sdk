@@ -18,7 +18,8 @@ abstract class SystemConfig with _$SystemConfig {
     @JsonKey(name: 'currency_symbol') required String currencySymbol,
   }) = _SystemConfig;
 
-  factory SystemConfig.fromJson(Map<String, dynamic> json) => _$SystemConfigFromJson(json);
+  factory SystemConfig.fromJson(Map<String, dynamic> json) =>
+      _$SystemConfigFromJson(json);
 }
 
 @freezed
@@ -29,7 +30,8 @@ abstract class TransferResult with _$TransferResult {
     UserInfo? updatedUserInfo, // Reference UserInfo
   }) = _TransferResult;
 
-  factory TransferResult.fromJson(Map<String, dynamic> json) => _$TransferResultFromJson(json);
+  factory TransferResult.fromJson(Map<String, dynamic> json) =>
+      _$TransferResultFromJson(json);
 }
 
 @freezed
@@ -40,7 +42,8 @@ abstract class WithdrawResult with _$WithdrawResult {
     String? withdrawId,
   }) = _WithdrawResult;
 
-  factory WithdrawResult.fromJson(Map<String, dynamic> json) => _$WithdrawResultFromJson(json);
+  factory WithdrawResult.fromJson(Map<String, dynamic> json) =>
+      _$WithdrawResultFromJson(json);
 }
 
 @freezed
@@ -53,5 +56,6 @@ abstract class CommissionHistoryItem with _$CommissionHistoryItem {
     @JsonKey(name: 'created_at') required int createdAt,
   }) = _CommissionHistoryItem;
 
-  factory CommissionHistoryItem.fromJson(Map<String, dynamic> json) => _$CommissionHistoryItemFromJson(json);
+  factory CommissionHistoryItem.fromJson(Map<String, dynamic> json) =>
+      _$CommissionHistoryItemFromJson(json);
 }

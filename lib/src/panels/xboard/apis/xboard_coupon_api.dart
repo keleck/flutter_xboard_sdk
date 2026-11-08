@@ -11,7 +11,8 @@ class XBoardCouponApi {
 
   Future<ApiResponse<CouponData>> checkCoupon(String code, int planId) async {
     try {
-      final result = await _httpService.postRequest('/api/v1/user/coupon/check', {
+      final result =
+          await _httpService.postRequest('/api/v1/user/coupon/check', {
         'code': code,
         'plan_id': planId,
       });
@@ -29,7 +30,8 @@ class XBoardCouponApi {
   /// XBoard 使用 /api/v1/user/redeemgiftcard 端点
   Future<ApiResponse<void>> redeemGiftCard(String code) async {
     try {
-      final result = await _httpService.postRequest('/api/v1/user/redeemgiftcard', {
+      final result =
+          await _httpService.postRequest('/api/v1/user/redeemgiftcard', {
         'giftcard': code,
       });
       return ApiResponse.fromJson(result, (_) => null);

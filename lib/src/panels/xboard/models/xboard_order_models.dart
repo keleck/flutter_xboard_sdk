@@ -5,9 +5,12 @@ part 'xboard_order_models.freezed.dart';
 part 'xboard_order_models.g.dart';
 
 // Helper functions for DateTime to Unix timestamp conversion
-int? _toUnixTimestamp(DateTime? date) => date?.millisecondsSinceEpoch == null ? null : date!.millisecondsSinceEpoch ~/ 1000;
-DateTime? _fromUnixTimestamp(int? timestamp) =>
-    timestamp != null ? DateTime.fromMillisecondsSinceEpoch(timestamp * 1000) : null;
+int? _toUnixTimestamp(DateTime? date) => date?.millisecondsSinceEpoch == null
+    ? null
+    : date!.millisecondsSinceEpoch ~/ 1000;
+DateTime? _fromUnixTimestamp(int? timestamp) => timestamp != null
+    ? DateTime.fromMillisecondsSinceEpoch(timestamp * 1000)
+    : null;
 
 @freezed
 abstract class Order with _$Order {
@@ -17,7 +20,10 @@ abstract class Order with _$Order {
     @JsonKey(name: 'total_amount') double? totalAmount,
     String? period,
     int? status,
-    @JsonKey(name: 'created_at', fromJson: _fromUnixTimestamp, toJson: _toUnixTimestamp)
+    @JsonKey(
+        name: 'created_at',
+        fromJson: _fromUnixTimestamp,
+        toJson: _toUnixTimestamp)
     DateTime? createdAt,
     @JsonKey(name: 'plan') OrderPlan? orderPlan,
   }) = _Order;
@@ -34,7 +40,8 @@ abstract class OrderPlan with _$OrderPlan {
     String? content,
   }) = _OrderPlan;
 
-  factory OrderPlan.fromJson(Map<String, dynamic> json) => _$OrderPlanFromJson(json);
+  factory OrderPlan.fromJson(Map<String, dynamic> json) =>
+      _$OrderPlanFromJson(json);
 }
 
 @freezed
@@ -45,7 +52,8 @@ abstract class CreateOrderRequest with _$CreateOrderRequest {
     @JsonKey(name: 'coupon_code') String? couponCode,
   }) = _CreateOrderRequest;
 
-  factory CreateOrderRequest.fromJson(Map<String, dynamic> json) => _$CreateOrderRequestFromJson(json);
+  factory CreateOrderRequest.fromJson(Map<String, dynamic> json) =>
+      _$CreateOrderRequestFromJson(json);
 }
 
 @freezed
@@ -55,7 +63,8 @@ abstract class SubmitOrderRequest with _$SubmitOrderRequest {
     required String method,
   }) = _SubmitOrderRequest;
 
-  factory SubmitOrderRequest.fromJson(Map<String, dynamic> json) => _$SubmitOrderRequestFromJson(json);
+  factory SubmitOrderRequest.fromJson(Map<String, dynamic> json) =>
+      _$SubmitOrderRequestFromJson(json);
 }
 
 @freezed
@@ -65,11 +74,13 @@ abstract class PaymentMethod with _$PaymentMethod {
     required String id, // Custom fromJson/toJson for id
     required String name,
     String? icon,
-    @JsonKey(name: 'is_available', defaultValue: false) required bool isAvailable,
+    @JsonKey(name: 'is_available', defaultValue: false)
+    required bool isAvailable,
     Map<String, dynamic>? config,
   }) = _PaymentMethod;
 
-  factory PaymentMethod.fromJson(Map<String, dynamic> json) => _$PaymentMethodFromJson(json);
+  factory PaymentMethod.fromJson(Map<String, dynamic> json) =>
+      _$PaymentMethodFromJson(json);
 }
 
 // Helper for PaymentMethod id conversion
@@ -82,26 +93,31 @@ String _idFromJson(dynamic value) {
   return ''; // Default or handle error
 }
 
-dynamic _idToJson(String value) => value; // No special conversion needed for toJson
+dynamic _idToJson(String value) =>
+    value; // No special conversion needed for toJson
 
 @freezed
 abstract class OrderPaymentInfoResponse with _$OrderPaymentInfoResponse {
   const factory OrderPaymentInfoResponse({
-    @JsonKey(name: 'payment_methods') required List<PaymentMethod> paymentMethods,
+    @JsonKey(name: 'payment_methods')
+    required List<PaymentMethod> paymentMethods,
     @JsonKey(name: 'trade_no') required String tradeNo,
   }) = _OrderPaymentInfoResponse;
 
-  factory OrderPaymentInfoResponse.fromJson(Map<String, dynamic> json) => _$OrderPaymentInfoResponseFromJson(json);
+  factory OrderPaymentInfoResponse.fromJson(Map<String, dynamic> json) =>
+      _$OrderPaymentInfoResponseFromJson(json);
 }
 
 @freezed
 abstract class OrderResponse with _$OrderResponse {
   const factory OrderResponse({
-    required List<Order> data, // Renamed from orders to data to match ApiResponse
+    required List<Order>
+        data, // Renamed from orders to data to match ApiResponse
     int? total,
   }) = _OrderResponse;
 
-  factory OrderResponse.fromJson(Map<String, dynamic> json) => _$OrderResponseFromJson(json);
+  factory OrderResponse.fromJson(Map<String, dynamic> json) =>
+      _$OrderResponseFromJson(json);
 }
 
 /// 支付提交结果
@@ -128,4 +144,3 @@ class CheckoutResult {
     };
   }
 }
-

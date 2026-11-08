@@ -17,14 +17,14 @@ class V2BoardLoginApi {
           'password': password,
         },
       );
-      
+
       // V2Board API 返回格式：{ "data": { "token": "xxx", "auth_data": "jwt", ...} }
       // 经过 _normalizeResponse 处理后为：{ "success": true, "data": { "token": "xxx", ... } }
       final data = result['data'] as Map<String, dynamic>?;
       if (data == null) {
         throw ApiException('登录响应数据为空');
       }
-      
+
       // 返回统一的 LoginResult
       return LoginResult(
         token: data['token'] as String?,

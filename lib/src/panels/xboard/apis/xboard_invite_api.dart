@@ -12,24 +12,27 @@ class XBoardInviteApi {
   Future<ApiResponse<InviteCode>> generateInviteCode() async {
     try {
       // 调用生成邀请码接口（返回 boolean）
-      final response = await _httpService.getRequest('/api/v1/user/invite/save');
-      
+      final response =
+          await _httpService.getRequest('/api/v1/user/invite/save');
+
       // 检查是否成功
       if (response['data'] != true) {
         throw ApiException('Generate invite code failed');
       }
-      
+
       // 重新获取邀请信息以获取新生成的邀请码
-      final inviteInfoResponse = await _httpService.getRequest('/api/v1/user/invite/fetch');
-      final inviteInfo = InviteInfo.fromJson(inviteInfoResponse['data'] as Map<String, dynamic>);
-      
+      final inviteInfoResponse =
+          await _httpService.getRequest('/api/v1/user/invite/fetch');
+      final inviteInfo = InviteInfo.fromJson(
+          inviteInfoResponse['data'] as Map<String, dynamic>);
+
       // 获取最新的邀请码（第一个）
       if (inviteInfo.codes.isEmpty) {
         throw ApiException('No invite code found after generation');
       }
-      
+
       final newCode = inviteInfo.codes.first;
-      
+
       return ApiResponse(
         success: true,
         data: newCode,
@@ -43,7 +46,8 @@ class XBoardInviteApi {
 
   Future<ApiResponse<InviteInfo>> getInviteInfo() async {
     try {
-      final response = await _httpService.getRequest('/api/v1/user/invite/fetch');
+      final response =
+          await _httpService.getRequest('/api/v1/user/invite/fetch');
       return ApiResponse.fromJson(
         response,
         (json) => InviteInfo.fromJson(json as Map<String, dynamic>),
@@ -59,12 +63,13 @@ class XBoardInviteApi {
   }) async {
     try {
       final timestamp = DateTime.now().millisecondsSinceEpoch;
-      final uri = '/api/v1/user/invite/details?current=$current&page_size=$pageSize&t=$timestamp';
+      final uri =
+          '/api/v1/user/invite/details?current=$current&page_size=$pageSize&t=$timestamp';
       final response = await _httpService.getRequest(uri);
-      
+
       // API 返回: {data: [...], total: 10}
       final dynamic dataField = response['data'];
-      
+
       List<CommissionDetail> details;
       if (dataField is List) {
         // 如果 data 直接是数组
@@ -80,7 +85,7 @@ class XBoardInviteApi {
       } else {
         details = [];
       }
-      
+
       return ApiResponse(
         success: true,
         data: details,
@@ -96,17 +101,19 @@ class XBoardInviteApi {
     // 获取邀请信息以获取邀请码
     final inviteInfo = await getInviteInfo();
     final codes = inviteInfo.data?.codes ?? [];
-    
+
     if (codes.isEmpty) {
       throw ApiException('No invite codes available');
     }
-    
+
     // 使用第一个有效的邀请码
-    final code = codes.firstWhere(
-      (c) => c.isActive,
-      orElse: () => codes.first,
-    ).code;
-    
+    final code = codes
+        .firstWhere(
+          (c) => c.isActive,
+          orElse: () => codes.first,
+        )
+        .code;
+
     return '$baseUrl/?code=$code';
   }
 
@@ -116,12 +123,13 @@ class XBoardInviteApi {
     required Map<String, dynamic> params,
   }) async {
     try {
-      final response = await _httpService.postRequest('/api/v1/user/invite/withdraw', {
+      final response =
+          await _httpService.postRequest('/api/v1/user/invite/withdraw', {
         'amount': amount,
         'method': method,
         ...params,
       });
-      
+
       return ApiResponse(
         success: true,
         data: true,
@@ -139,10 +147,11 @@ class XBoardInviteApi {
     try {
       // 假设接口为 /api/v1/user/invite/transfer
       // 如果实际接口不同，请修改此处
-      final response = await _httpService.postRequest('/api/v1/user/invite/transfer', {
+      final response =
+          await _httpService.postRequest('/api/v1/user/invite/transfer', {
         'amount': amount,
       });
-      
+
       return ApiResponse(
         success: true,
         data: true,

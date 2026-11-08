@@ -4,8 +4,9 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'subscription_model.freezed.dart';
 part 'subscription_model.g.dart';
 
-DateTime? _fromUnixTimestamp(int? timestamp) =>
-    timestamp != null ? DateTime.fromMillisecondsSinceEpoch(timestamp * 1000) : null;
+DateTime? _fromUnixTimestamp(int? timestamp) => timestamp != null
+    ? DateTime.fromMillisecondsSinceEpoch(timestamp * 1000)
+    : null;
 int? _toUnixTimestamp(DateTime? dateTime) =>
     dateTime != null ? dateTime.millisecondsSinceEpoch ~/ 1000 : null;
 
@@ -15,7 +16,10 @@ abstract class SubscriptionModel with _$SubscriptionModel {
     @JsonKey(name: 'subscribe_url') String? subscribeUrl,
     SubscriptionPlanModel? plan,
     String? token,
-    @JsonKey(name: 'expired_at', fromJson: _fromUnixTimestamp, toJson: _toUnixTimestamp)
+    @JsonKey(
+        name: 'expired_at',
+        fromJson: _fromUnixTimestamp,
+        toJson: _toUnixTimestamp)
     DateTime? expiredAt,
     int? u,
     int? d,
@@ -25,7 +29,10 @@ abstract class SubscriptionModel with _$SubscriptionModel {
     String? uuid,
     @JsonKey(name: 'device_limit') int? deviceLimit,
     @JsonKey(name: 'speed_limit') int? speedLimit,
-    @JsonKey(name: 'next_reset_at', fromJson: _fromUnixTimestamp, toJson: _toUnixTimestamp)
+    @JsonKey(
+        name: 'next_reset_at',
+        fromJson: _fromUnixTimestamp,
+        toJson: _toUnixTimestamp)
     DateTime? nextResetAt,
   }) = _SubscriptionModel;
 
@@ -33,7 +40,8 @@ abstract class SubscriptionModel with _$SubscriptionModel {
 
   String? get planName => plan?.name;
 
-  factory SubscriptionModel.fromJson(Map<String, dynamic> json) => _$SubscriptionModelFromJson(json);
+  factory SubscriptionModel.fromJson(Map<String, dynamic> json) =>
+      _$SubscriptionModelFromJson(json);
 }
 
 @freezed
@@ -47,5 +55,6 @@ abstract class SubscriptionPlanModel with _$SubscriptionPlanModel {
     @JsonKey(name: 'speed_limit') int? speedLimit,
   }) = _SubscriptionPlanModel;
 
-  factory SubscriptionPlanModel.fromJson(Map<String, dynamic> json) => _$SubscriptionPlanModelFromJson(json);
+  factory SubscriptionPlanModel.fromJson(Map<String, dynamic> json) =>
+      _$SubscriptionPlanModelFromJson(json);
 }

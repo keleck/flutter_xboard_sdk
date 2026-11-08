@@ -21,15 +21,21 @@ abstract class NoticeModel with _$NoticeModel {
     required int id,
     required String title,
     required String content,
-    @JsonKey(fromJson: _showFromJson, toJson: _showToJson)
-    required bool show,
+    @JsonKey(fromJson: _showFromJson, toJson: _showToJson) required bool show,
     @JsonKey(name: 'img_url') String? imgUrl,
     List<String>? tags,
-    @JsonKey(name: 'created_at', fromJson: _fromUnixTimestamp, toJson: _toUnixTimestamp)
+    @JsonKey(
+        name: 'created_at',
+        fromJson: _fromUnixTimestamp,
+        toJson: _toUnixTimestamp)
     required int createdAt,
-    @JsonKey(name: 'updated_at', fromJson: _fromUnixTimestamp, toJson: _toUnixTimestamp)
+    @JsonKey(
+        name: 'updated_at',
+        fromJson: _fromUnixTimestamp,
+        toJson: _toUnixTimestamp)
     required int updatedAt,
   }) = _NoticeModel;
 
-  factory NoticeModel.fromJson(Map<String, dynamic> json) => _$NoticeModelFromJson(json);
+  factory NoticeModel.fromJson(Map<String, dynamic> json) =>
+      _$NoticeModelFromJson(json);
 }
